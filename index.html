@@ -1102,11 +1102,373 @@
       .culture-grid { grid-template-columns:1fr; }
       .jobs-grid { grid-template-columns:1fr; }
     }
+
+    /* ══════════════════════════════════════════════════
+       F1 · ANIMATED PAGE PRELOADER
+    ══════════════════════════════════════════════════ */
+    #preloader {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--ink);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 2rem;
+      transition: opacity .65s ease, visibility .65s ease;
+    }
+    #preloader.done { opacity: 0; visibility: hidden; }
+
+    .pl-monogram { width: 180px; height: 180px; }
+
+    /* Fabric grid behind monogram */
+    .pl-grid-line { stroke: rgba(245,240,232,.06); stroke-width: 1; }
+
+    /* The two stitch paths that draw the K and A */
+    .pl-stroke {
+      fill: none;
+      stroke: var(--gold);
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .pl-k {
+      stroke-dasharray: 260;
+      stroke-dashoffset: 260;
+      animation: plDraw 1.1s cubic-bezier(.4,0,.2,1) forwards .2s;
+    }
+    .pl-a {
+      stroke-dasharray: 310;
+      stroke-dashoffset: 310;
+      animation: plDraw 1.2s cubic-bezier(.4,0,.2,1) forwards .85s;
+    }
+    /* Outer frame */
+    .pl-frame {
+      fill: none; stroke: rgba(200,169,110,.18); stroke-width: 1;
+      stroke-dasharray: 620; stroke-dashoffset: 620;
+      animation: plDraw 1.6s ease forwards 0s;
+    }
+    @keyframes plDraw { to { stroke-dashoffset: 0; } }
+
+    /* Needle dot that "pulls" the thread */
+    .pl-needle {
+      fill: var(--gold-lt);
+      animation: plNeedleK 1.1s cubic-bezier(.4,0,.2,1) forwards .2s;
+    }
+    @keyframes plNeedleK {
+      0%   { transform: translate(44px,36px); opacity:1; }
+      100% { transform: translate(90px,144px); opacity:1; }
+    }
+
+    .pl-wordmark {
+      font-family: var(--f-display);
+      font-size: .75rem;
+      font-weight: 300;
+      letter-spacing: .55em;
+      text-transform: uppercase;
+      color: rgba(200,169,110,.55);
+      opacity: 0;
+      animation: plFadeIn .6s ease forwards 1.7s;
+    }
+    @keyframes plFadeIn { to { opacity: 1; } }
+
+    .pl-bar-wrap {
+      width: 120px; height: 1px;
+      background: rgba(200,169,110,.15);
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      animation: plFadeIn .4s ease forwards 1.7s;
+    }
+    .pl-bar-fill {
+      position: absolute; left: 0; top: 0; height: 100%;
+      background: var(--gold);
+      width: 0;
+      animation: plBarLoad 1.2s cubic-bezier(.4,0,.2,1) forwards 1.85s;
+    }
+    @keyframes plBarLoad { to { width: 100%; } }
+
+    /* ══════════════════════════════════════════════════
+       F2 · SCROLL PROGRESS BAR + BACK TO TOP
+    ══════════════════════════════════════════════════ */
+    #scroll-prog {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 201;
+      height: 2px;
+      background: rgba(200,169,110,.12);
+      pointer-events: none;
+    }
+    #scroll-prog-fill {
+      height: 100%;
+      background: linear-gradient(to right, var(--gold-dk), var(--gold), var(--gold-lt));
+      width: 0%;
+      transition: width .08s linear;
+    }
+
+    #back-top {
+      position: fixed; bottom: 6rem; right: 1.75rem; z-index: 190;
+      width: 44px; height: 44px;
+      border: 1px solid rgba(200,169,110,.35);
+      background: rgba(12,12,15,.85);
+      backdrop-filter: blur(10px);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      opacity: 0; pointer-events: none;
+      transform: translateY(12px);
+      transition: opacity .35s, transform .35s, background .25s, border-color .25s;
+    }
+    #back-top.show { opacity: 1; pointer-events: all; transform: translateY(0); }
+    #back-top:hover { background: var(--gold); border-color: var(--gold); }
+    #back-top:hover svg { stroke: var(--ink); }
+    #back-top svg { stroke: var(--gold); transition: stroke .25s; }
+
+    /* ══════════════════════════════════════════════════
+       F3 · WHATSAPP FLOAT BUTTON
+    ══════════════════════════════════════════════════ */
+    #wa-float {
+      position: fixed; bottom: 1.75rem; right: 1.75rem; z-index: 190;
+      width: 52px; height: 52px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 0 0 0 rgba(37,211,102,.5);
+      animation: waPulse 2.8s ease infinite 3s;
+      transition: transform .25s, background .25s;
+      text-decoration: none;
+    }
+    #wa-float:hover { transform: scale(1.08); background: #1ebe5c; animation: none; }
+    #wa-float svg { width: 26px; height: 26px; fill: #fff; }
+
+    .wa-tooltip {
+      position: absolute; right: 62px; top: 50%;
+      transform: translateY(-50%);
+      white-space: nowrap;
+      background: rgba(12,12,15,.92);
+      border: 1px solid rgba(200,169,110,.25);
+      color: var(--cotton);
+      font-family: var(--f-mono);
+      font-size: .58rem; letter-spacing: .15em;
+      padding: .4rem .85rem;
+      backdrop-filter: blur(8px);
+      opacity: 0; pointer-events: none;
+      transition: opacity .25s;
+    }
+    #wa-float:hover .wa-tooltip { opacity: 1; }
+
+    @keyframes waPulse {
+      0%   { box-shadow: 0 0 0 0 rgba(37,211,102,.5); }
+      70%  { box-shadow: 0 0 0 16px rgba(37,211,102,0); }
+      100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+    }
+
+    /* ══════════════════════════════════════════════════
+       F4 · GDPR COOKIE CONSENT BANNER
+    ══════════════════════════════════════════════════ */
+    #cookie-banner {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 180;
+      background: rgba(22,22,28,.97);
+      backdrop-filter: blur(16px);
+      border-top: 1px solid rgba(200,169,110,.18);
+      padding: 1.1rem 2.5rem;
+      display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+      transform: translateY(100%);
+      transition: transform .5s cubic-bezier(.4,0,.2,1);
+    }
+    #cookie-banner.show { transform: translateY(0); }
+    .cookie-text {
+      flex: 1; min-width: 240px;
+      font-size: .82rem; color: var(--linen-lt); line-height: 1.65;
+    }
+    .cookie-text a { color: var(--gold); text-decoration: underline; }
+    .cookie-actions { display: flex; gap: .65rem; flex-wrap: wrap; flex-shrink: 0; }
+    .ck-btn {
+      font-family: var(--f-mono); font-size: .58rem;
+      letter-spacing: .18em; text-transform: uppercase;
+      border: none; padding: .55rem 1.1rem; cursor: pointer;
+      transition: all .25s; white-space: nowrap;
+    }
+    .ck-accept { background: var(--gold); color: var(--ink); }
+    .ck-accept:hover { background: var(--gold-lt); }
+    .ck-manage { background: transparent; color: var(--linen-lt); border: 1px solid rgba(200,169,110,.3); }
+    .ck-manage:hover { border-color: var(--gold); color: var(--gold); }
+    .ck-reject { background: transparent; color: var(--linen); font-size: .55rem; }
+    .ck-reject:hover { color: var(--cotton); }
+
+    /* Cookie prefs panel */
+    #cookie-prefs {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 181;
+      background: rgba(22,22,28,.99);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(200,169,110,.2);
+      padding: 2rem 2.5rem;
+      max-height: 80vh; overflow-y: auto;
+      transform: translateY(100%);
+      transition: transform .45s cubic-bezier(.4,0,.2,1);
+    }
+    #cookie-prefs.show { transform: translateY(0); }
+    .cp-title {
+      font-family: var(--f-display); font-size: 1.35rem;
+      color: var(--cotton); margin-bottom: 1.25rem;
+    }
+    .cp-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 0; border-bottom: 1px solid rgba(200,169,110,.1);
+      gap: 1.5rem;
+    }
+    .cp-label { font-family: var(--f-display); font-size: 1rem; color: var(--cotton); }
+    .cp-desc { font-size: .82rem; color: var(--linen); margin-top: .2rem; }
+    .cp-toggle {
+      width: 40px; height: 22px;
+      background: rgba(200,169,110,.2); border-radius: 11px;
+      position: relative; cursor: pointer; flex-shrink: 0;
+      transition: background .3s;
+    }
+    .cp-toggle.on { background: var(--gold); }
+    .cp-toggle.locked { opacity: .4; cursor: not-allowed; }
+    .cp-thumb {
+      position: absolute; top: 3px; left: 3px;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: var(--cotton); transition: left .3s;
+    }
+    .cp-toggle.on .cp-thumb { left: 21px; }
+    .cp-save {
+      margin-top: 1.25rem; font-family: var(--f-mono);
+      font-size: .65rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--ink); background: var(--gold); border: none;
+      padding: .75rem 1.75rem; cursor: pointer;
+    }
+    .cp-save:hover { background: var(--gold-lt); }
+
+    /* ══════════════════════════════════════════════════
+       F5 · GOLD THREAD CURSOR TRAIL
+    ══════════════════════════════════════════════════ */
+    #cursor-canvas {
+      position: fixed; inset: 0; z-index: 9990;
+      pointer-events: none;
+    }
+    @media(hover:none){ #cursor-canvas { display:none; } }
+    @media(prefers-reduced-motion:reduce){ #cursor-canvas { display:none; } }
   </style>
 </head>
 <body>
 
-<!-- ═══════ MOBILE DRAWER ═══════ -->
+<!-- ══ F5: CURSOR TRAIL CANVAS ══ -->
+<canvas id="cursor-canvas" aria-hidden="true"></canvas>
+
+<!-- ══ F1: PAGE PRELOADER ══ -->
+<div id="preloader" role="status" aria-label="Loading Kings Apparel">
+  <svg class="pl-monogram" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Fabric grid -->
+    <g>
+      <line x1="0"   y1="18"  x2="180" y2="18"  class="pl-grid-line"/>
+      <line x1="0"   y1="36"  x2="180" y2="36"  class="pl-grid-line"/>
+      <line x1="0"   y1="54"  x2="180" y2="54"  class="pl-grid-line"/>
+      <line x1="0"   y1="72"  x2="180" y2="72"  class="pl-grid-line"/>
+      <line x1="0"   y1="90"  x2="180" y2="90"  class="pl-grid-line"/>
+      <line x1="0"   y1="108" x2="180" y2="108" class="pl-grid-line"/>
+      <line x1="0"   y1="126" x2="180" y2="126" class="pl-grid-line"/>
+      <line x1="0"   y1="144" x2="180" y2="144" class="pl-grid-line"/>
+      <line x1="0"   y1="162" x2="180" y2="162" class="pl-grid-line"/>
+      <line x1="18"  y1="0"   x2="18"  y2="180" class="pl-grid-line"/>
+      <line x1="36"  y1="0"   x2="36"  y2="180" class="pl-grid-line"/>
+      <line x1="54"  y1="0"   x2="54"  y2="180" class="pl-grid-line"/>
+      <line x1="72"  y1="0"   x2="72"  y2="180" class="pl-grid-line"/>
+      <line x1="90"  y1="0"   x2="90"  y2="180" class="pl-grid-line"/>
+      <line x1="108" y1="0"   x2="108" y2="180" class="pl-grid-line"/>
+      <line x1="126" y1="0"   x2="126" y2="180" class="pl-grid-line"/>
+      <line x1="144" y1="0"   x2="144" y2="180" class="pl-grid-line"/>
+      <line x1="162" y1="0"   x2="162" y2="180" class="pl-grid-line"/>
+    </g>
+    <!-- Outer frame draws first -->
+    <rect x="12" y="12" width="156" height="156" rx="2" class="pl-frame"/>
+    <!-- Corner register marks -->
+    <g stroke="rgba(200,169,110,0.3)" stroke-width="0.8">
+      <line x1="12" y1="12" x2="24" y2="12"/><line x1="12" y1="12" x2="12" y2="24"/>
+      <line x1="168" y1="12" x2="156" y2="12"/><line x1="168" y1="12" x2="168" y2="24"/>
+      <line x1="12" y1="168" x2="24" y2="168"/><line x1="12" y1="168" x2="12" y2="156"/>
+      <line x1="168" y1="168" x2="156" y2="168"/><line x1="168" y1="168" x2="168" y2="156"/>
+    </g>
+    <!-- K glyph: stitched path -->
+    <path class="pl-stroke pl-k"
+      d="M44 36 L44 90 L44 144
+         M44 90 L96 36
+         M44 90 L96 144"/>
+    <!-- A glyph: stitched path -->
+    <path class="pl-stroke pl-a"
+      d="M110 144 L136 36 L162 144
+         M118 108 L154 108"/>
+    <!-- Needle dot -->
+    <circle class="pl-needle" r="4" cx="44" cy="36"/>
+  </svg>
+  <div class="pl-wordmark">Kings Apparel</div>
+  <div class="pl-bar-wrap"><div class="pl-bar-fill"></div></div>
+</div>
+
+<!-- ══ F2: SCROLL PROGRESS BAR ══ -->
+<div id="scroll-prog" aria-hidden="true">
+  <div id="scroll-prog-fill"></div>
+</div>
+
+<!-- ══ F2: BACK TO TOP ══ -->
+<button id="back-top" aria-label="Back to top" title="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+    <path d="M8 12V4M4 8l4-4 4 4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</button>
+
+<!-- ══ F3: WHATSAPP FLOAT ══ -->
+<a id="wa-float"
+   href="https://wa.me/922135054624?text=Hi%2C%20I%27m%20interested%20in%20Kings%20Apparel%27s%20products.%20My%20inquiry%20is%3A%20"
+   target="_blank" rel="noopener noreferrer"
+   aria-label="Chat with Kings Apparel on WhatsApp">
+  <span class="wa-tooltip">Chat on WhatsApp</span>
+  <!-- WhatsApp logo SVG -->
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/>
+  </svg>
+</a>
+
+<!-- ══ F4: GDPR COOKIE BANNER ══ -->
+<div id="cookie-banner" role="region" aria-label="Cookie consent">
+  <p class="cookie-text">
+    We use cookies to improve your experience and understand site traffic. By clicking "Accept all" you consent to our use of analytics cookies.
+    <a href="#" onclick="return false">Learn more</a>
+  </p>
+  <div class="cookie-actions">
+    <button class="ck-btn ck-reject" onclick="setCookieChoice('rejected')">Reject non-essential</button>
+    <button class="ck-btn ck-manage" onclick="openCookiePrefs()">Manage preferences</button>
+    <button class="ck-btn ck-accept" onclick="setCookieChoice('all')">Accept all</button>
+  </div>
+</div>
+
+<!-- Cookie prefs panel -->
+<div id="cookie-prefs" role="dialog" aria-modal="true" aria-label="Cookie preferences">
+  <div class="cp-title">Cookie Preferences</div>
+  <div class="cp-row">
+    <div>
+      <div class="cp-label">Essential cookies</div>
+      <div class="cp-desc">Required for the site to function. Cannot be disabled.</div>
+    </div>
+    <div class="cp-toggle locked on"><div class="cp-thumb"></div></div>
+  </div>
+  <div class="cp-row">
+    <div>
+      <div class="cp-label">Analytics cookies</div>
+      <div class="cp-desc">Help us understand how visitors use the site (GA4). No personal data sold.</div>
+    </div>
+    <div class="cp-toggle" id="tog-analytics" onclick="toggleCookiePref(this)"><div class="cp-thumb"></div></div>
+  </div>
+  <div class="cp-row">
+    <div>
+      <div class="cp-label">Marketing cookies</div>
+      <div class="cp-desc">Used to show relevant ads on other platforms (LinkedIn, Meta).</div>
+    </div>
+    <div class="cp-toggle" id="tog-marketing" onclick="toggleCookiePref(this)"><div class="cp-thumb"></div></div>
+  </div>
+  <div style="display:flex;gap:.75rem;margin-top:1.25rem;flex-wrap:wrap">
+    <button class="cp-save" onclick="saveCookiePrefs()">Save preferences</button>
+    <button class="ck-btn ck-manage" onclick="closeCookiePrefs()" style="margin-top:0">Cancel</button>
+  </div>
+</div>
+
+
 <div class="mob-drawer" id="mobDrawer" role="dialog" aria-modal="true" aria-label="Mobile navigation">
   <ul class="mob-nav-list">
     <li><a href="#about"      class="mob-link"><span class="mob-num">01</span>About</a></li>
@@ -2476,6 +2838,209 @@ if (procSvg) {
   }, {threshold:.25});
   pObs.observe(procSvg);
 }
+
+/* ══════════════════════════════════════════════════
+   F1 · PAGE PRELOADER
+══════════════════════════════════════════════════ */
+(function(){
+  const pl = document.getElementById('preloader');
+  if (!pl) return;
+
+  // Only show once per session
+  if (sessionStorage.getItem('ka_loaded')) {
+    pl.classList.add('done');
+    pl.style.transition = 'none';
+    return;
+  }
+
+  // Respect prefers-reduced-motion — skip immediately
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    pl.classList.add('done');
+    pl.style.transition = 'none';
+    sessionStorage.setItem('ka_loaded', '1');
+    return;
+  }
+
+  // Dismiss after 3.1s (draw time: K 1.1s + gap + A 1.2s + bar 1.2s + breathing room)
+  const dismiss = () => {
+    pl.classList.add('done');
+    sessionStorage.setItem('ka_loaded', '1');
+  };
+
+  const timer = setTimeout(dismiss, 3100);
+
+  // Also dismiss as soon as window is fully loaded if faster
+  window.addEventListener('load', () => {
+    clearTimeout(timer);
+    setTimeout(dismiss, 3100);
+  }, {once: true});
+
+  // Click to skip
+  pl.addEventListener('click', () => { clearTimeout(timer); dismiss(); });
+})();
+
+/* ══════════════════════════════════════════════════
+   F2 · SCROLL PROGRESS BAR + BACK TO TOP
+══════════════════════════════════════════════════ */
+(function(){
+  const fill   = document.getElementById('scroll-prog-fill');
+  const topBtn = document.getElementById('back-top');
+  if (!fill || !topBtn) return;
+
+  let ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const scrolled = window.scrollY;
+      const total    = document.documentElement.scrollHeight - window.innerHeight;
+      const pct      = total > 0 ? (scrolled / total) * 100 : 0;
+
+      fill.style.width = pct.toFixed(1) + '%';
+
+      // Show back-to-top after 40% scroll
+      topBtn.classList.toggle('show', pct > 40);
+
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, {passive: true});
+  onScroll(); // initialise
+})();
+
+/* ══════════════════════════════════════════════════
+   F4 · GDPR COOKIE CONSENT
+══════════════════════════════════════════════════ */
+(function(){
+  const banner = document.getElementById('cookie-banner');
+  const prefs  = document.getElementById('cookie-prefs');
+  if (!banner) return;
+
+  // Show banner if no choice saved
+  if (!localStorage.getItem('ka_cookies')) {
+    setTimeout(() => banner.classList.add('show'), 1200);
+  }
+})();
+
+function setCookieChoice(choice) {
+  localStorage.setItem('ka_cookies', choice);
+  document.getElementById('cookie-banner').classList.remove('show');
+  document.getElementById('cookie-prefs').classList.remove('show');
+  if (choice === 'all') {
+    // GA4 consent fire would go here: gtag('consent', 'update', {...})
+    console.info('[KA] Analytics consent granted');
+  }
+}
+
+function openCookiePrefs() {
+  document.getElementById('cookie-banner').classList.remove('show');
+  document.getElementById('cookie-prefs').classList.add('show');
+}
+function closeCookiePrefs() {
+  document.getElementById('cookie-prefs').classList.remove('show');
+  document.getElementById('cookie-banner').classList.add('show');
+}
+function toggleCookiePref(el) {
+  if (el.classList.contains('locked')) return;
+  el.classList.toggle('on');
+}
+function saveCookiePrefs() {
+  const analytics = document.getElementById('tog-analytics').classList.contains('on');
+  const marketing = document.getElementById('tog-marketing').classList.contains('on');
+  const val = analytics || marketing ? 'custom' : 'essential';
+  localStorage.setItem('ka_cookies', val);
+  localStorage.setItem('ka_cookies_analytics', analytics ? '1' : '0');
+  localStorage.setItem('ka_cookies_marketing', marketing ? '1' : '0');
+  document.getElementById('cookie-prefs').classList.remove('show');
+  console.info('[KA] Cookie prefs saved — analytics:', analytics, '| marketing:', marketing);
+}
+
+/* ══════════════════════════════════════════════════
+   F5 · GOLD THREAD CURSOR TRAIL
+══════════════════════════════════════════════════ */
+(function(){
+  const canvas = document.getElementById('cursor-canvas');
+  if (!canvas) return;
+  // Bail on touch / reduced-motion
+  if (window.matchMedia('(hover:none)').matches) { canvas.remove(); return; }
+  if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) { canvas.remove(); return; }
+
+  const ctx = canvas.getContext('2d');
+  let W, H;
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize, {passive:true});
+
+  // Trail: circular buffer of {x, y, age}
+  const TRAIL_LEN = 28;
+  const trail = [];
+  let mx = -200, my = -200;
+  let idleTimer = null;
+  let active = false;
+
+  window.addEventListener('mousemove', e => {
+    mx = e.clientX;
+    my = e.clientY;
+    active = true;
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(() => { active = false; }, 2200);
+  }, {passive:true});
+
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  let lx = mx, ly = my; // smoothed position
+
+  function draw() {
+    requestAnimationFrame(draw);
+    ctx.clearRect(0, 0, W, H);
+    if (!active) return;
+
+    // Smooth follow
+    lx = lerp(lx, mx, 0.18);
+    ly = lerp(ly, my, 0.18);
+
+    trail.push({x: lx, y: ly});
+    if (trail.length > TRAIL_LEN) trail.shift();
+    if (trail.length < 3) return;
+
+    // Draw gold thread using bezier curves through trail points
+    ctx.beginPath();
+    ctx.moveTo(trail[0].x, trail[0].y);
+
+    for (let i = 1; i < trail.length - 1; i++) {
+      const cx = (trail[i].x + trail[i+1].x) / 2;
+      const cy = (trail[i].y + trail[i+1].y) / 2;
+      ctx.quadraticCurveTo(trail[i].x, trail[i].y, cx, cy);
+    }
+
+    // Gradient: gold at tip, transparent at tail
+    const grad = ctx.createLinearGradient(
+      trail[0].x, trail[0].y,
+      trail[trail.length-1].x, trail[trail.length-1].y
+    );
+    grad.addColorStop(0,   'rgba(200,169,110,0)');
+    grad.addColorStop(0.6, 'rgba(200,169,110,0.25)');
+    grad.addColorStop(1,   'rgba(223,192,138,0.7)');
+
+    ctx.strokeStyle = grad;
+    ctx.lineWidth   = 1.4;
+    ctx.lineCap     = 'round';
+    ctx.lineJoin    = 'round';
+    ctx.stroke();
+
+    // Needle tip dot
+    const tip = trail[trail.length - 1];
+    ctx.beginPath();
+    ctx.arc(tip.x, tip.y, 2.8, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(223,192,138,0.85)';
+    ctx.fill();
+  }
+  draw();
+})();
 </script>
 
 </body>
