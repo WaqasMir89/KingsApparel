@@ -23,6 +23,21 @@
   <meta name="twitter:title" content="Kings Apparel Industries | Premium Garment Manufacturer">
   <meta name="twitter:description" content="Pakistan's benchmark for compliance-certified knitted garments. GOTS, ISO 9001, WRAP certified. FOB Karachi.">
 
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"What is the minimum order quantity (MOQ)?","acceptedAnswer":{"@type":"Answer","text":"Our standard MOQ is 1,000 pieces per style per colour. For programmes exceeding 5,000 pieces we can offer enhanced pricing tiers. Sample orders of 3–5 pieces per style are available before bulk commitment."}},
+      {"@type":"Question","name":"What is the typical lead time for a bulk order?","acceptedAnswer":{"@type":"Answer","text":"Standard lead time is 60–90 days from order confirmation and advance payment, depending on fabric availability, embellishment complexity, and order volume. Rush programmes of 45 days are possible at a premium."}},
+      {"@type":"Question","name":"Which compliance certifications does Kings Apparel hold?","acceptedAnswer":{"@type":"Answer","text":"Kings Apparel holds GOTS (Global Organic Textile Standard), SA 8000, ISO 9001:2015, WRAP, BSCI, SEDEX, OEKO-TEX Standard 100, and full Buyer Code of Conduct compliance. Audit reports are available on request."}},
+      {"@type":"Question","name":"What are the payment terms?","acceptedAnswer":{"@type":"Answer","text":"Standard terms are 30% advance T/T against order confirmation, balance 70% against shipping documents or Letter of Credit at sight. Long-term buyers may be eligible for extended terms after credit evaluation."}},
+      {"@type":"Question","name":"Do you ship FOB Karachi or CIF destination?","acceptedAnswer":{"@type":"Answer","text":"We primarily ship FOB Port Qasim / Karachi. CIF to major European, US, and Australian ports can be arranged. We work with DHL, Maersk, MSC, and local freight forwarders."}},
+      {"@type":"Question","name":"Can you produce organic cotton garments?","acceptedAnswer":{"@type":"Answer","text":"Yes. We are GOTS certified for organic cotton. Our organic range covers all categories from newborn to adult, using 100% GOTS-certified yarn sourced from approved suppliers. Full chain-of-custody documentation is provided."}}
+    ]
+  }
+  </script>
+
   <!-- Structured Data -->
   <script type="application/ld+json">
   {
@@ -1345,6 +1360,381 @@
     }
     @media(hover:none){ #cursor-canvas { display:none; } }
     @media(prefers-reduced-motion:reduce){ #cursor-canvas { display:none; } }
+
+    /* ══════════════════════════════════════════════════
+       F6 · FAQ ACCORDION
+    ══════════════════════════════════════════════════ */
+    .faq-section { background: var(--ink-soft); }
+
+    .faq-search-wrap {
+      position: relative; max-width: 480px; margin-bottom: 3rem;
+    }
+    .faq-search {
+      width: 100%; background: rgba(255,255,255,.04);
+      border: 1px solid rgba(200,169,110,.22);
+      color: var(--cotton); padding: .85rem 1rem .85rem 2.8rem;
+      font-family: var(--f-body); font-size: .95rem;
+      outline: none; transition: border-color .3s;
+    }
+    .faq-search:focus { border-color: var(--gold); }
+    .faq-search::placeholder { color: var(--linen); }
+    .faq-search-icon {
+      position: absolute; left: .9rem; top: 50%;
+      transform: translateY(-50%);
+      width: 16px; height: 16px; stroke: var(--linen); fill: none;
+      pointer-events: none;
+    }
+
+    .faq-cats { display: flex; gap: .6rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .faq-cat {
+      font-family: var(--f-mono); font-size: .55rem;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--linen-lt); background: none;
+      border: 1px solid rgba(200,169,110,.2);
+      padding: .45rem 1rem; cursor: pointer; transition: all .25s;
+    }
+    .faq-cat.active, .faq-cat:hover {
+      color: var(--ink); background: var(--gold); border-color: var(--gold);
+    }
+
+    .faq-list { display: flex; flex-direction: column; gap: 0; }
+
+    .faq-item {
+      border-bottom: 1px solid rgba(200,169,110,.1);
+      overflow: hidden;
+      transition: border-color .3s;
+    }
+    .faq-item.open { border-bottom-color: rgba(200,169,110,.3); }
+    .faq-item.hidden { display: none; }
+
+    .faq-q {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1.5rem; padding: 1.4rem 0; cursor: pointer;
+      list-style: none; user-select: none;
+    }
+    .faq-q::-webkit-details-marker { display: none; }
+
+    .faq-q-text {
+      font-family: var(--f-display); font-size: 1.15rem;
+      font-weight: 400; color: var(--cotton); line-height: 1.3;
+      transition: color .25s;
+    }
+    .faq-item.open .faq-q-text { color: var(--gold); }
+
+    .faq-icon {
+      width: 28px; height: 28px; flex-shrink: 0;
+      border: 1px solid rgba(200,169,110,.3);
+      display: flex; align-items: center; justify-content: center;
+      transition: background .25s, border-color .25s, transform .35s;
+    }
+    .faq-item.open .faq-icon {
+      background: var(--gold); border-color: var(--gold);
+      transform: rotate(45deg);
+    }
+    .faq-icon svg { stroke: var(--gold); transition: stroke .25s; }
+    .faq-item.open .faq-icon svg { stroke: var(--ink); }
+
+    .faq-a {
+      overflow: hidden; max-height: 0;
+      transition: max-height .45s cubic-bezier(.4,0,.2,1), padding .35s;
+      padding: 0;
+    }
+    .faq-item.open .faq-a { max-height: 300px; padding-bottom: 1.4rem; }
+    .faq-a-inner {
+      font-size: .92rem; color: var(--linen-lt); line-height: 1.85;
+      border-left: 2px solid rgba(200,169,110,.25); padding-left: 1.25rem;
+    }
+
+    .faq-no-results {
+      font-family: var(--f-mono); font-size: .7rem;
+      letter-spacing: .2em; color: var(--linen);
+      text-transform: uppercase; padding: 2rem 0; display: none;
+    }
+
+    /* ══════════════════════════════════════════════════
+       F7 · WORLD MAP
+    ══════════════════════════════════════════════════ */
+    .map-section { background: var(--ink-deep); }
+    .map-wrap {
+      position: relative; width: 100%;
+      border: 1px solid rgba(200,169,110,.1);
+    }
+    .map-wrap svg { width: 100%; height: auto; display: block; }
+
+    /* Market pulse dots */
+    .market-dot {
+      cursor: pointer;
+      transition: transform .25s;
+    }
+    .market-dot:hover { transform-origin: center; }
+    .market-dot .dot-core {
+      animation: marketPulse 2.8s ease-in-out infinite;
+    }
+    .market-dot:nth-child(odd) .dot-core { animation-delay: .6s; }
+    .market-dot:nth-child(3n) .dot-core { animation-delay: 1.2s; }
+    @keyframes marketPulse {
+      0%, 100% { r: 3; opacity: .85; }
+      50%       { r: 4.5; opacity: 1; }
+    }
+    .market-dot .dot-ring {
+      animation: ringExpand 2.8s ease-out infinite;
+      transform-origin: center;
+    }
+    .market-dot:nth-child(odd) .dot-ring { animation-delay: .6s; }
+    .market-dot:nth-child(3n) .dot-ring  { animation-delay: 1.2s; }
+    @keyframes ringExpand {
+      0%   { r: 4; opacity: .5; }
+      100% { r: 14; opacity: 0; }
+    }
+
+    /* Tooltip */
+    .map-tooltip {
+      position: absolute; pointer-events: none; z-index: 10;
+      background: rgba(12,12,15,.92); backdrop-filter: blur(8px);
+      border: 1px solid rgba(200,169,110,.3);
+      padding: .45rem .85rem;
+      font-family: var(--f-mono); font-size: .58rem;
+      letter-spacing: .15em; text-transform: uppercase;
+      color: var(--gold); white-space: nowrap;
+      opacity: 0; transition: opacity .2s; transform: translate(-50%,-100%);
+      margin-top: -8px;
+    }
+    .map-tooltip.show { opacity: 1; }
+
+    /* Map legend */
+    .map-legend {
+      display: flex; align-items: center; gap: 1.25rem;
+      margin-top: 1.25rem; flex-wrap: wrap;
+    }
+    .map-legend-item {
+      display: flex; align-items: center; gap: .5rem;
+      font-family: var(--f-mono); font-size: .55rem;
+      letter-spacing: .15em; text-transform: uppercase; color: var(--linen);
+    }
+    .map-legend-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0;
+    }
+
+    /* Region summary chips */
+    .map-regions {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 1.5px; margin-top: 1.5px;
+    }
+    .map-region {
+      background: var(--ink-soft); padding: 1rem 1.25rem;
+      text-align: center;
+    }
+    .map-region-name {
+      font-family: var(--f-mono); font-size: .55rem;
+      letter-spacing: .22em; text-transform: uppercase; color: var(--linen);
+      margin-bottom: .35rem;
+    }
+    .map-region-count {
+      font-family: var(--f-display); font-size: 1.75rem;
+      font-weight: 300; color: var(--gold); line-height: 1;
+    }
+    @media(max-width:1024px){ .map-regions { grid-template-columns: repeat(2,1fr); } }
+
+    /* ══════════════════════════════════════════════════
+       F8 · CATALOGUE DOWNLOAD + LEAD GATE
+    ══════════════════════════════════════════════════ */
+    .catalogue-section {
+      background: var(--ink);
+      position: relative; overflow: hidden;
+    }
+    .catalogue-section::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 55% 70% at 85% 50%, rgba(200,169,110,.05) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 10% 50%, rgba(26,90,74,.06) 0%, transparent 55%);
+    }
+    .cat-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center; position: relative; z-index: 1;
+    }
+    @media(max-width:1024px){ .cat-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+    .cat-preview {
+      position: relative;
+      border: 1px solid rgba(200,169,110,.15);
+      padding: 2.5rem;
+      background: var(--ink-soft);
+    }
+    .cat-preview-cover {
+      width: 100%; aspect-ratio: 3/4;
+      background: var(--ink-deep);
+      border: 1px solid rgba(200,169,110,.12);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 1rem;
+      position: relative; overflow: hidden;
+    }
+    /* Diagonal stitch lines on cover */
+    .cat-preview-cover::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(
+        45deg, transparent, transparent 8px,
+        rgba(200,169,110,.04) 8px, rgba(200,169,110,.04) 9px
+      );
+    }
+    .cat-cover-title {
+      font-family: var(--f-display); font-size: 1.5rem;
+      font-weight: 300; color: var(--cotton); text-align: center;
+      position: relative; z-index: 1; letter-spacing: .08em;
+    }
+    .cat-cover-year {
+      font-family: var(--f-mono); font-size: .6rem;
+      letter-spacing: .38em; color: var(--gold);
+      text-transform: uppercase; position: relative; z-index: 1;
+    }
+    .cat-cover-badge {
+      position: relative; z-index: 1;
+      display: flex; flex-wrap: wrap; gap: .4rem; justify-content: center; padding: 0 1rem;
+    }
+    .cat-badge-mini {
+      font-family: var(--f-mono); font-size: .48rem;
+      letter-spacing: .15em; text-transform: uppercase;
+      color: var(--gold); border: 1px solid rgba(200,169,110,.3);
+      padding: .25rem .6rem;
+    }
+    .cat-pages {
+      position: absolute; bottom: 1rem; right: 1rem;
+      font-family: var(--f-mono); font-size: .55rem;
+      letter-spacing: .2em; color: var(--linen);
+    }
+    .cat-shadow {
+      position: absolute; bottom: -8px; right: -8px;
+      width: 100%; height: 100%; border: 1px solid rgba(200,169,110,.08);
+      background: var(--ink-deep); z-index: -1;
+    }
+
+    /* Lead gate form */
+    .cat-form-wrap {}
+    .cat-form-title {
+      font-family: var(--f-display); font-size: 2rem;
+      font-weight: 300; color: var(--cotton); margin-bottom: .5rem;
+    }
+    .cat-form-title em { font-style: italic; color: var(--gold); }
+    .cat-form-sub {
+      font-size: .9rem; color: var(--linen-lt); line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+    .cat-contents {
+      display: flex; flex-direction: column; gap: .5rem; margin-bottom: 2rem;
+    }
+    .cat-contents-item {
+      display: flex; gap: .75rem; align-items: center;
+      font-size: .85rem; color: var(--linen-lt);
+    }
+    .cat-check { color: var(--gold); font-size: .7rem; flex-shrink: 0; }
+
+    /* Success state */
+    .cat-success {
+      display: none; text-align: center; padding: 2rem;
+      border: 1px solid rgba(200,169,110,.25); background: rgba(200,169,110,.04);
+    }
+    .cat-success.show { display: block; }
+    .cat-success-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .cat-success-title {
+      font-family: var(--f-display); font-size: 1.5rem;
+      color: var(--cotton); margin-bottom: .5rem;
+    }
+    .cat-success-sub { font-size: .85rem; color: var(--linen-lt); line-height: 1.75; }
+
+    /* ══════════════════════════════════════════════════
+       F9 · NEWSLETTER
+    ══════════════════════════════════════════════════ */
+    .newsletter-strip {
+      background: var(--gold);
+      padding: 2.25rem 3.5rem;
+    }
+    .nl-inner {
+      max-width: 1380px; margin: 0 auto;
+      display: flex; align-items: center; gap: 3rem; flex-wrap: wrap;
+    }
+    .nl-copy { flex: 1; min-width: 220px; }
+    .nl-title {
+      font-family: var(--f-display); font-size: 1.35rem;
+      font-weight: 400; color: var(--ink); margin-bottom: .2rem;
+    }
+    .nl-sub {
+      font-family: var(--f-mono); font-size: .58rem;
+      letter-spacing: .18em; color: rgba(12,12,15,.6); text-transform: uppercase;
+    }
+    .nl-form {
+      display: flex; gap: 0; flex-shrink: 0; min-width: 320px;
+    }
+    .nl-input {
+      flex: 1; background: rgba(12,12,15,.15);
+      border: 1px solid rgba(12,12,15,.25); border-right: none;
+      color: var(--ink); padding: .75rem 1rem;
+      font-family: var(--f-body); font-size: .92rem;
+      outline: none; transition: background .25s;
+    }
+    .nl-input::placeholder { color: rgba(12,12,15,.45); }
+    .nl-input:focus { background: rgba(12,12,15,.22); }
+    .nl-btn {
+      font-family: var(--f-mono); font-size: .6rem;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--cotton); background: var(--ink);
+      border: none; padding: .75rem 1.4rem;
+      cursor: pointer; white-space: nowrap; transition: background .25s;
+    }
+    .nl-btn:hover { background: var(--ink-deep); }
+
+    /* Slide-up newsletter toast */
+    #nl-toast {
+      position: fixed; bottom: 1.75rem; left: 1.75rem; z-index: 185;
+      max-width: 360px;
+      background: var(--ink-soft); backdrop-filter: blur(16px);
+      border: 1px solid rgba(200,169,110,.25);
+      padding: 1.5rem;
+      transform: translateY(120%);
+      transition: transform .5s cubic-bezier(.4,0,.2,1);
+    }
+    #nl-toast.show { transform: translateY(0); }
+    .nl-toast-close {
+      position: absolute; top: .75rem; right: .75rem;
+      background: none; border: none; cursor: pointer;
+      color: var(--linen); font-size: 1rem; line-height: 1;
+      transition: color .2s;
+    }
+    .nl-toast-close:hover { color: var(--gold); }
+    .nl-toast-title {
+      font-family: var(--f-display); font-size: 1.1rem;
+      color: var(--cotton); margin-bottom: .35rem;
+    }
+    .nl-toast-sub {
+      font-size: .82rem; color: var(--linen-lt);
+      line-height: 1.65; margin-bottom: 1rem;
+    }
+    .nl-toast-form { display: flex; gap: 0; }
+    .nl-toast-input {
+      flex: 1;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(200,169,110,.2); border-right: none;
+      color: var(--cotton); padding: .65rem .85rem;
+      font-family: var(--f-body); font-size: .88rem; outline: none;
+    }
+    .nl-toast-input::placeholder { color: var(--linen); }
+    .nl-toast-input:focus { border-color: var(--gold); }
+    .nl-toast-btn {
+      font-family: var(--f-mono); font-size: .55rem;
+      letter-spacing: .15em; text-transform: uppercase;
+      color: var(--ink); background: var(--gold);
+      border: none; padding: .65rem 1rem; cursor: pointer; transition: background .25s;
+    }
+    .nl-toast-btn:hover { background: var(--gold-lt); }
+
+    /* ══════════════════════════════════════════════════
+       F10 · PARALLAX HERO LAYERS
+    ══════════════════════════════════════════════════ */
+    .hero-layer {
+      will-change: transform;
+      transition: none;
+    }
+    /* Disable parallax on mobile / reduced-motion */
+    @media(max-width:1024px)    { .hero-layer { transform: none !important; } }
+    @media(prefers-reduced-motion:reduce) { .hero-layer { transform: none !important; } }
   </style>
 </head>
 <body>
@@ -1513,8 +1903,14 @@
 
 <!-- ═══════ HERO ═══════ -->
 <section class="hero" id="hero" aria-label="Hero">
+  <!-- F10: Parallax layer 1 — background fabric grid (slowest) -->
+  <div class="hero-layer" id="pl-bg" style="position:absolute;inset:0;pointer-events:none;z-index:0">
+    <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 15px,rgba(255,255,255,.022) 15px,rgba(255,255,255,.022) 16px),repeating-linear-gradient(90deg,transparent,transparent 15px,rgba(255,255,255,.022) 15px,rgba(255,255,255,.022) 16px)"></div>
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 55% 75% at 28% 55%,rgba(26,90,74,.12) 0%,transparent 60%),radial-gradient(ellipse 45% 55% at 80% 30%,rgba(200,169,110,.07) 0%,transparent 55%)"></div>
+  </div>
   <div class="hero-wrap">
-    <div class="hero-left">
+    <!-- F10: Parallax layer 2 — text content (medium speed) -->
+    <div class="hero-left hero-layer" id="pl-text">
       <div class="hero-badge"><span class="badge-dot"></span>Organic Cotton Certified</div>
       <div class="hero-eyebrow">Crafted in Karachi · Trusted Worldwide</div>
       <h1 class="hero-title">
@@ -1531,8 +1927,8 @@
       </div>
     </div>
 
-    <!-- Hero Stitch Canvas -->
-    <div class="hero-visual">
+    <!-- Hero Stitch Canvas — F10: Parallax layer 3 (fastest) -->
+    <div class="hero-visual hero-layer" id="pl-svg">
       <div class="hero-svg-wrap">
         <svg viewBox="0 0 480 480" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Animated garment schematic with stitching">
 
@@ -1698,9 +2094,239 @@
   </div>
 </div>
 
-<!-- ═══════ PRODUCTS ═══════ -->
-<section id="products" aria-label="Product categories">
+<!-- ═══════ F7: EXPORT MARKETS WORLD MAP ═══════ -->
+<section class="map-section" id="global" aria-label="Global export markets">
   <div class="inner">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:end;margin-bottom:2.5rem">
+      <div>
+        <div class="eyebrow rv">Global Footprint</div>
+        <h2 class="sh rv rv-d1">Supplying <em>20+ Markets</em> Worldwide</h2>
+      </div>
+      <p class="sub rv rv-d2">From Karachi's Korangi Industrial Area, Kings Apparel ships compliance-certified knitted garments to retailers, brands, and buying houses across Europe, North America, the Middle East, and beyond.</p>
+    </div>
+
+    <div class="map-wrap rv rv-d1" id="mapWrap">
+      <div class="map-tooltip" id="mapTooltip"></div>
+      <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" aria-label="World map showing Kings Apparel export destinations">
+        <!-- Ocean background -->
+        <rect width="1000" height="500" fill="#0e0e15"/>
+        <!-- Fabric grid overlay -->
+        <g opacity="0.035" stroke="#F5F0E8" stroke-width="0.6">
+          <line x1="0" y1="50"  x2="1000" y2="50"/><line x1="0" y1="100" x2="1000" y2="100"/>
+          <line x1="0" y1="150" x2="1000" y2="150"/><line x1="0" y1="200" x2="1000" y2="200"/>
+          <line x1="0" y1="250" x2="1000" y2="250"/><line x1="0" y1="300" x2="1000" y2="300"/>
+          <line x1="0" y1="350" x2="1000" y2="350"/><line x1="0" y1="400" x2="1000" y2="400"/>
+          <line x1="0" y1="450" x2="1000" y2="450"/>
+          <line x1="100" y1="0" x2="100" y2="500"/><line x1="200" y1="0" x2="200" y2="500"/>
+          <line x1="300" y1="0" x2="300" y2="500"/><line x1="400" y1="0" x2="400" y2="500"/>
+          <line x1="500" y1="0" x2="500" y2="500"/><line x1="600" y1="0" x2="600" y2="500"/>
+          <line x1="700" y1="0" x2="700" y2="500"/><line x1="800" y1="0" x2="800" y2="500"/>
+          <line x1="900" y1="0" x2="900" y2="500"/>
+        </g>
+
+        <!-- ── Continent fills (simplified) ── -->
+        <!-- North America -->
+        <path d="M80 60 L185 55 L210 75 L225 95 L220 130 L205 160 L195 200 L175 230 L155 255 L130 270 L110 260 L95 240 L75 210 L60 175 L55 140 L60 100 Z"
+          fill="rgba(42,42,55,0.85)" stroke="rgba(200,169,110,0.18)" stroke-width="0.8"/>
+        <!-- Greenland -->
+        <path d="M195 25 L240 20 L255 35 L245 55 L220 60 L200 50 Z"
+          fill="rgba(42,42,55,0.6)" stroke="rgba(200,169,110,0.12)" stroke-width="0.6"/>
+        <!-- Central America -->
+        <path d="M155 255 L175 265 L170 285 L150 300 L140 290 L145 270 Z"
+          fill="rgba(42,42,55,0.7)" stroke="rgba(200,169,110,0.15)" stroke-width="0.6"/>
+        <!-- South America -->
+        <path d="M155 300 L200 290 L225 310 L240 345 L245 390 L235 430 L210 455 L185 460 L165 445 L148 415 L140 375 L138 335 L145 310 Z"
+          fill="rgba(42,42,55,0.85)" stroke="rgba(200,169,110,0.18)" stroke-width="0.8"/>
+        <!-- Europe -->
+        <path d="M420 55 L470 50 L495 60 L505 80 L495 100 L475 115 L455 120 L435 115 L420 100 L410 80 L415 62 Z"
+          fill="rgba(42,42,55,0.85)" stroke="rgba(200,169,110,0.18)" stroke-width="0.8"/>
+        <!-- Iberia -->
+        <path d="M415 95 L435 90 L440 110 L425 120 L410 110 Z"
+          fill="rgba(42,42,55,0.75)" stroke="rgba(200,169,110,0.15)" stroke-width="0.6"/>
+        <!-- Scandinavia -->
+        <path d="M450 30 L475 25 L490 40 L485 60 L465 65 L448 55 Z"
+          fill="rgba(42,42,55,0.75)" stroke="rgba(200,169,110,0.15)" stroke-width="0.6"/>
+        <!-- UK/Ireland -->
+        <path d="M405 60 L418 55 L420 70 L410 75 L402 68 Z"
+          fill="rgba(42,42,55,0.75)" stroke="rgba(200,169,110,0.15)" stroke-width="0.6"/>
+        <!-- Africa -->
+        <path d="M435 125 L490 115 L520 125 L540 155 L545 200 L540 250 L530 295 L510 330 L485 350 L460 345 L440 320 L425 285 L420 240 L418 195 L425 155 Z"
+          fill="rgba(42,42,55,0.85)" stroke="rgba(200,169,110,0.18)" stroke-width="0.8"/>
+        <!-- Middle East / Arabian Peninsula -->
+        <path d="M540 125 L590 120 L610 135 L615 165 L595 185 L565 195 L545 185 L535 160 L538 138 Z"
+          fill="rgba(42,42,55,0.85)" stroke="rgba(200,169,110,0.18)" stroke-width="0.8"/>
+        <!-- Asia — main body -->
+        <path d="M545 55 L640 45 L710 50 L760 60 L790 80 L800 110 L790 140 L760 155 L720 160 L680 155 L640 160 L610 155 L580 145 L555 130 L540 110 L535 85 Z"
+          fill="rgba(42,42,55,0.85)" stroke="rgba(200,169,110,0.18)" stroke-width="0.8"/>
+        <!-- Indian subcontinent -->
+        <path d="M610 155 L650 155 L665 175 L660 210 L640 235 L618 240 L605 220 L602 190 Z"
+          fill="rgba(42,42,55,0.8)" stroke="rgba(200,169,110,0.15)" stroke-width="0.7"/>
+        <!-- Southeast Asia -->
+        <path d="M720 160 L760 155 L785 170 L780 200 L755 210 L730 205 L715 185 Z"
+          fill="rgba(42,42,55,0.8)" stroke="rgba(200,169,110,0.15)" stroke-width="0.7"/>
+        <!-- Japan -->
+        <path d="M805 90 L820 80 L830 95 L820 110 L808 105 Z"
+          fill="rgba(42,42,55,0.7)" stroke="rgba(200,169,110,0.12)" stroke-width="0.6"/>
+        <!-- Australia -->
+        <path d="M770 310 L840 300 L890 315 L910 345 L905 390 L880 415 L840 420 L800 410 L775 385 L760 350 L762 318 Z"
+          fill="rgba(42,42,55,0.85)" stroke="rgba(200,169,110,0.18)" stroke-width="0.8"/>
+        <!-- New Zealand -->
+        <path d="M915 385 L925 375 L935 390 L928 405 L916 400 Z"
+          fill="rgba(42,42,55,0.65)" stroke="rgba(200,169,110,0.12)" stroke-width="0.6"/>
+
+        <!-- Pakistan (origin) — highlighted -->
+        <circle cx="620" cy="138" r="8" fill="rgba(200,169,110,0.18)" stroke="rgba(200,169,110,0.5)" stroke-width="1"/>
+        <circle cx="620" cy="138" r="4" fill="var(--gold, #C8A96E)"/>
+        <text x="630" y="132" fill="rgba(200,169,110,0.75)" font-family="DM Mono,monospace" font-size="8" letter-spacing="1.5">KARACHI</text>
+
+        <!-- ── Export market pulse dots ── -->
+        <!-- UK -->
+        <g class="market-dot" data-label="United Kingdom" data-cx="410" data-cy="64">
+          <circle class="dot-ring" cx="410" cy="64" r="4" fill="none" stroke="rgba(200,169,110,0.5)" stroke-width="1"/>
+          <circle class="dot-core" cx="410" cy="64" r="3" fill="#C8A96E"/>
+        </g>
+        <!-- Germany -->
+        <g class="market-dot" data-label="Germany" data-cx="460" data-cy="72">
+          <circle class="dot-ring" cx="460" cy="72" r="4" fill="none" stroke="rgba(200,169,110,0.5)" stroke-width="1"/>
+          <circle class="dot-core" cx="460" cy="72" r="3" fill="#C8A96E"/>
+        </g>
+        <!-- France -->
+        <g class="market-dot" data-label="France" data-cx="440" data-cy="88">
+          <circle class="dot-ring" cx="440" cy="88" r="4" fill="none" stroke="rgba(200,169,110,0.5)" stroke-width="1"/>
+          <circle class="dot-core" cx="440" cy="88" r="3" fill="#C8A96E"/>
+        </g>
+        <!-- Netherlands -->
+        <g class="market-dot" data-label="Netherlands" data-cx="453" data-cy="67">
+          <circle class="dot-ring" cx="453" cy="67" r="4" fill="none" stroke="rgba(200,169,110,0.5)" stroke-width="1"/>
+          <circle class="dot-core" cx="453" cy="67" r="3" fill="#C8A96E"/>
+        </g>
+        <!-- Belgium -->
+        <g class="market-dot" data-label="Belgium" data-cx="447" data-cy="72">
+          <circle class="dot-ring" cx="447" cy="72" r="4" fill="none" stroke="rgba(200,169,110,0.5)" stroke-width="1"/>
+          <circle class="dot-core" cx="447" cy="72" r="3" fill="#C8A96E"/>
+        </g>
+        <!-- Sweden -->
+        <g class="market-dot" data-label="Sweden" data-cx="466" data-cy="50">
+          <circle class="dot-ring" cx="466" cy="50" r="4" fill="none" stroke="rgba(200,169,110,0.5)" stroke-width="1"/>
+          <circle class="dot-core" cx="466" cy="50" r="3" fill="#C8A96E"/>
+        </g>
+        <!-- Spain -->
+        <g class="market-dot" data-label="Spain" data-cx="425" data-cy="102">
+          <circle class="dot-ring" cx="425" cy="102" r="4" fill="none" stroke="rgba(200,169,110,0.5)" stroke-width="1"/>
+          <circle class="dot-core" cx="425" cy="102" r="3" fill="#C8A96E"/>
+        </g>
+        <!-- Italy -->
+        <g class="market-dot" data-label="Italy" data-cx="475" data-cy="95">
+          <circle class="dot-ring" cx="475" cy="95" r="4" fill="none" stroke="rgba(200,169,110,0.5)" stroke-width="1"/>
+          <circle class="dot-core" cx="475" cy="95" r="3" fill="#C8A96E"/>
+        </g>
+        <!-- Denmark -->
+        <g class="market-dot" data-label="Denmark" data-cx="460" data-cy="58">
+          <circle class="dot-ring" cx="460" cy="58" r="4" fill="none" stroke="rgba(200,169,110,0.5)" stroke-width="1"/>
+          <circle class="dot-core" cx="460" cy="58" r="3" fill="#C8A96E"/>
+        </g>
+        <!-- USA -->
+        <g class="market-dot" data-label="United States" data-cx="130" data-cy="145">
+          <circle class="dot-ring" cx="130" cy="145" r="5" fill="none" stroke="rgba(200,169,110,0.5)" stroke-width="1"/>
+          <circle class="dot-core" cx="130" cy="145" r="3.5" fill="#C8A96E"/>
+        </g>
+        <!-- Canada -->
+        <g class="market-dot" data-label="Canada" data-cx="135" data-cy="100">
+          <circle class="dot-ring" cx="135" cy="100" r="4" fill="none" stroke="rgba(200,169,110,0.5)" stroke-width="1"/>
+          <circle class="dot-core" cx="135" cy="100" r="3" fill="#C8A96E"/>
+        </g>
+        <!-- UAE -->
+        <g class="market-dot" data-label="UAE" data-cx="590" data-cy="165">
+          <circle class="dot-ring" cx="590" cy="165" r="4" fill="none" stroke="rgba(200,169,110,0.5)" stroke-width="1"/>
+          <circle class="dot-core" cx="590" cy="165" r="3" fill="#C8A96E"/>
+        </g>
+        <!-- Saudi Arabia -->
+        <g class="market-dot" data-label="Saudi Arabia" data-cx="570" data-cy="158">
+          <circle class="dot-ring" cx="570" cy="158" r="4" fill="none" stroke="rgba(200,169,110,0.5)" stroke-width="1"/>
+          <circle class="dot-core" cx="570" cy="158" r="3" fill="#C8A96E"/>
+        </g>
+        <!-- Qatar -->
+        <g class="market-dot" data-label="Qatar" data-cx="583" data-cy="158">
+          <circle class="dot-ring" cx="583" cy="158" r="4" fill="none" stroke="rgba(200,169,110,0.5)" stroke-width="1"/>
+          <circle class="dot-core" cx="583" cy="158" r="3" fill="#C8A96E"/>
+        </g>
+        <!-- Turkey -->
+        <g class="market-dot" data-label="Turkey" data-cx="525" data-cy="105">
+          <circle class="dot-ring" cx="525" cy="105" r="4" fill="none" stroke="rgba(200,169,110,0.5)" stroke-width="1"/>
+          <circle class="dot-core" cx="525" cy="105" r="3" fill="#C8A96E"/>
+        </g>
+        <!-- Australia -->
+        <g class="market-dot" data-label="Australia" data-cx="840" data-cy="370">
+          <circle class="dot-ring" cx="840" cy="370" r="5" fill="none" stroke="rgba(200,169,110,0.5)" stroke-width="1"/>
+          <circle class="dot-core" cx="840" cy="370" r="3.5" fill="#C8A96E"/>
+        </g>
+        <!-- New Zealand -->
+        <g class="market-dot" data-label="New Zealand" data-cx="922" data-cy="392">
+          <circle class="dot-ring" cx="922" cy="392" r="4" fill="none" stroke="rgba(200,169,110,0.5)" stroke-width="1"/>
+          <circle class="dot-core" cx="922" cy="392" r="3" fill="#C8A96E"/>
+        </g>
+        <!-- South Korea -->
+        <g class="market-dot" data-label="South Korea" data-cx="780" data-cy="98">
+          <circle class="dot-ring" cx="780" cy="98" r="4" fill="none" stroke="rgba(200,169,110,0.5)" stroke-width="1"/>
+          <circle class="dot-core" cx="780" cy="98" r="3" fill="#C8A96E"/>
+        </g>
+        <!-- Japan -->
+        <g class="market-dot" data-label="Japan" data-cx="815" data-cy="92">
+          <circle class="dot-ring" cx="815" cy="92" r="4" fill="none" stroke="rgba(200,169,110,0.5)" stroke-width="1"/>
+          <circle class="dot-core" cx="815" cy="92" r="3" fill="#C8A96E"/>
+        </g>
+        <!-- Switzerland -->
+        <g class="market-dot" data-label="Switzerland" data-cx="460" data-cy="85">
+          <circle class="dot-ring" cx="460" cy="85" r="4" fill="none" stroke="rgba(200,169,110,0.5)" stroke-width="1"/>
+          <circle class="dot-core" cx="460" cy="85" r="3" fill="#C8A96E"/>
+        </g>
+
+        <!-- Shipping route lines from Karachi -->
+        <g stroke="rgba(200,169,110,0.12)" stroke-width="0.8" stroke-dasharray="4 4" fill="none">
+          <path d="M620 138 Q520 80 460 75"/>    <!-- to Europe -->
+          <path d="M620 138 Q400 60 410 64"/>    <!-- to UK -->
+          <path d="M620 138 Q580 155 570 158"/>  <!-- to Middle East -->
+          <path d="M620 138 Q750 250 840 370"/>  <!-- to Australia -->
+          <path d="M620 138 Q300 100 130 145"/>  <!-- to USA -->
+        </g>
+
+        <!-- Legend: Pakistan origin marker -->
+        <g>
+          <circle cx="940" cy="460" r="5" fill="rgba(200,169,110,0.18)" stroke="rgba(200,169,110,0.5)" stroke-width="1"/>
+          <circle cx="940" cy="460" r="3" fill="#C8A96E"/>
+          <text x="950" y="464" fill="rgba(200,169,110,0.5)" font-family="DM Mono,monospace" font-size="7.5" letter-spacing="1">KARACHI (ORIGIN)</text>
+        </g>
+        <g>
+          <circle cx="940" cy="477" r="3" fill="#C8A96E"/>
+          <text x="950" y="481" fill="rgba(200,169,110,0.5)" font-family="DM Mono,monospace" font-size="7.5" letter-spacing="1">EXPORT MARKET</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Region summary -->
+    <div class="map-regions">
+      <div class="map-region rv">
+        <div class="map-region-name">Europe</div>
+        <div class="map-region-count">9</div>
+      </div>
+      <div class="map-region rv rv-d1">
+        <div class="map-region-name">Americas</div>
+        <div class="map-region-count">2</div>
+      </div>
+      <div class="map-region rv rv-d2">
+        <div class="map-region-name">Middle East</div>
+        <div class="map-region-count">4</div>
+      </div>
+      <div class="map-region rv rv-d3">
+        <div class="map-region-name">Asia–Pacific</div>
+        <div class="map-region-count">5</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ PRODUCTS ═══════ -->
+<section id="products" aria-label="Product categories">  <div class="inner">
     <div class="prod-head">
       <div>
         <div class="eyebrow rv">Our Collections</div>
@@ -2126,6 +2752,110 @@
   </div>
 </section>
 
+<!-- ═══════ F8: CATALOGUE DOWNLOAD ═══════ -->
+<section class="catalogue-section" id="catalogue" aria-label="Download product catalogue">
+  <div class="inner">
+    <div class="cat-grid">
+      <!-- Preview mockup -->
+      <div class="cat-preview rv">
+        <div class="cat-preview-cover">
+          <div class="cat-cover-year">2024 / 2025 Collection</div>
+          <div class="cat-cover-title">Kings Apparel<br>Product Catalogue</div>
+          <div class="cat-cover-badge">
+            <span class="cat-badge-mini">Newborn</span>
+            <span class="cat-badge-mini">Kids</span>
+            <span class="cat-badge-mini">Men</span>
+            <span class="cat-badge-mini">Women</span>
+            <span class="cat-badge-mini">Organic</span>
+          </div>
+          <!-- Decorative stitch SVG on cover -->
+          <svg viewBox="0 0 200 250" fill="none" style="position:absolute;inset:0;width:100%;height:100%;opacity:.18">
+            <path d="M40 20 L40 230 M160 20 L160 230" stroke="#C8A96E" stroke-width="1" stroke-dasharray="5 5"/>
+            <path d="M20 40 L180 40 M20 210 L180 210" stroke="#C8A96E" stroke-width="1" stroke-dasharray="5 5"/>
+            <path d="M100 20 L100 230" stroke="#C8A96E" stroke-width="0.5" stroke-dasharray="3 7" opacity="0.5"/>
+          </svg>
+          <div class="cat-pages">48 pages · PDF · 12 MB</div>
+        </div>
+        <div class="cat-shadow"></div>
+      </div>
+
+      <!-- Lead gate form -->
+      <div class="cat-form-wrap rv rv-d1">
+        <div class="eyebrow" style="margin-bottom:1rem">Free Download</div>
+        <div class="cat-form-title">Get the Full <em>Product Catalogue</em></div>
+        <p class="cat-form-sub">48 pages covering all product categories, fabric specifications, GSM ranges, compliance certifications, and packaging options. Enter your details to download instantly.</p>
+
+        <div class="cat-contents">
+          <div class="cat-contents-item"><span class="cat-check">✦</span>All 7 product categories with style references</div>
+          <div class="cat-contents-item"><span class="cat-check">✦</span>Fabric composition & GSM spec sheets</div>
+          <div class="cat-contents-item"><span class="cat-check">✦</span>Compliance certification portfolio</div>
+          <div class="cat-contents-item"><span class="cat-check">✦</span>Packaging & labelling options</div>
+          <div class="cat-contents-item"><span class="cat-check">✦</span>MOQ, lead times & FOB pricing guide</div>
+          <div class="cat-contents-item"><span class="cat-check">✦</span>Factory profile & CSR summary</div>
+        </div>
+
+        <!-- Form -->
+        <div id="cat-form">
+          <div class="form-row" style="margin-bottom:1rem">
+            <div class="fg" style="margin-bottom:0">
+              <label for="cat-name">Full Name</label>
+              <input type="text" id="cat-name" placeholder="Jane Smith">
+            </div>
+            <div class="fg" style="margin-bottom:0">
+              <label for="cat-company">Company</label>
+              <input type="text" id="cat-company" placeholder="Retail Co.">
+            </div>
+          </div>
+          <div class="fg">
+            <label for="cat-email">Work Email</label>
+            <input type="email" id="cat-email" placeholder="purchasing@company.com">
+          </div>
+          <div class="form-row">
+            <div class="fg" style="margin-bottom:0">
+              <label for="cat-country">Country</label>
+              <select id="cat-country">
+                <option value="">Select country</option>
+                <option>United Kingdom</option><option>Germany</option><option>France</option>
+                <option>Netherlands</option><option>Belgium</option><option>Sweden</option>
+                <option>Denmark</option><option>Spain</option><option>Italy</option>
+                <option>Switzerland</option><option>United States</option><option>Canada</option>
+                <option>Australia</option><option>New Zealand</option><option>UAE</option>
+                <option>Saudi Arabia</option><option>Qatar</option><option>Turkey</option>
+                <option>South Korea</option><option>Japan</option><option>Other</option>
+              </select>
+            </div>
+            <div class="fg" style="margin-bottom:0">
+              <label for="cat-type">Buyer Type</label>
+              <select id="cat-type">
+                <option value="">Select type</option>
+                <option>Retailer</option><option>Brand / Private Label</option>
+                <option>Buying House</option><option>Wholesaler</option><option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="fg">
+            <label style="display:flex;gap:.5rem;align-items:flex-start;cursor:pointer;font-size:.75rem;color:var(--linen-lt);letter-spacing:.05em;text-transform:none">
+              <input type="checkbox" id="cat-consent" style="margin-top:2px;accent-color:var(--gold)">
+              I agree to receive the Kings Apparel catalogue and occasional product updates. Unsubscribe anytime.
+            </label>
+          </div>
+          <button type="button" class="btn-gold" style="width:100%;cursor:pointer;margin-top:.5rem" onclick="downloadCatalogue()">
+            Download Catalogue →
+          </button>
+        </div>
+
+        <!-- Success state -->
+        <div class="cat-success" id="cat-success">
+          <div class="cat-success-icon">📄</div>
+          <div class="cat-success-title">Your catalogue is ready</div>
+          <p class="cat-success-sub">Thank you! Your download will begin shortly. A copy has also been sent to your email. Our team may follow up within 2 business days.</p>
+          <a href="#contact" class="btn-gold" style="display:inline-block;margin-top:1.5rem;text-decoration:none">Speak to Sales →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══════ ABOUT ═══════ -->
 <section class="about-section" id="about" aria-label="About Kings Apparel">
   <div class="inner">
@@ -2499,6 +3229,163 @@
   </div>
 </section>
 
+<!-- ═══════ F6: FAQ ═══════ -->
+<section class="faq-section" id="faq" aria-label="Frequently asked questions">
+  <div class="inner">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:end;margin-bottom:3rem">
+      <div>
+        <div class="eyebrow rv">Buyer FAQ</div>
+        <h2 class="sh rv rv-d1">Everything You Need to <em>Know Before Ordering</em></h2>
+      </div>
+      <p class="sub rv rv-d2">Answers to the 16 most common questions from new and existing buyers — covering ordering, compliance, quality, logistics, and pricing.</p>
+    </div>
+
+    <!-- Search -->
+    <div class="faq-search-wrap rv">
+      <svg class="faq-search-icon" viewBox="0 0 16 16"><circle cx="6.5" cy="6.5" r="4.5"/><line x1="10" y1="10" x2="14" y2="14" stroke-linecap="round" stroke-width="1.5"/></svg>
+      <input class="faq-search" type="search" id="faqSearch" placeholder="Search questions…" oninput="faqFilter()" aria-label="Search FAQ">
+    </div>
+
+    <!-- Category filter -->
+    <div class="faq-cats rv rv-d1">
+      <button class="faq-cat active" onclick="faqCat(this,'all')">All</button>
+      <button class="faq-cat" onclick="faqCat(this,'ordering')">Ordering</button>
+      <button class="faq-cat" onclick="faqCat(this,'quality')">Quality</button>
+      <button class="faq-cat" onclick="faqCat(this,'compliance')">Compliance</button>
+      <button class="faq-cat" onclick="faqCat(this,'logistics')">Logistics</button>
+      <button class="faq-cat" onclick="faqCat(this,'pricing')">Pricing</button>
+    </div>
+
+    <div class="faq-list rv rv-d1" id="faqList">
+
+      <!-- ORDERING -->
+      <div class="faq-item" data-cat="ordering" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          <span class="faq-q-text">What is the minimum order quantity (MOQ)?</span>
+          <div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="2" x2="6" y2="10" stroke-width="1.5" stroke-linecap="round"/><line x1="2" y1="6" x2="10" y2="6" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Our standard MOQ is 1,000 pieces per style per colour. For programmes exceeding 5,000 pieces we offer tiered pricing. Sample orders of 3–5 pieces per style are available before bulk commitment — sampling costs are deducted from the first bulk order.</div></div>
+      </div>
+
+      <div class="faq-item" data-cat="ordering" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          <span class="faq-q-text">What is the typical lead time for a bulk order?</span>
+          <div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="2" x2="6" y2="10" stroke-width="1.5" stroke-linecap="round"/><line x1="2" y1="6" x2="10" y2="6" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Standard lead time is 60–90 days from order confirmation and advance payment, depending on fabric availability and embellishment complexity. Rush programmes of 45 days are possible for certain styles at a premium. We work backwards from your in-store date to set the production schedule.</div></div>
+      </div>
+
+      <div class="faq-item" data-cat="ordering" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          <span class="faq-q-text">How does the sampling process work?</span>
+          <div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="2" x2="6" y2="10" stroke-width="1.5" stroke-linecap="round"/><line x1="2" y1="6" x2="10" y2="6" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Sampling proceeds in three stages: Proto Sample (from your tech pack or reference, 7–10 days), Fit Sample (after your corrections, 7 days), and Pre-Production Sample (from bulk fabric, 10–14 days). PP sample approval triggers bulk production. Sampling fee is typically $15–40 per style depending on complexity.</div></div>
+      </div>
+
+      <div class="faq-item" data-cat="ordering" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          <span class="faq-q-text">Do you work with buyer-nominated fabrics or trims?</span>
+          <div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="2" x2="6" y2="10" stroke-width="1.5" stroke-linecap="round"/><line x1="2" y1="6" x2="10" y2="6" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Yes. We can work with buyer-nominated yarn, fabric, labels, hangtags, and packaging. Buyers are responsible for timely delivery of nominated materials to our factory. Alternatively, we source from approved suppliers against your specifications — often at better cost due to our volume relationships.</div></div>
+      </div>
+
+      <!-- QUALITY -->
+      <div class="faq-item" data-cat="quality" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          <span class="faq-q-text">What quality control process do you follow?</span>
+          <div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="2" x2="6" y2="10" stroke-width="1.5" stroke-linecap="round"/><line x1="2" y1="6" x2="10" y2="6" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">We operate a 47-point inline and final QC system aligned with AQL 2.5 (Level II). Key checkpoints: yarn lab tests, fabric inspection (4-point system), in-line stitching audits, end-line inspection, and final random inspection before packing. Third-party inspections (SGS, Bureau Veritas, Intertek) are accommodated on request.</div></div>
+      </div>
+
+      <div class="faq-item" data-cat="quality" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          <span class="faq-q-text">Can you match Pantone colours accurately?</span>
+          <div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="2" x2="6" y2="10" stroke-width="1.5" stroke-linecap="round"/><line x1="2" y1="6" x2="10" y2="6" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Yes. We use spectrophotometer-based colour matching with a Delta E tolerance of ≤1.0 for most shades. Lab dip approvals are provided digitally (spectral data + physical swatch). Some fluorescent or specialty colours may require wider tolerances — we advise on a per-shade basis.</div></div>
+      </div>
+
+      <div class="faq-item" data-cat="quality" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          <span class="faq-q-text">What wash testing and care label standards do you apply?</span>
+          <div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="2" x2="6" y2="10" stroke-width="1.5" stroke-linecap="round"/><line x1="2" y1="6" x2="10" y2="6" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">We test to ISO 105 (colour fastness to washing, rubbing, light, perspiration) as standard. Care labels follow ISO 3758 GINETEX symbols or ASTM D5489 (US market). Test reports from accredited labs (SGS / Intertek) are provided per bulk order. Additional tests (pilling, abrasion, seam strength) available on request.</div></div>
+      </div>
+
+      <!-- COMPLIANCE -->
+      <div class="faq-item" data-cat="compliance" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          <span class="faq-q-text">Which compliance certifications does Kings Apparel hold?</span>
+          <div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="2" x2="6" y2="10" stroke-width="1.5" stroke-linecap="round"/><line x1="2" y1="6" x2="10" y2="6" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Current active certifications include: GOTS, SA 8000, ISO 9001:2015, WRAP, BSCI, SEDEX, OEKO-TEX Standard 100, REACH, FSC, and multiple buyer-specific Codes of Conduct. All audit reports and certificates are available digitally on request, or accessible via SEDEX/BSCI portals.</div></div>
+      </div>
+
+      <div class="faq-item" data-cat="compliance" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          <span class="faq-q-text">Can you produce organic cotton garments?</span>
+          <div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="2" x2="6" y2="10" stroke-width="1.5" stroke-linecap="round"/><line x1="2" y1="6" x2="10" y2="6" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Yes — we are GOTS certified. Our organic range covers all categories from newborn to adult. We source 100% GOTS-certified yarn from approved suppliers and maintain full chain-of-custody documentation. Transaction certificates are issued per shipment for end-to-end traceability.</div></div>
+      </div>
+
+      <div class="faq-item" data-cat="compliance" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          <span class="faq-q-text">Are factory audits available to buyers?</span>
+          <div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="2" x2="6" y2="10" stroke-width="1.5" stroke-linecap="round"/><line x1="2" y1="6" x2="10" y2="6" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Absolutely. We welcome on-site factory audits and virtual audit calls. Please contact us to schedule. For SEDEX/BSCI members, our shared audit reports are accessible through those platforms. We maintain an open-door policy — our confidence comes from having nothing to hide.</div></div>
+      </div>
+
+      <!-- LOGISTICS -->
+      <div class="faq-item" data-cat="logistics" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          <span class="faq-q-text">What shipping terms do you offer?</span>
+          <div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="2" x2="6" y2="10" stroke-width="1.5" stroke-linecap="round"/><line x1="2" y1="6" x2="10" y2="6" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">We primarily ship FOB Port Qasim / Karachi. CIF to major European, US, Australian, and Middle Eastern ports can be arranged. We work with DHL, Maersk, MSC, and established freight forwarders. Ex-Works pricing is available for buyers with their own logistics arrangements.</div></div>
+      </div>
+
+      <div class="faq-item" data-cat="logistics" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          <span class="faq-q-text">What packing and labelling options are available?</span>
+          <div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="2" x2="6" y2="10" stroke-width="1.5" stroke-linecap="round"/><line x1="2" y1="6" x2="10" y2="6" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">We offer flat-pack, retail-ready hanger packing, polybag per piece, and bulk carton options. Custom inner boxes, tissue paper, hangtags, and barcode labels are all available. Packing specifications are followed precisely as per buyer's packing manual — deviations trigger re-packing at our cost.</div></div>
+      </div>
+
+      <!-- PRICING -->
+      <div class="faq-item" data-cat="pricing" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          <span class="faq-q-text">What are your payment terms?</span>
+          <div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="2" x2="6" y2="10" stroke-width="1.5" stroke-linecap="round"/><line x1="2" y1="6" x2="10" y2="6" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Standard terms are 30% advance T/T against order confirmation, balance 70% against shipping documents or Letter of Credit at sight. For established buyers with a track record, extended net-30 or net-60 terms may be available after credit evaluation. We also accept LC usance.</div></div>
+      </div>
+
+      <div class="faq-item" data-cat="pricing" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          <span class="faq-q-text">Do prices include compliance documentation costs?</span>
+          <div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="2" x2="6" y2="10" stroke-width="1.5" stroke-linecap="round"/><line x1="2" y1="6" x2="10" y2="6" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Standard compliance documents (GOTS TC, test reports, CoO, invoice, packing list) are included in the FOB price. Additional third-party inspection fees (SGS, Bureau Veritas etc.) are charged at cost. Buyer-specific lab testing beyond our standard suite is quoted separately based on the test suite required.</div></div>
+      </div>
+
+    </div>
+
+    <div class="faq-no-results" id="faqNoResults">No questions match your search.</div>
+
+    <div style="text-align:center;margin-top:3rem">
+      <p style="font-size:.9rem;color:var(--linen-lt);margin-bottom:1.25rem">Still have a question not answered above?</p>
+      <a href="#contact" class="btn-gold">Ask our team →</a>
+    </div>
+  </div>
+</section>
+
 <!-- ═══════ CONTACT ═══════ -->
 <section class="contact-section" id="contact" aria-label="Contact and inquiry">
   <div class="inner">
@@ -2585,6 +3472,31 @@
     </div>
   </div>
 </section>
+
+<!-- ═══════ F9: NEWSLETTER STRIP ═══════ -->
+<div class="newsletter-strip" role="complementary" aria-label="Newsletter signup">
+  <div class="nl-inner">
+    <div class="nl-copy">
+      <div class="nl-title">Stay Ahead of the Industry</div>
+      <div class="nl-sub">Quarterly updates · Export insights · New certifications · Product launches</div>
+    </div>
+    <div class="nl-form" role="form" aria-label="Newsletter subscription">
+      <input class="nl-input" type="email" id="nl-email" placeholder="your@company.com" aria-label="Email address">
+      <button class="nl-btn" onclick="subscribeNewsletter()">Subscribe →</button>
+    </div>
+  </div>
+</div>
+
+<!-- F9: Newsletter slide-up toast (fires after 45s) -->
+<div id="nl-toast" role="dialog" aria-label="Newsletter sign-up prompt" aria-modal="false">
+  <button class="nl-toast-close" onclick="dismissNlToast()" aria-label="Dismiss">✕</button>
+  <div class="nl-toast-title">Industry insights, quarterly</div>
+  <p class="nl-toast-sub">EU export regulations, sustainability updates, and Kings Apparel product news — straight to your inbox.</p>
+  <div class="nl-toast-form">
+    <input class="nl-toast-input" type="email" id="nl-toast-email" placeholder="work@company.com" aria-label="Email address">
+    <button class="nl-toast-btn" onclick="subscribeToast()">Join →</button>
+  </div>
+</div>
 
 <!-- ═══════ FOOTER ═══════ -->
 <footer role="contentinfo">
@@ -2956,12 +3868,210 @@ function saveCookiePrefs() {
 }
 
 /* ══════════════════════════════════════════════════
+   F6 · FAQ ACCORDION
+══════════════════════════════════════════════════ */
+function toggleFaq(item) {
+  const isOpen = item.classList.contains('open');
+  // Close all open items
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+let faqActiveCat = 'all';
+
+function faqCat(btn, cat) {
+  faqActiveCat = cat;
+  document.querySelectorAll('.faq-cat').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFaqFilter();
+}
+
+function faqFilter() { applyFaqFilter(); }
+
+function applyFaqFilter() {
+  const q   = (document.getElementById('faqSearch').value || '').toLowerCase().trim();
+  const items = document.querySelectorAll('.faq-item');
+  let visible = 0;
+
+  items.forEach(item => {
+    const matchCat  = faqActiveCat === 'all' || item.dataset.cat === faqActiveCat;
+    const matchText = !q || item.querySelector('.faq-q-text').textContent.toLowerCase().includes(q)
+                          || item.querySelector('.faq-a-inner').textContent.toLowerCase().includes(q);
+    const show = matchCat && matchText;
+    item.classList.toggle('hidden', !show);
+    if (show) visible++;
+  });
+
+  const noRes = document.getElementById('faqNoResults');
+  if (noRes) noRes.style.display = visible === 0 ? 'block' : 'none';
+}
+
+/* ══════════════════════════════════════════════════
+   F7 · WORLD MAP — TOOLTIP
+══════════════════════════════════════════════════ */
+(function(){
+  const wrap    = document.getElementById('mapWrap');
+  const tooltip = document.getElementById('mapTooltip');
+  if (!wrap || !tooltip) return;
+
+  const dots = wrap.querySelectorAll('.market-dot');
+
+  dots.forEach(dot => {
+    const label = dot.getAttribute('data-label');
+    const cx    = parseFloat(dot.getAttribute('data-cx'));
+    const cy    = parseFloat(dot.dataset ? dot.getAttribute('data-cy') : 0);
+
+    dot.addEventListener('mouseenter', e => {
+      const rect = wrap.querySelector('svg').getBoundingClientRect();
+      const wrapRect = wrap.getBoundingClientRect();
+      const svgW = 1000, svgH = 500;
+      // Convert SVG coords to CSS pixel coords relative to wrap
+      const px = (cx / svgW) * rect.width  + (rect.left - wrapRect.left);
+      const py = (cy / svgH) * rect.height + (rect.top  - wrapRect.top);
+
+      tooltip.textContent = label;
+      tooltip.style.left = px + 'px';
+      tooltip.style.top  = py + 'px';
+      tooltip.classList.add('show');
+    });
+
+    dot.addEventListener('mouseleave', () => {
+      tooltip.classList.remove('show');
+    });
+  });
+})();
+
+/* ══════════════════════════════════════════════════
+   F8 · CATALOGUE DOWNLOAD LEAD GATE
+══════════════════════════════════════════════════ */
+function downloadCatalogue() {
+  const name    = document.getElementById('cat-name').value.trim();
+  const email   = document.getElementById('cat-email').value.trim();
+  const company = document.getElementById('cat-company').value.trim();
+  const country = document.getElementById('cat-country').value;
+  const consent = document.getElementById('cat-consent').checked;
+
+  if (!name || !email) {
+    alert('Please enter your name and work email to download the catalogue.');
+    return;
+  }
+  if (!consent) {
+    alert('Please tick the consent box to proceed.');
+    return;
+  }
+
+  // Show success state
+  document.getElementById('cat-form').style.display    = 'none';
+  document.getElementById('cat-success').classList.add('show');
+
+  // In production: trigger actual PDF download or email delivery here
+  // window.open('https://kingsapparel.com/assets/catalogue-2025.pdf', '_blank');
+  console.info('[KA] Catalogue lead captured:', { name, email, company, country });
+}
+
+/* ══════════════════════════════════════════════════
+   F9 · NEWSLETTER
+══════════════════════════════════════════════════ */
+function subscribeNewsletter() {
+  const email = document.getElementById('nl-email').value.trim();
+  if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
+  alert('Thank you for subscribing! You\'ll receive your first update within the quarter.');
+  document.getElementById('nl-email').value = '';
+  localStorage.setItem('ka_nl_subscribed', '1');
+  dismissNlToast();
+}
+
+function subscribeToast() {
+  const email = document.getElementById('nl-toast-email').value.trim();
+  if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
+  alert('Subscribed! Welcome to Kings Apparel industry updates.');
+  document.getElementById('nl-toast-email').value = '';
+  localStorage.setItem('ka_nl_subscribed', '1');
+  dismissNlToast();
+}
+
+function dismissNlToast() {
+  const toast = document.getElementById('nl-toast');
+  if (toast) {
+    toast.classList.remove('show');
+    localStorage.setItem('ka_nl_dismissed', Date.now().toString());
+  }
+}
+
+// Auto-show toast after 45s (once per 7 days, not if already subscribed)
+(function(){
+  const toast = document.getElementById('nl-toast');
+  if (!toast) return;
+  if (localStorage.getItem('ka_nl_subscribed')) return;
+
+  const lastDismissed = parseInt(localStorage.getItem('ka_nl_dismissed') || '0');
+  const sevenDays = 7 * 24 * 60 * 60 * 1000;
+  if (Date.now() - lastDismissed < sevenDays) return;
+
+  setTimeout(() => {
+    if (!document.getElementById('cookie-banner').classList.contains('show')) {
+      toast.classList.add('show');
+    }
+  }, 45000);
+})();
+
+/* ══════════════════════════════════════════════════
+   F10 · PARALLAX HERO LAYERS
+══════════════════════════════════════════════════ */
+(function(){
+  // Bail on mobile / touch / reduced-motion
+  if (window.innerWidth <= 1024) return;
+  if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+
+  const bg   = document.getElementById('pl-bg');
+  const text = document.getElementById('pl-text');
+  const svg  = document.getElementById('pl-svg');
+  if (!bg || !text || !svg) return;
+
+  const hero = document.getElementById('hero');
+
+  let ticking = false;
+
+  function applyParallax() {
+    const heroRect = hero.getBoundingClientRect();
+    // Only run while hero is at least partially in view
+    if (heroRect.bottom < 0 || heroRect.top > window.innerHeight) {
+      ticking = false;
+      return;
+    }
+
+    const scrolled = -heroRect.top; // positive when scrolled down
+    // Three independent speeds
+    bg.style.transform   = `translateY(${scrolled * 0.12}px)`;
+    text.style.transform = `translateY(${scrolled * 0.28}px)`;
+    svg.style.transform  = `translateY(${scrolled * 0.18}px)`;
+
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(applyParallax);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  applyParallax();
+
+  // Re-evaluate on resize
+  window.addEventListener('resize', () => {
+    if (window.innerWidth <= 1024) {
+      [bg, text, svg].forEach(el => el.style.transform = '');
+    }
+  }, { passive: true });
+})();
+
+/* ══════════════════════════════════════════════════
    F5 · GOLD THREAD CURSOR TRAIL
 ══════════════════════════════════════════════════ */
 (function(){
   const canvas = document.getElementById('cursor-canvas');
   if (!canvas) return;
-  // Bail on touch / reduced-motion
   if (window.matchMedia('(hover:none)').matches) { canvas.remove(); return; }
   if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) { canvas.remove(); return; }
 
@@ -2975,7 +4085,6 @@ function saveCookiePrefs() {
   resize();
   window.addEventListener('resize', resize, {passive:true});
 
-  // Trail: circular buffer of {x, y, age}
   const TRAIL_LEN = 28;
   const trail = [];
   let mx = -200, my = -200;
@@ -2983,41 +4092,34 @@ function saveCookiePrefs() {
   let active = false;
 
   window.addEventListener('mousemove', e => {
-    mx = e.clientX;
-    my = e.clientY;
+    mx = e.clientX; my = e.clientY;
     active = true;
     clearTimeout(idleTimer);
     idleTimer = setTimeout(() => { active = false; }, 2200);
   }, {passive:true});
 
   function lerp(a, b, t) { return a + (b - a) * t; }
-
-  let lx = mx, ly = my; // smoothed position
+  let lx = mx, ly = my;
 
   function draw() {
     requestAnimationFrame(draw);
     ctx.clearRect(0, 0, W, H);
     if (!active) return;
 
-    // Smooth follow
     lx = lerp(lx, mx, 0.18);
     ly = lerp(ly, my, 0.18);
-
     trail.push({x: lx, y: ly});
     if (trail.length > TRAIL_LEN) trail.shift();
     if (trail.length < 3) return;
 
-    // Draw gold thread using bezier curves through trail points
     ctx.beginPath();
     ctx.moveTo(trail[0].x, trail[0].y);
-
     for (let i = 1; i < trail.length - 1; i++) {
       const cx = (trail[i].x + trail[i+1].x) / 2;
       const cy = (trail[i].y + trail[i+1].y) / 2;
       ctx.quadraticCurveTo(trail[i].x, trail[i].y, cx, cy);
     }
 
-    // Gradient: gold at tip, transparent at tail
     const grad = ctx.createLinearGradient(
       trail[0].x, trail[0].y,
       trail[trail.length-1].x, trail[trail.length-1].y
@@ -3032,7 +4134,6 @@ function saveCookiePrefs() {
     ctx.lineJoin    = 'round';
     ctx.stroke();
 
-    // Needle tip dot
     const tip = trail[trail.length - 1];
     ctx.beginPath();
     ctx.arc(tip.x, tip.y, 2.8, 0, Math.PI * 2);
