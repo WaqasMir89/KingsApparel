@@ -604,9 +604,529 @@
       .scroll-bar, .ticker-inner { animation:none; }
       .garment-stitch { stroke-dashoffset:0; }
     }
+
+    /* ═══════════════════════════════════════
+       MOBILE HAMBURGER MENU
+    ═══════════════════════════════════════ */
+    .mob-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: .4rem;
+      z-index: 310;
+    }
+    .mob-toggle span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--cotton);
+      transform-origin: center;
+      transition: transform .4s ease, opacity .4s ease, background .3s;
+    }
+    .mob-toggle.open span:nth-child(1) {
+      transform: translateY(6.5px) rotate(45deg);
+      background: var(--gold);
+    }
+    .mob-toggle.open span:nth-child(2) {
+      opacity: 0; transform: scaleX(0);
+    }
+    .mob-toggle.open span:nth-child(3) {
+      transform: translateY(-6.5px) rotate(-45deg);
+      background: var(--gold);
+    }
+
+    /* Full-screen mobile drawer */
+    .mob-drawer {
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      background: rgba(12,12,15,.97);
+      backdrop-filter: blur(20px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 6rem 2.5rem 3rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .45s ease;
+    }
+    .mob-drawer.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .mob-nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: .2rem;
+      width: 100%;
+      margin-bottom: 3rem;
+    }
+    .mob-nav-list li {
+      overflow: hidden;
+    }
+    .mob-nav-list a {
+      font-family: var(--f-display);
+      font-size: clamp(2rem, 8vw, 3.5rem);
+      font-weight: 300;
+      color: var(--cotton);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: .55rem 0;
+      border-bottom: 1px solid rgba(200,169,110,.1);
+      transition: color .3s, padding-left .3s;
+      transform: translateX(-40px);
+      opacity: 0;
+      transition: transform .5s ease, opacity .5s ease, color .3s, padding-left .25s;
+    }
+    .mob-nav-list a:hover { color: var(--gold); padding-left: .5rem; }
+    .mob-drawer.open .mob-nav-list a {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    .mob-nav-list li:nth-child(1) a { transition-delay: .05s; }
+    .mob-nav-list li:nth-child(2) a { transition-delay: .10s; }
+    .mob-nav-list li:nth-child(3) a { transition-delay: .15s; }
+    .mob-nav-list li:nth-child(4) a { transition-delay: .20s; }
+    .mob-nav-list li:nth-child(5) a { transition-delay: .25s; }
+    .mob-nav-list li:nth-child(6) a { transition-delay: .30s; }
+    .mob-nav-list li:nth-child(7) a { transition-delay: .35s; }
+
+    .mob-num {
+      font-family: var(--f-mono);
+      font-size: .55rem;
+      color: var(--gold);
+      letter-spacing: .15em;
+      margin-right: auto;
+    }
+
+    .mob-footer-row {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
+    }
+    .mob-tel {
+      font-family: var(--f-mono);
+      font-size: .65rem;
+      letter-spacing: .2em;
+      color: var(--linen-lt);
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    .mob-tel:hover { color: var(--gold); }
+
+    /* Stitch accent in drawer */
+    .mob-stitch-line {
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 40%;
+      opacity: .06;
+    }
+
+    @media(max-width:1024px){
+      .mob-toggle { display:flex; }
+      body.menu-open { overflow: hidden; }
+    }
+
+    /* ═══════════════════════════════════════
+       ENHANCED PRODUCT CARDS — PHOTO SLOTS
+    ═══════════════════════════════════════ */
+
+    /* Category filter tabs */
+    .prod-filter {
+      display: flex;
+      gap: .6rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+    .pf-btn {
+      font-family: var(--f-mono);
+      font-size: .58rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--linen-lt);
+      background: none;
+      border: 1px solid rgba(200,169,110,.2);
+      padding: .5rem 1.1rem;
+      cursor: pointer;
+      transition: all .3s;
+    }
+    .pf-btn:hover,
+    .pf-btn.active {
+      color: var(--ink);
+      background: var(--gold);
+      border-color: var(--gold);
+    }
+
+    /* Photo placeholder slot inside each card */
+    .pc-photo {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    /* Shimmer placeholder for when no real photo is provided */
+    .pc-photo-placeholder {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        110deg,
+        rgba(26,26,35,.9) 0%,
+        rgba(36,36,48,.9) 40%,
+        rgba(26,26,35,.9) 80%
+      );
+      background-size: 200% 100%;
+      animation: shimmer 3.5s ease infinite;
+    }
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    /* Fabric swatch pattern for placeholder */
+    .pc-photo-pattern {
+      position: absolute;
+      inset: 0;
+      opacity: 1;
+    }
+    /* Real photo slot — set via style="background-image:url(...)" */
+    .pc-photo-img {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform .7s ease;
+    }
+    .pc:hover .pc-photo-img { transform: scale(1.06); }
+
+    /* Animated "camera / add photo" slot cue */
+    .pc-photo-slot {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      width: 32px; height: 32px;
+      border: 1px solid rgba(200,169,110,.35);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0;
+      transition: opacity .3s .15s;
+    }
+    .pc:hover .pc-photo-slot { opacity: 1; }
+    .pc-photo-slot svg { width: 14px; height: 14px; }
+
+    /* Arrow CTA on card hover */
+    .pc-arrow {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      width: 36px; height: 36px;
+      border: 1px solid rgba(200,169,110,.4);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0;
+      transform: translateY(-6px);
+      transition: opacity .35s .1s, transform .35s .1s, background .3s;
+    }
+    .pc:hover .pc-arrow {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .pc-arrow:hover { background: var(--gold); }
+    .pc-arrow svg { width: 14px; height: 14px; stroke: var(--gold); transition: stroke .3s; }
+    .pc-arrow:hover svg { stroke: var(--ink); }
+
+    /* GSM / fabric-type badge */
+    .pc-badge {
+      position: absolute;
+      top: 1rem; left: 1rem;
+      font-family: var(--f-mono);
+      font-size: .5rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(12,12,15,.75);
+      border: 1px solid rgba(200,169,110,.25);
+      padding: .3rem .7rem;
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      transform: translateY(-6px);
+      transition: opacity .35s .05s, transform .35s .05s;
+    }
+    .pc:hover .pc-badge { opacity: 1; transform: translateY(0); }
+
+    /* ═══════════════════════════════════════
+       CAREERS SECTION
+    ═══════════════════════════════════════ */
+    .careers-section {
+      background: var(--ink-deep);
+      position: relative;
+      overflow: hidden;
+    }
+    .careers-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 15px, rgba(255,255,255,.012) 15px, rgba(255,255,255,.012) 16px),
+        repeating-linear-gradient(90deg, transparent, transparent 15px, rgba(255,255,255,.012) 15px, rgba(255,255,255,.012) 16px);
+    }
+
+    .careers-top {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: end;
+      margin-bottom: 4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Culture cards */
+    .culture-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5px;
+      margin-bottom: 4rem;
+      position: relative;
+      z-index: 1;
+    }
+    .culture-card {
+      background: var(--ink-soft);
+      padding: 2rem 1.75rem;
+      border-top: 2px solid transparent;
+      transition: border-color .3s;
+    }
+    .culture-card:hover { border-top-color: var(--gold); }
+    .cc-icon {
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+    }
+    .cc-title {
+      font-family: var(--f-display);
+      font-size: 1.2rem;
+      color: var(--cotton);
+      margin-bottom: .5rem;
+    }
+    .cc-text {
+      font-size: .85rem;
+      color: var(--linen-lt);
+      line-height: 1.75;
+    }
+
+    /* Benefits strip */
+    .benefits-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 4rem;
+      position: relative;
+      z-index: 1;
+    }
+    .benefit-chip {
+      display: flex;
+      align-items: center;
+      gap: .55rem;
+      background: rgba(200,169,110,.07);
+      border: 1px solid rgba(200,169,110,.18);
+      padding: .5rem 1rem;
+      font-family: var(--f-mono);
+      font-size: .58rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--linen-lt);
+      transition: all .3s;
+    }
+    .benefit-chip:hover { background: rgba(200,169,110,.14); color: var(--cotton); }
+    .benefit-chip-dot {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* Job listings */
+    .jobs-header {
+      font-family: var(--f-mono);
+      font-size: .58rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .jobs-header::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(200,169,110,.15);
+    }
+
+    .jobs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5px;
+      margin-bottom: 4rem;
+      position: relative;
+      z-index: 1;
+    }
+    .job-card {
+      background: var(--ink-soft);
+      padding: 1.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1.5rem;
+      cursor: pointer;
+      transition: background .3s;
+    }
+    .job-card:hover { background: rgba(200,169,110,.06); }
+    .job-left {}
+    .job-dept {
+      font-family: var(--f-mono);
+      font-size: .55rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .45rem;
+    }
+    .job-title {
+      font-family: var(--f-display);
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--cotton);
+      margin-bottom: .4rem;
+    }
+    .job-meta {
+      font-family: var(--f-mono);
+      font-size: .55rem;
+      letter-spacing: .16em;
+      color: var(--linen);
+      text-transform: uppercase;
+    }
+    .job-meta span + span::before {
+      content: ' · ';
+      color: rgba(200,169,110,.4);
+    }
+    .job-arrow {
+      width: 36px; height: 36px;
+      border: 1px solid rgba(200,169,110,.25);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: .2rem;
+      transition: background .3s, border-color .3s;
+    }
+    .job-card:hover .job-arrow {
+      background: var(--gold);
+      border-color: var(--gold);
+    }
+    .job-card:hover .job-arrow svg { stroke: var(--ink); }
+    .job-arrow svg { stroke: var(--gold); transition: stroke .3s; }
+
+    /* Application form */
+    .apply-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+      position: relative;
+      z-index: 1;
+    }
+    .apply-info {}
+    .apply-tagline {
+      font-family: var(--f-display);
+      font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+      font-weight: 300;
+      color: var(--cotton);
+      line-height: 1.3;
+      margin-bottom: 1.25rem;
+    }
+    .apply-tagline em { font-style: italic; color: var(--gold); }
+    .apply-desc {
+      font-size: .9rem;
+      color: var(--linen-lt);
+      line-height: 1.85;
+      margin-bottom: 2rem;
+    }
+    .apply-note {
+      display: flex;
+      gap: .8rem;
+      align-items: flex-start;
+      padding: 1.2rem;
+      border: 1px solid rgba(200,169,110,.15);
+      font-size: .82rem;
+      color: var(--linen-lt);
+      line-height: 1.6;
+    }
+    .apply-note-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+
+    .apply-form {}
+    .apply-form-title {
+      font-family: var(--f-mono);
+      font-size: .58rem;
+      letter-spacing: .3em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+    .upload-box {
+      border: 1px dashed rgba(200,169,110,.3);
+      background: rgba(200,169,110,.03);
+      padding: 2rem;
+      text-align: center;
+      cursor: pointer;
+      transition: background .3s, border-color .3s;
+      margin-bottom: 1rem;
+    }
+    .upload-box:hover { background: rgba(200,169,110,.07); border-color: rgba(200,169,110,.5); }
+    .upload-icon { font-size: 1.5rem; margin-bottom: .6rem; }
+    .upload-text {
+      font-family: var(--f-mono);
+      font-size: .6rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--linen);
+    }
+    .upload-text span { color: var(--gold); }
+
+    @media(max-width:1024px){
+      .careers-top, .apply-section { grid-template-columns:1fr; gap:2.5rem; }
+      .culture-grid { grid-template-columns:1fr; }
+      .jobs-grid { grid-template-columns:1fr; }
+    }
   </style>
 </head>
 <body>
+
+<!-- ═══════ MOBILE DRAWER ═══════ -->
+<div class="mob-drawer" id="mobDrawer" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+  <ul class="mob-nav-list">
+    <li><a href="#about"      class="mob-link"><span class="mob-num">01</span>About</a></li>
+    <li><a href="#products"   class="mob-link"><span class="mob-num">02</span>Products</a></li>
+    <li><a href="#process"    class="mob-link"><span class="mob-num">03</span>Process</a></li>
+    <li><a href="#compliance" class="mob-link"><span class="mob-num">04</span>Compliance</a></li>
+    <li><a href="#csr"        class="mob-link"><span class="mob-num">05</span>CSR</a></li>
+    <li><a href="#careers"    class="mob-link"><span class="mob-num">06</span>Careers</a></li>
+    <li><a href="#contact"    class="mob-link"><span class="mob-num">07</span>Contact</a></li>
+  </ul>
+  <div class="mob-footer-row">
+    <a href="tel:+922135054624" class="mob-tel">+92 21 35054624</a>
+    <a href="#contact" class="btn-gold mob-link" style="display:inline-block">Request a Quote →</a>
+  </div>
+  <!-- Decorative stitch SVG -->
+  <svg class="mob-stitch-line" viewBox="0 0 300 400" fill="none" aria-hidden="true">
+    <path d="M300 0 L150 200 L300 400" stroke="#C8A96E" stroke-width="1" stroke-dasharray="6 5"/>
+    <path d="M260 0 L110 200 L260 400" stroke="#C8A96E" stroke-width="1" stroke-dasharray="4 6" opacity=".5"/>
+  </svg>
+</div>
 
 <!-- ═══════ NAV ═══════ -->
 <nav id="nav" role="navigation" aria-label="Main navigation">
@@ -620,9 +1140,13 @@
     <li><a href="#process">Process</a></li>
     <li><a href="#compliance">Compliance</a></li>
     <li><a href="#csr">CSR</a></li>
+    <li><a href="#careers">Careers</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
   <a href="#contact" class="nav-cta">Request Quote</a>
+  <button class="mob-toggle" id="mobToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobDrawer">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <!-- ═══════ HERO ═══════ -->
@@ -821,28 +1345,57 @@
         <h2 class="sh rv rv-d1">Crafted for <em>Every Stage</em> of Life</h2>
       </div>
       <div>
-        <p class="sub rv rv-d2">From the delicacy of newborn garments to the durability demanded by active adults — Kings Apparel engineers each category with precision materials and compliance-certified processes.</p>
+        <p class="sub rv rv-d2">From delicate newborn essentials to adult activewear — Kings Apparel engineers each category with precision materials and compliance-certified processes. Hover any card to explore, or filter by age group.</p>
         <a href="#contact" class="btn-ghost" style="margin-top:1.5rem;display:inline-block">View Full Catalogue</a>
       </div>
     </div>
 
-    <div class="prod-grid rv rv-d1">
+    <!-- Category filter tabs -->
+    <div class="prod-filter rv rv-d1" role="group" aria-label="Filter by category">
+      <button class="pf-btn active" onclick="filterProd(this,'all')">All</button>
+      <button class="pf-btn" onclick="filterProd(this,'infant')">Infant</button>
+      <button class="pf-btn" onclick="filterProd(this,'kids')">Kids</button>
+      <button class="pf-btn" onclick="filterProd(this,'adult')">Adult</button>
+      <button class="pf-btn" onclick="filterProd(this,'organic')">Organic</button>
+    </div>
 
-      <!-- Men & Women featured -->
-      <div class="pc" role="article" aria-label="Men and Women collection">
-        <div class="pc-bg" style="background:linear-gradient(140deg,#141420 0%,#1e2030 100%);">
-          <svg viewBox="0 0 600 280" fill="none" style="width:100%;height:100%;opacity:0.55">
-            <path d="M40 280L78 115L125 78L205 56Q255 98 300 56Q345 98 395 56L475 78L522 115L560 280Z"
-              fill="rgba(200,169,110,0.12)" stroke="rgba(200,169,110,0.18)" stroke-width="1"/>
-            <path d="M205 56Q255 98 300 56" fill="none" stroke="rgba(200,169,110,0.3)" stroke-width="1.5" stroke-dasharray="5 4"/>
-            <path d="M300 56Q345 98 395 56" fill="none" stroke="rgba(200,169,110,0.3)" stroke-width="1.5" stroke-dasharray="5 4"/>
-            <line x1="300" y1="56" x2="300" y2="280" stroke="rgba(200,169,110,0.1)" stroke-width="1" stroke-dasharray="4 3"/>
-            <!-- Hood -->
-            <path d="M205 56Q200 30 240 18Q270 10 300 14Q330 10 360 18Q400 30 395 56" fill="rgba(200,169,110,0.06)" stroke="rgba(200,169,110,0.15)" stroke-width="1"/>
-            <!-- Pocket -->
-            <rect x="230" y="155" width="140" height="60" rx="4" fill="none" stroke="rgba(200,169,110,0.18)" stroke-width="1" stroke-dasharray="4 3"/>
-            <text x="300" y="190" text-anchor="middle" fill="rgba(200,169,110,0.07)" font-family="Cormorant Garamond,serif" font-size="85" font-weight="300">KA</text>
-          </svg>
+    <div class="prod-grid rv rv-d1" id="prodGrid">
+
+      <!-- ── Men & Women (featured, spans 2 cols) ── -->
+      <div class="pc" data-cat="adult" role="article" aria-label="Men and Women collection">
+        <!-- Photo slot: swap src below with real product photography -->
+        <div class="pc-photo">
+          <div class="pc-photo-placeholder"></div>
+          <div class="pc-photo-pattern">
+            <svg viewBox="0 0 600 280" fill="none" style="width:100%;height:100%;opacity:.52">
+              <path d="M40 280L78 110L125 76L205 54Q255 96 300 54Q345 96 395 54L475 76L522 110L560 280Z"
+                fill="rgba(200,169,110,0.1)" stroke="rgba(200,169,110,0.16)" stroke-width="1"/>
+              <path d="M205 54Q255 96 300 54" fill="none" stroke="rgba(200,169,110,0.28)" stroke-width="1.5" stroke-dasharray="5 4"/>
+              <path d="M300 54Q345 96 395 54" fill="none" stroke="rgba(200,169,110,0.28)" stroke-width="1.5" stroke-dasharray="5 4"/>
+              <!-- Hood -->
+              <path d="M205 54Q200 26 240 14Q270 8 300 12Q330 8 360 14Q400 26 395 54"
+                fill="rgba(200,169,110,0.06)" stroke="rgba(200,169,110,0.14)" stroke-width="1"/>
+              <!-- Kangaroo pocket -->
+              <rect x="228" y="148" width="144" height="56" rx="4" fill="none"
+                stroke="rgba(200,169,110,0.16)" stroke-width="1" stroke-dasharray="4 3"/>
+              <!-- Drawstring -->
+              <line x1="270" y1="54" x2="265" y2="78" stroke="rgba(200,169,110,0.2)" stroke-width="0.8" stroke-dasharray="2 2"/>
+              <line x1="330" y1="54" x2="335" y2="78" stroke="rgba(200,169,110,0.2)" stroke-width="0.8" stroke-dasharray="2 2"/>
+              <text x="300" y="185" text-anchor="middle" fill="rgba(200,169,110,0.06)"
+                font-family="Cormorant Garamond,serif" font-size="90" font-weight="300">KA</text>
+              <!-- Side-seam stitching -->
+              <g stroke="#C8A96E" stroke-width="1" opacity="0.18" stroke-dasharray="4 4">
+                <line x1="78" y1="110" x2="40" y2="280"/>
+                <line x1="522" y1="110" x2="560" y2="280"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <!-- Badge top-left -->
+        <div class="pc-badge">220–300 GSM · Knitted</div>
+        <!-- Arrow top-right -->
+        <div class="pc-arrow">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H7M13 3V9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
         <div class="pc-overlay">
           <div class="pc-name">Men &amp; Women</div>
@@ -851,91 +1404,142 @@
         <div class="pc-stitch"></div>
       </div>
 
-      <!-- Newborn -->
-      <div class="pc" role="article" aria-label="Newborn collection">
-        <div class="pc-bg" style="background:linear-gradient(140deg,#171e22 0%,#1e2a2a 100%);">
-          <svg viewBox="0 0 280 380" fill="none" style="width:100%;height:100%;opacity:0.55">
-            <ellipse cx="140" cy="105" rx="48" ry="38" fill="rgba(200,169,110,0.1)" stroke="rgba(200,169,110,0.2)" stroke-width="1"/>
-            <path d="M96 140L74 188L70 290L210 290L206 188L184 140" fill="rgba(200,169,110,0.1)" stroke="rgba(200,169,110,0.2)" stroke-width="1"/>
-            <path d="M96 140L140 155L184 140" fill="none" stroke="rgba(200,169,110,0.28)" stroke-width="1.2" stroke-dasharray="4 3"/>
-            <line x1="96" y1="200" x2="74" y2="188" stroke="rgba(200,169,110,0.15)" stroke-width="1" stroke-dasharray="3 3"/>
-            <line x1="184" y1="200" x2="206" y2="188" stroke="rgba(200,169,110,0.15)" stroke-width="1" stroke-dasharray="3 3"/>
-          </svg>
+      <!-- ── Newborn ── -->
+      <div class="pc" data-cat="infant organic" role="article" aria-label="Newborn collection">
+        <div class="pc-photo">
+          <div class="pc-photo-placeholder"></div>
+          <div class="pc-photo-pattern">
+            <svg viewBox="0 0 280 380" fill="none" style="width:100%;height:100%;opacity:.55">
+              <ellipse cx="140" cy="102" rx="50" ry="38" fill="rgba(200,169,110,0.1)" stroke="rgba(200,169,110,0.2)" stroke-width="1"/>
+              <path d="M94 138L72 186L68 295L212 295L208 186L186 138" fill="rgba(200,169,110,0.1)" stroke="rgba(200,169,110,0.2)" stroke-width="1"/>
+              <path d="M94 138L140 155L186 138" fill="none" stroke="#C8A96E" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.4"/>
+              <!-- Snap buttons at hem -->
+              <circle cx="120" cy="285" r="4" fill="none" stroke="rgba(200,169,110,0.3)" stroke-width="0.8"/>
+              <circle cx="140" cy="285" r="4" fill="none" stroke="rgba(200,169,110,0.3)" stroke-width="0.8"/>
+              <circle cx="160" cy="285" r="4" fill="none" stroke="rgba(200,169,110,0.3)" stroke-width="0.8"/>
+            </svg>
+          </div>
+        </div>
+        <div class="pc-badge">GOTS Organic · 160 GSM</div>
+        <div class="pc-arrow">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H7M13 3V9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
         <div class="pc-overlay">
           <div class="pc-name">Newborn</div>
-          <div class="pc-tag">0–3 months · GOTS Certified</div>
+          <div class="pc-tag">0–3 months · GOTS Certified · Hypoallergenic</div>
         </div>
         <div class="pc-stitch"></div>
       </div>
 
-      <!-- Baby Boy -->
-      <div class="pc" role="article" aria-label="Baby Boy collection">
-        <div class="pc-bg" style="background:linear-gradient(140deg,#181922 0%,#222234 100%);">
-          <svg viewBox="0 0 280 380" fill="none" style="width:100%;height:100%;opacity:0.55">
-            <path d="M68 130L50 98L82 82L102 94L118 66L140 56L162 66L178 94L198 82L230 98L212 130L205 170L205 315L75 315Z"
-              fill="rgba(200,169,110,0.1)" stroke="rgba(200,169,110,0.2)" stroke-width="1"/>
-            <path d="M118 66Q140 80 162 66" fill="none" stroke="rgba(200,169,110,0.3)" stroke-width="1.2" stroke-dasharray="4 3"/>
-          </svg>
+      <!-- ── Baby Boy ── -->
+      <div class="pc" data-cat="infant" role="article" aria-label="Baby Boy collection">
+        <div class="pc-photo">
+          <div class="pc-photo-placeholder"></div>
+          <div class="pc-photo-pattern">
+            <svg viewBox="0 0 280 380" fill="none" style="width:100%;height:100%;opacity:.55">
+              <path d="M68 130L50 98L82 82L102 94L118 66L140 56L162 66L178 94L198 82L230 98L212 130L205 170L205 315L75 315Z"
+                fill="rgba(200,169,110,0.1)" stroke="rgba(200,169,110,0.2)" stroke-width="1"/>
+              <path d="M118 66Q140 80 162 66" fill="none" stroke="#C8A96E" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.4"/>
+              <!-- Chest pocket -->
+              <rect x="108" y="155" width="38" height="32" rx="2" fill="none" stroke="rgba(200,169,110,0.22)" stroke-width="0.8"/>
+            </svg>
+          </div>
+        </div>
+        <div class="pc-badge">180–220 GSM · Soft-knit</div>
+        <div class="pc-arrow">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H7M13 3V9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
         <div class="pc-overlay">
           <div class="pc-name">Baby Boy</div>
-          <div class="pc-tag">Soft-knit essentials</div>
+          <div class="pc-tag">3–24 months · Soft-knit essentials</div>
         </div>
         <div class="pc-stitch"></div>
       </div>
 
-      <!-- Baby Girl -->
-      <div class="pc" role="article" aria-label="Baby Girl collection">
-        <div class="pc-bg" style="background:linear-gradient(140deg,#221a1a 0%,#302424 100%);">
-          <svg viewBox="0 0 280 380" fill="none" style="width:100%;height:100%;opacity:0.55">
-            <path d="M82 118L64 88L92 72L112 84L128 58L140 50L152 58L168 84L188 72L216 88L198 118L188 152L205 315L75 315Z"
-              fill="rgba(200,169,110,0.1)" stroke="rgba(200,169,110,0.2)" stroke-width="1"/>
-            <path d="M128 58Q140 70 152 58" fill="none" stroke="rgba(200,169,110,0.3)" stroke-width="1.2" stroke-dasharray="4 3"/>
-            <path d="M75 315Q140 338 205 315" fill="none" stroke="rgba(200,169,110,0.15)" stroke-width="1" stroke-dasharray="3 3"/>
-          </svg>
+      <!-- ── Baby Girl ── -->
+      <div class="pc" data-cat="infant organic" role="article" aria-label="Baby Girl collection">
+        <div class="pc-photo">
+          <div class="pc-photo-placeholder"></div>
+          <div class="pc-photo-pattern">
+            <svg viewBox="0 0 280 380" fill="none" style="width:100%;height:100%;opacity:.55">
+              <path d="M82 118L64 88L92 72L112 84L128 58L140 50L152 58L168 84L188 72L216 88L198 118L188 152L205 315L75 315Z"
+                fill="rgba(200,169,110,0.1)" stroke="rgba(200,169,110,0.2)" stroke-width="1"/>
+              <path d="M128 58Q140 70 152 58" fill="none" stroke="#C8A96E" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.4"/>
+              <!-- Frill at hem -->
+              <path d="M75 315Q100 330 140 318Q180 330 205 315" fill="none" stroke="rgba(200,169,110,0.2)" stroke-width="1" stroke-dasharray="3 3"/>
+              <path d="M80 325Q110 338 140 326Q170 338 200 325" fill="none" stroke="rgba(200,169,110,0.14)" stroke-width="1" stroke-dasharray="3 3"/>
+            </svg>
+          </div>
+        </div>
+        <div class="pc-badge">160–200 GSM · Delicate</div>
+        <div class="pc-arrow">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H7M13 3V9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
         <div class="pc-overlay">
           <div class="pc-name">Baby Girl</div>
-          <div class="pc-tag">Delicate &amp; durable knits</div>
+          <div class="pc-tag">3–24 months · Delicate &amp; durable knits</div>
         </div>
         <div class="pc-stitch"></div>
       </div>
 
-      <!-- Boy -->
-      <div class="pc" role="article" aria-label="Boys collection">
-        <div class="pc-bg" style="background:linear-gradient(140deg,#1a1c24 0%,#242630 100%);">
-          <svg viewBox="0 0 280 380" fill="none" style="width:100%;height:100%;opacity:0.55">
-            <path d="M58 192L46 128L78 96L100 108L115 74L140 62L165 74L180 108L202 96L234 128L222 192L218 335L62 335Z"
-              fill="rgba(200,169,110,0.1)" stroke="rgba(200,169,110,0.2)" stroke-width="1"/>
-            <line x1="140" y1="62" x2="140" y2="335" stroke="rgba(200,169,110,0.1)" stroke-width="1" stroke-dasharray="3 4"/>
-          </svg>
+      <!-- ── Boy ── -->
+      <div class="pc" data-cat="kids" role="article" aria-label="Boys collection">
+        <div class="pc-photo">
+          <div class="pc-photo-placeholder"></div>
+          <div class="pc-photo-pattern">
+            <svg viewBox="0 0 280 380" fill="none" style="width:100%;height:100%;opacity:.55">
+              <path d="M58 192L46 128L78 96L100 108L115 74L140 62L165 74L180 108L202 96L234 128L222 192L218 335L62 335Z"
+                fill="rgba(200,169,110,0.1)" stroke="rgba(200,169,110,0.2)" stroke-width="1"/>
+              <line x1="140" y1="62" x2="140" y2="335" stroke="rgba(200,169,110,0.1)" stroke-width="1" stroke-dasharray="3 4"/>
+              <!-- Hood drawstring -->
+              <path d="M120 74Q140 92 160 74" fill="none" stroke="rgba(200,169,110,0.2)" stroke-width="0.8" stroke-dasharray="3 3"/>
+            </svg>
+          </div>
+        </div>
+        <div class="pc-badge">200–260 GSM · Active</div>
+        <div class="pc-arrow">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H7M13 3V9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
         <div class="pc-overlay">
           <div class="pc-name">Boy</div>
-          <div class="pc-tag">2–14 years · Active range</div>
+          <div class="pc-tag">2–14 years · Active range · Durable knit</div>
         </div>
         <div class="pc-stitch"></div>
       </div>
 
-      <!-- Girl -->
-      <div class="pc" role="article" aria-label="Girls collection">
-        <div class="pc-bg" style="background:linear-gradient(140deg,#231b1c 0%,#302626 100%);">
-          <svg viewBox="0 0 280 380" fill="none" style="width:100%;height:100%;opacity:0.55">
-            <path d="M76 172L58 118L86 86L108 96L123 68L140 58L157 68L172 96L194 86L222 118L204 172L218 335L62 335Z"
-              fill="rgba(200,169,110,0.1)" stroke="rgba(200,169,110,0.2)" stroke-width="1"/>
-            <path d="M62 335Q140 355 218 335" fill="none" stroke="rgba(200,169,110,0.15)" stroke-width="1" stroke-dasharray="3 3"/>
-          </svg>
+      <!-- ── Girl ── -->
+      <div class="pc" data-cat="kids organic" role="article" aria-label="Girls collection">
+        <div class="pc-photo">
+          <div class="pc-photo-placeholder"></div>
+          <div class="pc-photo-pattern">
+            <svg viewBox="0 0 280 380" fill="none" style="width:100%;height:100%;opacity:.55">
+              <path d="M76 172L58 118L86 86L108 96L123 68L140 58L157 68L172 96L194 86L222 118L204 172L218 335L62 335Z"
+                fill="rgba(200,169,110,0.1)" stroke="rgba(200,169,110,0.2)" stroke-width="1"/>
+              <path d="M62 335Q140 355 218 335" fill="none" stroke="rgba(200,169,110,0.15)" stroke-width="1" stroke-dasharray="3 3"/>
+              <!-- Waist gather -->
+              <path d="M80 195Q140 205 200 195" fill="none" stroke="rgba(200,169,110,0.2)" stroke-width="1" stroke-dasharray="3 3"/>
+            </svg>
+          </div>
+        </div>
+        <div class="pc-badge">180–240 GSM · Premium</div>
+        <div class="pc-arrow">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H7M13 3V9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
         <div class="pc-overlay">
           <div class="pc-name">Girl</div>
-          <div class="pc-tag">2–14 years · Premium range</div>
+          <div class="pc-tag">2–14 years · Premium &amp; organic range</div>
         </div>
         <div class="pc-stitch"></div>
       </div>
     </div>
+    <!-- Photo swap note (for developer) -->
+    <p style="font-family:var(--f-mono);font-size:.55rem;letter-spacing:.2em;color:var(--linen);opacity:.45;text-align:center;margin-top:1rem">
+      ↑ Photo slots ready — replace <code>.pc-photo-placeholder</code> with <code>.pc-photo-img</code> + <code>style="background-image:url(...)"</code> per card
+    </p>
   </div>
 </section>
+
+
 
 <!-- ═══════ PROCESS ═══════ -->
 <section class="proc-section" id="process" aria-label="Manufacturing process">
@@ -1299,6 +1903,240 @@
   </div>
 </section>
 
+<!-- ═══════ CAREERS ═══════ -->
+<section class="careers-section" id="careers" aria-label="Careers at Kings Apparel">
+  <div class="inner">
+
+    <!-- Header -->
+    <div class="careers-top">
+      <div>
+        <div class="eyebrow rv">Join Our Team</div>
+        <h2 class="sh rv rv-d1">Build a Career in <em>World-Class Manufacturing</em></h2>
+      </div>
+      <div class="rv rv-d2">
+        <p class="sub">
+          Kings Apparel is a place where craftsmanship meets opportunity. We invest in our people the same way we invest in our garments — with precision, care, and a long-term view. Join 1,200+ professionals shaping Pakistan's garment export story.
+        </p>
+        <a href="#apply" class="btn-ghost" style="margin-top:1.5rem;display:inline-block">See Open Positions ↓</a>
+      </div>
+    </div>
+
+    <!-- Culture cards -->
+    <div class="culture-grid">
+      <div class="culture-card rv">
+        <div class="cc-icon">🧵</div>
+        <div class="cc-title">Learn from the Best</div>
+        <p class="cc-text">Work alongside master sewers, technicians, and compliance managers with decades of combined experience in global B2B garment manufacturing.</p>
+      </div>
+      <div class="culture-card rv rv-d1">
+        <div class="cc-icon">📈</div>
+        <div class="cc-title">Grow with Purpose</div>
+        <p class="cc-text">Structured career ladders across production, quality, compliance, logistics, and IT — with mentorship, training budgets, and promotion from within.</p>
+      </div>
+      <div class="culture-card rv rv-d2">
+        <div class="cc-icon">🌱</div>
+        <div class="cc-title">Work Ethically</div>
+        <p class="cc-text">SA 8000, SEDEX, and BSCI-certified working environment. No forced overtime. Equal pay. A workplace that genuinely earns its compliance certificates.</p>
+      </div>
+    </div>
+
+    <!-- Benefits strip -->
+    <div class="benefits-strip rv">
+      <div class="benefit-chip"><span class="benefit-chip-dot"></span>Competitive Salary</div>
+      <div class="benefit-chip"><span class="benefit-chip-dot"></span>EOBI &amp; PESSI</div>
+      <div class="benefit-chip"><span class="benefit-chip-dot"></span>On-Site Medical</div>
+      <div class="benefit-chip"><span class="benefit-chip-dot"></span>Annual Leave 14 Days</div>
+      <div class="benefit-chip"><span class="benefit-chip-dot"></span>Transport Facility</div>
+      <div class="benefit-chip"><span class="benefit-chip-dot"></span>Canteen Subsidy</div>
+      <div class="benefit-chip"><span class="benefit-chip-dot"></span>Performance Bonus</div>
+      <div class="benefit-chip"><span class="benefit-chip-dot"></span>Training &amp; Development</div>
+      <div class="benefit-chip"><span class="benefit-chip-dot"></span>PPE Provided</div>
+      <div class="benefit-chip"><span class="benefit-chip-dot"></span>Equal Opportunity Employer</div>
+    </div>
+
+    <!-- Open positions -->
+    <div class="jobs-header rv">Open Positions</div>
+
+    <div class="jobs-grid rv rv-d1" id="apply">
+
+      <div class="job-card" onclick="selectJob('Senior QC Inspector')">
+        <div class="job-left">
+          <div class="job-dept">Quality Control</div>
+          <div class="job-title">Senior QC Inspector</div>
+          <div class="job-meta">
+            <span>Full-time</span>
+            <span>Karachi</span>
+            <span>5+ yrs exp</span>
+          </div>
+        </div>
+        <div class="job-arrow">
+          <svg viewBox="0 0 16 16" fill="none" width="14" height="14"><path d="M3 13L13 3M13 3H7M13 3V9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+
+      <div class="job-card" onclick="selectJob('Compliance &amp; Audit Manager')">
+        <div class="job-left">
+          <div class="job-dept">Compliance</div>
+          <div class="job-title">Compliance &amp; Audit Manager</div>
+          <div class="job-meta">
+            <span>Full-time</span>
+            <span>Karachi</span>
+            <span>7+ yrs exp</span>
+          </div>
+        </div>
+        <div class="job-arrow">
+          <svg viewBox="0 0 16 16" fill="none" width="14" height="14"><path d="M3 13L13 3M13 3H7M13 3V9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+
+      <div class="job-card" onclick="selectJob('Knitting Machine Operator')">
+        <div class="job-left">
+          <div class="job-dept">Production</div>
+          <div class="job-title">Knitting Machine Operator</div>
+          <div class="job-meta">
+            <span>Full-time</span>
+            <span>Korangi</span>
+            <span>2+ yrs exp</span>
+          </div>
+        </div>
+        <div class="job-arrow">
+          <svg viewBox="0 0 16 16" fill="none" width="14" height="14"><path d="M3 13L13 3M13 3H7M13 3V9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+
+      <div class="job-card" onclick="selectJob('Merchandiser — Export')">
+        <div class="job-left">
+          <div class="job-dept">Merchandising</div>
+          <div class="job-title">Merchandiser — Export</div>
+          <div class="job-meta">
+            <span>Full-time</span>
+            <span>Karachi</span>
+            <span>3+ yrs exp</span>
+          </div>
+        </div>
+        <div class="job-arrow">
+          <svg viewBox="0 0 16 16" fill="none" width="14" height="14"><path d="M3 13L13 3M13 3H7M13 3V9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+
+      <div class="job-card" onclick="selectJob('HR &amp; Training Officer')">
+        <div class="job-left">
+          <div class="job-dept">Human Resources</div>
+          <div class="job-title">HR &amp; Training Officer</div>
+          <div class="job-meta">
+            <span>Full-time</span>
+            <span>Karachi</span>
+            <span>3+ yrs exp</span>
+          </div>
+        </div>
+        <div class="job-arrow">
+          <svg viewBox="0 0 16 16" fill="none" width="14" height="14"><path d="M3 13L13 3M13 3H7M13 3V9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+
+      <div class="job-card" onclick="selectJob('IE &amp; Production Planning Engineer')">
+        <div class="job-left">
+          <div class="job-dept">Industrial Engineering</div>
+          <div class="job-title">IE &amp; Production Planning Engineer</div>
+          <div class="job-meta">
+            <span>Full-time</span>
+            <span>Korangi</span>
+            <span>4+ yrs exp</span>
+          </div>
+        </div>
+        <div class="job-arrow">
+          <svg viewBox="0 0 16 16" fill="none" width="14" height="14"><path d="M3 13L13 3M13 3H7M13 3V9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Application form -->
+    <div class="apply-section">
+      <div class="apply-info rv">
+        <div class="apply-tagline">Don't see your role?<br><em>Apply Speculatively</em></div>
+        <p class="apply-desc">
+          We're always open to exceptional talent. Send us your CV and tell us what you bring — we'll reach out when the right position opens.
+        </p>
+        <div class="apply-note">
+          <span class="apply-note-icon">📋</span>
+          <div>Kings Apparel is an equal-opportunity employer. We welcome applications from all qualified individuals regardless of gender, age, disability, or background.</div>
+        </div>
+      </div>
+
+      <div class="apply-form rv rv-d1">
+        <div class="apply-form-title">Submit Your Application</div>
+
+        <div class="fg">
+          <label for="a-name">Full Name</label>
+          <input type="text" id="a-name" placeholder="Muhammad Ahmed">
+        </div>
+
+        <div class="form-row">
+          <div class="fg">
+            <label for="a-email">Email</label>
+            <input type="email" id="a-email" placeholder="ahmed@email.com">
+          </div>
+          <div class="fg">
+            <label for="a-phone">Phone</label>
+            <input type="tel" id="a-phone" placeholder="+92 300 000 0000">
+          </div>
+        </div>
+
+        <div class="fg">
+          <label for="a-pos">Position Applying For</label>
+          <select id="a-pos">
+            <option value="">Select a position</option>
+            <option>Senior QC Inspector</option>
+            <option>Compliance &amp; Audit Manager</option>
+            <option>Knitting Machine Operator</option>
+            <option>Merchandiser — Export</option>
+            <option>HR &amp; Training Officer</option>
+            <option>IE &amp; Production Planning Engineer</option>
+            <option>Speculative / Other</option>
+          </select>
+        </div>
+
+        <div class="fg">
+          <label for="a-exp">Years of Experience</label>
+          <select id="a-exp">
+            <option value="">Select experience level</option>
+            <option>0–2 years (Entry level)</option>
+            <option>2–5 years</option>
+            <option>5–10 years</option>
+            <option>10+ years</option>
+          </select>
+        </div>
+
+        <!-- CV upload slot -->
+        <div class="upload-box" onclick="document.getElementById('cv-upload').click()" role="button" tabindex="0" aria-label="Upload CV">
+          <input type="file" id="cv-upload" accept=".pdf,.doc,.docx" style="display:none" onchange="handleCvUpload(this)">
+          <div class="upload-icon">📄</div>
+          <div class="upload-text">
+            <span>Click to upload CV</span><br>
+            PDF, DOC, DOCX — Max 5MB
+          </div>
+          <div id="cv-name" style="font-family:var(--f-mono);font-size:.58rem;color:var(--gold);margin-top:.5rem;letter-spacing:.15em"></div>
+        </div>
+
+        <div class="fg">
+          <label for="a-cover">Cover Note (optional)</label>
+          <textarea id="a-cover" placeholder="Tell us what you'd bring to Kings Apparel..." style="min-height:90px"></textarea>
+        </div>
+
+        <button type="button" class="btn-gold" style="width:100%;cursor:pointer" onclick="submitApplication()">
+          Submit Application →
+        </button>
+
+        <p style="font-family:var(--f-mono);font-size:.55rem;color:var(--linen);letter-spacing:.12em;margin-top:.85rem;text-align:center">
+          HR team responds within 5–7 business days.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- ═══════ CONTACT ═══════ -->
 <section class="contact-section" id="contact" aria-label="Contact and inquiry">
   <div class="inner">
@@ -1462,7 +2300,7 @@ window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 50);
 }, {passive:true});
 
-/* ─── Smooth scroll for all hash links ─── */
+/* ─── Smooth scroll for hash links ─── */
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     const t = document.querySelector(a.getAttribute('href'));
@@ -1470,16 +2308,115 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-/* ─── Intersection Observer: reveal elements ─── */
-const rv = new IntersectionObserver(entries => {
+/* ═══ MOBILE MENU ═══ */
+const toggle   = document.getElementById('mobToggle');
+const drawer   = document.getElementById('mobDrawer');
+const mobLinks = document.querySelectorAll('.mob-link');
+
+toggle.addEventListener('click', () => {
+  const open = drawer.classList.toggle('open');
+  toggle.classList.toggle('open', open);
+  toggle.setAttribute('aria-expanded', open);
+  document.body.classList.toggle('menu-open', open);
+});
+
+mobLinks.forEach(link => {
+  link.addEventListener('click', () => {
+    drawer.classList.remove('open');
+    toggle.classList.remove('open');
+    toggle.setAttribute('aria-expanded', false);
+    document.body.classList.remove('menu-open');
+  });
+});
+
+// Close on Escape
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && drawer.classList.contains('open')) {
+    drawer.classList.remove('open');
+    toggle.classList.remove('open');
+    toggle.setAttribute('aria-expanded', false);
+    document.body.classList.remove('menu-open');
+    toggle.focus();
+  }
+});
+
+/* ═══ PRODUCT FILTER ═══ */
+function filterProd(btn, cat) {
+  document.querySelectorAll('.pf-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#prodGrid .pc').forEach(card => {
+    const cats = card.dataset.cat || '';
+    const show = cat === 'all' || cats.includes(cat);
+    card.style.opacity = show ? '1' : '0.2';
+    card.style.pointerEvents = show ? 'auto' : 'none';
+    card.style.transform = show ? 'scale(1)' : 'scale(0.97)';
+    card.style.transition = 'opacity .4s ease, transform .4s ease';
+  });
+}
+
+/* ═══ CAREERS — select job from listing ═══ */
+function selectJob(title) {
+  const sel = document.getElementById('a-pos');
+  if (!sel) return;
+  for (let i = 0; i < sel.options.length; i++) {
+    if (sel.options[i].text.replace(/&amp;/g, '&') === title.replace(/&amp;/g, '&')) {
+      sel.selectedIndex = i;
+      break;
+    }
+  }
+  document.getElementById('apply').scrollIntoView({behavior:'smooth', block:'start'});
+  setTimeout(() => {
+    const applyForm = document.querySelector('.apply-form');
+    if (applyForm) {
+      applyForm.style.outline = '1px solid rgba(200,169,110,.5)';
+      setTimeout(() => { applyForm.style.outline = ''; }, 1800);
+    }
+  }, 600);
+}
+
+/* ═══ CV UPLOAD DISPLAY ═══ */
+function handleCvUpload(input) {
+  const nameEl = document.getElementById('cv-name');
+  if (input.files.length > 0) {
+    nameEl.textContent = '✓  ' + input.files[0].name;
+  }
+}
+
+/* ═══ SUBMIT HANDLERS ═══ */
+function submitForm() {
+  const name  = document.getElementById('f-name').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  if (!name || !email) {
+    alert('Please enter your name and email address to submit the inquiry.');
+    return;
+  }
+  alert('Thank you for your inquiry! Our team will be in touch within 48 business hours.');
+}
+
+function submitApplication() {
+  const name  = document.getElementById('a-name').value.trim();
+  const email = document.getElementById('a-email').value.trim();
+  const pos   = document.getElementById('a-pos').value;
+  if (!name || !email) {
+    alert('Please enter your name and email to submit your application.');
+    return;
+  }
+  if (!pos) {
+    alert('Please select the position you are applying for.');
+    return;
+  }
+  alert(`Thank you, ${name}! Your application for "${pos}" has been received. Our HR team will be in touch within 5–7 business days.`);
+}
+
+/* ═══ INTERSECTION OBSERVER: REVEAL ═══ */
+const rvObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('vis'); rv.unobserve(e.target); }
+    if (e.isIntersecting) { e.target.classList.add('vis'); rvObs.unobserve(e.target); }
   });
 }, {threshold:.14, rootMargin:'0px 0px -45px 0px'});
-document.querySelectorAll('.rv').forEach(el => rv.observe(el));
+document.querySelectorAll('.rv').forEach(el => rvObs.observe(el));
 
-/* ─── Counter animation ─── */
-const ctrs = document.querySelectorAll('.ctr');
+/* ═══ COUNTER ANIMATION ═══ */
 const ctrObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (!e.isIntersecting) return;
@@ -1497,10 +2434,9 @@ const ctrObs = new IntersectionObserver(entries => {
     ctrObs.unobserve(el);
   });
 }, {threshold:.5});
-ctrs.forEach(c => ctrObs.observe(c));
+document.querySelectorAll('.ctr').forEach(c => ctrObs.observe(c));
 
-/* ─── Metric bars ─── */
-const bars = document.querySelectorAll('.metric-fill');
+/* ═══ METRIC BARS ═══ */
 const barObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (!e.isIntersecting) return;
@@ -1509,49 +2445,36 @@ const barObs = new IntersectionObserver(entries => {
     barObs.unobserve(b);
   });
 }, {threshold:.5});
-bars.forEach(b => barObs.observe(b));
+document.querySelectorAll('.metric-fill').forEach(b => barObs.observe(b));
 
-/* ─── Hero stitch animation ─── */
-const heroStitches = document.querySelectorAll('.garment-stitch.gs1, .garment-stitch.gs2, .garment-stitch.gs3, .garment-stitch.gs4, .garment-stitch.gs5');
+/* ═══ HERO STITCH ANIMATION ═══ */
 const heroSvg = document.querySelector('.hero-svg-wrap');
 if (heroSvg) {
-  const heroObs = new IntersectionObserver(entries => {
+  const hObs = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (!e.isIntersecting) return;
-      heroStitches.forEach((s, i) => {
+      heroSvg.querySelectorAll('.garment-stitch').forEach((s, i) => {
         s.style.animation = `stitchDraw ${2.8 + i * 0.2}s ease forwards ${0.5 + i * 0.45}s`;
       });
-      heroObs.unobserve(e.target);
+      hObs.unobserve(e.target);
     });
   }, {threshold:.2});
-  heroObs.observe(heroSvg);
+  hObs.observe(heroSvg);
 }
 
-/* ─── Process SVG stitch animation ─── */
-const procStitches = document.querySelectorAll('.garment-stitch.ps1, .garment-stitch.ps2, .garment-stitch.ps3, .garment-stitch.ps4, .garment-stitch.ps5');
+/* ═══ PROCESS SVG STITCH ANIMATION ═══ */
 const procSvg = document.getElementById('procSvg');
 if (procSvg) {
-  const procObs = new IntersectionObserver(entries => {
+  const pObs = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (!e.isIntersecting) return;
-      procStitches.forEach((s, i) => {
+      procSvg.querySelectorAll('.garment-stitch').forEach((s, i) => {
         s.style.animation = `stitchDraw ${2.5 + i * 0.15}s ease forwards ${0.3 + i * 0.4}s`;
       });
-      procObs.unobserve(e.target);
+      pObs.unobserve(e.target);
     });
   }, {threshold:.25});
-  procObs.observe(procSvg);
-}
-
-/* ─── Form submit ─── */
-function submitForm() {
-  const name = document.getElementById('f-name').value.trim();
-  const email = document.getElementById('f-email').value.trim();
-  if (!name || !email) {
-    alert('Please enter your name and email address to submit the inquiry.');
-    return;
-  }
-  alert('Thank you for your inquiry! Our team will be in touch within 48 business hours.');
+  pObs.observe(procSvg);
 }
 </script>
 
