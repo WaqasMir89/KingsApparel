@@ -1735,6 +1735,550 @@
     /* Disable parallax on mobile / reduced-motion */
     @media(max-width:1024px)    { .hero-layer { transform: none !important; } }
     @media(prefers-reduced-motion:reduce) { .hero-layer { transform: none !important; } }
+    /* ══════════════════════════════════════════════════
+       F12 · FABRIC & COLOUR SWATCH BROWSER
+    ══════════════════════════════════════════════════ */
+    .swatch-section { background: var(--ink-soft); }
+
+    .swatch-filter { display:flex; gap:.6rem; flex-wrap:wrap; margin-bottom:2.5rem; }
+    .sw-btn {
+      font-family:var(--f-mono); font-size:.55rem; letter-spacing:.2em;
+      text-transform:uppercase; color:var(--linen-lt);
+      background:none; border:1px solid rgba(200,169,110,.2);
+      padding:.45rem 1rem; cursor:pointer; transition:all .25s;
+    }
+    .sw-btn.active, .sw-btn:hover { color:var(--ink); background:var(--gold); border-color:var(--gold); }
+
+    .fabric-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
+    @media(max-width:1024px){ .fabric-grid { grid-template-columns:1fr 1fr; } }
+    @media(max-width:600px){ .fabric-grid { grid-template-columns:1fr; } }
+
+    .fabric-card {
+      background:var(--ink-deep); cursor:pointer;
+      border:1px solid rgba(200,169,110,.08);
+      transition:border-color .3s; overflow:hidden;
+    }
+    .fabric-card:hover { border-color:rgba(200,169,110,.35); }
+    .fabric-card.hidden { display:none; }
+
+    .fc-head {
+      padding:1.5rem 1.5rem 1rem; display:flex;
+      justify-content:space-between; align-items:flex-start;
+    }
+    .fc-name {
+      font-family:var(--f-display); font-size:1.2rem;
+      font-weight:400; color:var(--cotton); margin-bottom:.2rem;
+    }
+    .fc-gsm {
+      font-family:var(--f-mono); font-size:.55rem;
+      letter-spacing:.18em; color:var(--gold); text-transform:uppercase;
+    }
+    .fc-certs { display:flex; gap:.4rem; flex-wrap:wrap; }
+    .fc-cert {
+      font-family:var(--f-mono); font-size:.48rem;
+      letter-spacing:.15em; text-transform:uppercase;
+      color:var(--gold); border:1px solid rgba(200,169,110,.28);
+      padding:.2rem .5rem;
+    }
+
+    .fc-comp {
+      padding:0 1.5rem .75rem;
+      font-size:.82rem; color:var(--linen-lt); line-height:1.65;
+    }
+
+    /* Colour swatch strip */
+    .fc-swatches {
+      display:flex; flex-wrap:wrap; gap:4px;
+      padding:0 1.5rem 1rem;
+    }
+    .fc-swatch {
+      width:28px; height:28px; cursor:pointer;
+      position:relative; border:1px solid rgba(0,0,0,.2);
+      transition:transform .2s;
+    }
+    .fc-swatch:hover { transform:scale(1.25); z-index:2; }
+    .fc-swatch-tooltip {
+      position:absolute; bottom:calc(100% + 5px); left:50%;
+      transform:translateX(-50%); white-space:nowrap;
+      background:rgba(12,12,15,.95); border:1px solid rgba(200,169,110,.3);
+      color:var(--gold); font-family:var(--f-mono);
+      font-size:.48rem; letter-spacing:.15em; padding:.25rem .5rem;
+      opacity:0; pointer-events:none; transition:opacity .2s; z-index:10;
+    }
+    .fc-swatch:hover .fc-swatch-tooltip { opacity:1; }
+
+    .fc-foot {
+      padding:.75rem 1.5rem 1.25rem;
+      display:flex; justify-content:space-between; align-items:center;
+      border-top:1px solid rgba(200,169,110,.08);
+    }
+    .fc-count { font-family:var(--f-mono); font-size:.55rem; color:var(--linen); letter-spacing:.15em; }
+    .fc-rfq {
+      font-family:var(--f-mono); font-size:.55rem;
+      letter-spacing:.18em; text-transform:uppercase;
+      color:var(--ink); background:var(--gold);
+      border:none; padding:.45rem 1rem; cursor:pointer; transition:background .25s;
+    }
+    .fc-rfq:hover { background:var(--gold-lt); }
+
+    /* ══════════════════════════════════════════════════
+       F13 · FACTORY VIDEO TOUR
+    ══════════════════════════════════════════════════ */
+    .video-section { background:var(--ink); }
+
+    .video-grid { display:grid; grid-template-columns:3fr 2fr; gap:3rem; align-items:start; margin-top:3rem; }
+    @media(max-width:1024px){ .video-grid { grid-template-columns:1fr; } }
+
+    .video-player-wrap {
+      position:relative; width:100%; aspect-ratio:16/9;
+      background:var(--ink-deep); border:1px solid rgba(200,169,110,.12);
+      overflow:hidden; cursor:pointer;
+    }
+    .video-fabric-bg {
+      position:absolute; inset:0;
+      background-image:
+        repeating-linear-gradient(0deg,transparent,transparent 15px,rgba(255,255,255,.018) 15px,rgba(255,255,255,.018) 16px),
+        repeating-linear-gradient(90deg,transparent,transparent 15px,rgba(255,255,255,.018) 15px,rgba(255,255,255,.018) 16px);
+    }
+    .video-poster-content {
+      position:absolute; inset:0;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      gap:1.25rem;
+    }
+    .video-play-btn {
+      width:72px; height:72px;
+      border:1.5px solid rgba(200,169,110,.6);
+      border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      background:rgba(12,12,15,.6); backdrop-filter:blur(8px);
+      transition:background .3s, border-color .3s, transform .3s;
+    }
+    .video-player-wrap:hover .video-play-btn {
+      background:var(--gold); border-color:var(--gold); transform:scale(1.08);
+    }
+    .video-play-btn svg { stroke:var(--gold); transition:stroke .3s; margin-left:4px; }
+    .video-player-wrap:hover .video-play-btn svg { stroke:var(--ink); }
+    .video-poster-label {
+      font-family:var(--f-mono); font-size:.62rem;
+      letter-spacing:.3em; text-transform:uppercase; color:var(--linen-lt);
+    }
+    /* Actual iframe (hidden until play clicked) */
+    .video-iframe-wrap {
+      position:absolute; inset:0; display:none;
+    }
+    .video-iframe-wrap iframe { width:100%; height:100%; border:none; }
+    .video-iframe-wrap.playing { display:block; }
+
+    /* Chapter list */
+    .video-chapters { display:flex; flex-direction:column; gap:0; }
+    .chapter-item {
+      display:flex; gap:1rem; align-items:flex-start;
+      padding:1.1rem 0; border-bottom:1px solid rgba(200,169,110,.1);
+      cursor:pointer; transition:border-color .25s;
+    }
+    .chapter-item:last-child { border-bottom:none; }
+    .chapter-item:hover { border-bottom-color:var(--gold); }
+    .chapter-num {
+      font-family:var(--f-mono); font-size:.58rem;
+      color:var(--gold); letter-spacing:.1em; padding-top:3px; min-width:28px;
+    }
+    .chapter-title {
+      font-family:var(--f-display); font-size:1rem;
+      color:var(--cotton); margin-bottom:.2rem;
+    }
+    .chapter-desc { font-size:.8rem; color:var(--linen); line-height:1.6; }
+    .chapter-time {
+      font-family:var(--f-mono); font-size:.52rem;
+      color:var(--linen); letter-spacing:.12em; margin-left:auto;
+      padding-top:3px; flex-shrink:0;
+    }
+
+    /* Factory stats below video */
+    .video-stats {
+      display:grid; grid-template-columns:repeat(4,1fr);
+      gap:2px; margin-top:2px;
+    }
+    @media(max-width:600px){ .video-stats { grid-template-columns:repeat(2,1fr); } }
+    .vs-item {
+      background:var(--ink-soft); padding:1.25rem;
+      text-align:center; border-top:2px solid transparent;
+      transition:border-color .3s;
+    }
+    .vs-item:hover { border-top-color:var(--gold); }
+    .vs-num {
+      font-family:var(--f-display); font-size:2rem;
+      font-weight:300; color:var(--gold); line-height:1;
+    }
+    .vs-label {
+      font-family:var(--f-mono); font-size:.52rem;
+      letter-spacing:.2em; text-transform:uppercase; color:var(--linen); margin-top:.3rem;
+    }
+
+    /* ══════════════════════════════════════════════════
+       F14 · SUSTAINABILITY / ESG SECTION
+    ══════════════════════════════════════════════════ */
+    .esg-section { background:var(--ink-deep); }
+
+    .esg-top { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:end; margin-bottom:4rem; }
+    @media(max-width:1024px){ .esg-top { grid-template-columns:1fr; gap:2rem; } }
+
+    /* Animated ring charts */
+    .esg-rings { display:grid; grid-template-columns:repeat(4,1fr); gap:2rem; margin-bottom:4rem; }
+    @media(max-width:1024px){ .esg-rings { grid-template-columns:repeat(2,1fr); } }
+
+    .esg-ring-wrap { display:flex; flex-direction:column; align-items:center; gap:.85rem; }
+    .esg-ring-svg { width:110px; height:110px; }
+    .esg-ring-bg { fill:none; stroke:rgba(200,169,110,.1); stroke-width:6; }
+    .esg-ring-fill {
+      fill:none; stroke:var(--gold); stroke-width:6;
+      stroke-linecap:round; stroke-dasharray:283; stroke-dashoffset:283;
+      transform:rotate(-90deg); transform-origin:center;
+      transition:stroke-dashoffset 1.8s cubic-bezier(.4,0,.2,1);
+    }
+    .esg-ring-fill.green  { stroke:#4CAF8A; }
+    .esg-ring-fill.teal   { stroke:#4AAFB0; }
+    .esg-ring-fill.amber  { stroke:var(--gold); }
+
+    .esg-ring-label {
+      position:absolute; inset:0;
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+    }
+    .esg-ring-val {
+      font-family:var(--f-display); font-size:1.4rem;
+      font-weight:300; color:var(--cotton); line-height:1;
+    }
+    .esg-ring-unit {
+      font-family:var(--f-mono); font-size:.5rem;
+      letter-spacing:.15em; color:var(--linen); margin-top:2px;
+    }
+    .esg-ring-title {
+      font-family:var(--f-mono); font-size:.55rem;
+      letter-spacing:.18em; text-transform:uppercase;
+      color:var(--linen-lt); text-align:center; line-height:1.5;
+    }
+
+    /* SDG badges */
+    .sdg-row { display:flex; gap:.75rem; flex-wrap:wrap; margin-bottom:3rem; }
+    .sdg-badge {
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      width:64px; height:64px; border-radius:4px;
+      font-family:var(--f-mono); font-size:.45rem;
+      letter-spacing:.1em; text-transform:uppercase;
+      text-align:center; line-height:1.4; gap:2px;
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .sdg-num { font-size:1.1rem; font-weight:700; font-family:var(--f-body); }
+    .sdg-5  { background:rgba(255,58,33,.15); color:#FF6B4A; border-color:rgba(255,58,33,.3); }
+    .sdg-8  { background:rgba(162,25,66,.15);  color:#D45580; border-color:rgba(162,25,66,.3); }
+    .sdg-12 { background:rgba(191,139,46,.15); color:#C8A96E; border-color:rgba(191,139,46,.3); }
+    .sdg-13 { background:rgba(62,152,71,.15);  color:#4CAF8A; border-color:rgba(62,152,71,.3); }
+    .sdg-17 { background:rgba(25,90,145,.15);  color:#5B9BD5; border-color:rgba(25,90,145,.3); }
+
+    /* 2030 targets table */
+    .esg-targets { width:100%; border-collapse:collapse; margin-top:2.5rem; }
+    .esg-targets th {
+      font-family:var(--f-mono); font-size:.55rem;
+      letter-spacing:.2em; text-transform:uppercase;
+      color:var(--linen); text-align:left;
+      padding:.75rem 1rem; border-bottom:1px solid rgba(200,169,110,.15);
+    }
+    .esg-targets td {
+      font-size:.85rem; color:var(--linen-lt);
+      padding:.9rem 1rem; border-bottom:1px solid rgba(200,169,110,.07);
+      line-height:1.5;
+    }
+    .esg-targets tr:hover td { background:rgba(200,169,110,.03); }
+    .esg-prog-bar {
+      height:3px; background:rgba(200,169,110,.12);
+      border-radius:2px; min-width:80px; position:relative; overflow:hidden;
+    }
+    .esg-prog-fill {
+      position:absolute; left:0; top:0; height:100%;
+      background:var(--gold); border-radius:2px;
+      width:0; transition:width 1.5s ease;
+    }
+    .esg-prog-fill.green { background:#4CAF8A; }
+    .on-target {
+      font-family:var(--f-mono); font-size:.5rem;
+      letter-spacing:.15em; text-transform:uppercase;
+      padding:.2rem .6rem; border-radius:99px;
+    }
+    .on-target.yes { background:rgba(76,175,138,.15); color:#4CAF8A; }
+    .on-target.prog { background:rgba(200,169,110,.15); color:var(--gold); }
+
+    /* ══════════════════════════════════════════════════
+       F15 · ORDER STATUS TRACKER
+    ══════════════════════════════════════════════════ */
+    .tracker-section { background:var(--ink-soft); }
+
+    .tracker-grid { display:grid; grid-template-columns:1fr 2fr; gap:4rem; align-items:start; }
+    @media(max-width:1024px){ .tracker-grid { grid-template-columns:1fr; gap:2.5rem; } }
+
+    .tracker-input-wrap {
+      position:sticky; top:7rem;
+    }
+    .tracker-label {
+      font-family:var(--f-mono); font-size:.58rem;
+      letter-spacing:.28em; text-transform:uppercase;
+      color:var(--gold); margin-bottom:.75rem; display:block;
+    }
+    .tracker-input-row { display:flex; gap:0; }
+    .tracker-input {
+      flex:1; background:rgba(255,255,255,.04);
+      border:1px solid rgba(200,169,110,.2); border-right:none;
+      color:var(--cotton); padding:.85rem 1rem;
+      font-family:var(--f-body); font-size:.95rem;
+      outline:none; letter-spacing:.05em;
+      transition:border-color .3s;
+    }
+    .tracker-input:focus { border-color:var(--gold); }
+    .tracker-input::placeholder { color:var(--linen); letter-spacing:.05em; }
+    .tracker-btn {
+      font-family:var(--f-mono); font-size:.6rem;
+      letter-spacing:.2em; text-transform:uppercase;
+      color:var(--ink); background:var(--gold);
+      border:none; padding:.85rem 1.2rem; cursor:pointer; transition:background .25s;
+    }
+    .tracker-btn:hover { background:var(--gold-lt); }
+
+    .tracker-hint {
+      font-family:var(--f-mono); font-size:.55rem;
+      letter-spacing:.15em; color:var(--linen);
+      margin-top:.85rem; line-height:1.8;
+    }
+    .tracker-demo-pos {
+      display:flex; flex-direction:column; gap:.35rem; margin-top:1.25rem;
+    }
+    .demo-po {
+      font-family:var(--f-mono); font-size:.58rem;
+      letter-spacing:.15em; color:var(--gold);
+      cursor:pointer; text-decoration:underline;
+      text-decoration-color:rgba(200,169,110,.35);
+      transition:text-decoration-color .2s;
+    }
+    .demo-po:hover { text-decoration-color:var(--gold); }
+
+    /* Result panel */
+    .tracker-result { display:none; }
+    .tracker-result.show { display:block; }
+
+    .tr-header {
+      display:flex; justify-content:space-between; align-items:flex-start;
+      flex-wrap:wrap; gap:1rem;
+      padding:1.5rem; background:var(--ink-deep);
+      border:1px solid rgba(200,169,110,.12); margin-bottom:2px;
+    }
+    .tr-po { font-family:var(--f-mono); font-size:.6rem; letter-spacing:.22em; color:var(--gold); text-transform:uppercase; }
+    .tr-title { font-family:var(--f-display); font-size:1.25rem; color:var(--cotton); margin-top:.2rem; }
+    .tr-status-badge {
+      font-family:var(--f-mono); font-size:.55rem;
+      letter-spacing:.18em; text-transform:uppercase;
+      padding:.35rem .85rem; border-radius:2px; flex-shrink:0;
+    }
+    .status-production { background:rgba(200,169,110,.15); color:var(--gold); }
+    .status-qc         { background:rgba(76,175,138,.12); color:#4CAF8A; }
+    .status-shipped    { background:rgba(91,155,213,.12); color:#5B9BD5; }
+    .status-complete   { background:rgba(76,175,138,.18); color:#4CAF8A; }
+
+    /* Stage timeline */
+    .tr-stages { display:flex; flex-direction:column; gap:0; }
+    .tr-stage {
+      display:grid; grid-template-columns:auto 1fr;
+      gap:1.25rem; padding:1.25rem 1.5rem;
+      background:var(--ink-deep); border-left:3px solid transparent;
+      border-bottom:1px solid rgba(200,169,110,.07);
+      transition:border-color .25s;
+    }
+    .tr-stage.done    { border-left-color:var(--gold); }
+    .tr-stage.active  { border-left-color:#4CAF8A; background:rgba(76,175,138,.04); }
+    .tr-stage.pending { border-left-color:rgba(200,169,110,.15); opacity:.55; }
+
+    .tr-stage-icon {
+      width:32px; height:32px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      flex-shrink:0; font-size:.9rem;
+    }
+    .tr-stage.done    .tr-stage-icon { background:rgba(200,169,110,.15); }
+    .tr-stage.active  .tr-stage-icon { background:rgba(76,175,138,.15); }
+    .tr-stage.pending .tr-stage-icon { background:rgba(255,255,255,.04); }
+
+    .tr-stage-name {
+      font-family:var(--f-display); font-size:1rem;
+      color:var(--cotton); margin-bottom:.2rem;
+    }
+    .tr-stage-detail { font-size:.8rem; color:var(--linen-lt); line-height:1.6; }
+    .tr-stage-date {
+      font-family:var(--f-mono); font-size:.52rem;
+      letter-spacing:.15em; color:var(--linen); margin-top:.3rem;
+    }
+
+    .tr-no-result {
+      padding:3rem; text-align:center;
+      font-family:var(--f-mono); font-size:.65rem;
+      letter-spacing:.2em; text-transform:uppercase; color:var(--linen);
+      display:none;
+    }
+
+    /* ══════════════════════════════════════════════════
+       F11 · RFQ / QUOTE BUILDER
+    ══════════════════════════════════════════════════ */
+    .rfq-section { background:var(--ink); }
+
+    /* Progress bar */
+    .rfq-progress {
+      display:flex; align-items:center; gap:0;
+      margin-bottom:3rem; max-width:720px;
+    }
+    .rfq-step-dot {
+      display:flex; flex-direction:column; align-items:center; gap:.4rem;
+      flex:1; position:relative; cursor:pointer;
+    }
+    .rfq-step-dot::before {
+      content:''; position:absolute; top:14px; left:calc(-50% + 14px);
+      right:calc(50% + 14px); height:1px;
+      background:rgba(200,169,110,.2); z-index:0;
+    }
+    .rfq-step-dot:first-child::before { display:none; }
+    .rfq-step-dot.done::before { background:rgba(200,169,110,.5); }
+
+    .rfq-dot-circle {
+      width:28px; height:28px; border-radius:50%; z-index:1;
+      display:flex; align-items:center; justify-content:center;
+      font-family:var(--f-mono); font-size:.58rem;
+      border:1px solid rgba(200,169,110,.25); background:var(--ink);
+      color:var(--linen); transition:all .3s;
+    }
+    .rfq-step-dot.active  .rfq-dot-circle { border-color:var(--gold); color:var(--gold); background:rgba(200,169,110,.08); }
+    .rfq-step-dot.done    .rfq-dot-circle { border-color:var(--gold); background:var(--gold); color:var(--ink); }
+    .rfq-dot-label {
+      font-family:var(--f-mono); font-size:.48rem;
+      letter-spacing:.15em; text-transform:uppercase;
+      color:var(--linen); text-align:center; line-height:1.4;
+    }
+    .rfq-step-dot.active .rfq-dot-label { color:var(--gold); }
+
+    /* Step panels */
+    .rfq-panel { display:none; }
+    .rfq-panel.active { display:block; }
+
+    .rfq-panel-title {
+      font-family:var(--f-display); font-size:1.75rem;
+      font-weight:300; color:var(--cotton); margin-bottom:.35rem;
+    }
+    .rfq-panel-title em { font-style:italic; color:var(--gold); }
+    .rfq-panel-sub { font-size:.88rem; color:var(--linen-lt); margin-bottom:2rem; line-height:1.75; }
+
+    /* Step 1: category cards */
+    .rfq-cat-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5px; margin-bottom:2rem; }
+    @media(max-width:600px){ .rfq-cat-grid { grid-template-columns:1fr 1fr; } }
+    .rfq-cat-card {
+      background:var(--ink-soft); padding:1.5rem 1.25rem;
+      cursor:pointer; border:1.5px solid transparent;
+      transition:border-color .25s, background .25s;
+      display:flex; flex-direction:column; align-items:flex-start; gap:.5rem;
+    }
+    .rfq-cat-card:hover { border-color:rgba(200,169,110,.35); }
+    .rfq-cat-card.selected { border-color:var(--gold); background:rgba(200,169,110,.06); }
+    .rfq-cat-icon { font-size:1.5rem; }
+    .rfq-cat-name { font-family:var(--f-display); font-size:1rem; color:var(--cotton); }
+    .rfq-cat-hint { font-family:var(--f-mono); font-size:.5rem; letter-spacing:.15em; color:var(--linen); text-transform:uppercase; }
+
+    /* Step 2: fabric specs */
+    .rfq-spec-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; margin-bottom:2rem; }
+    @media(max-width:600px){ .rfq-spec-grid { grid-template-columns:1fr; } }
+
+    .rfq-select-group { display:flex; flex-direction:column; gap:.35rem; }
+    .rfq-select-label {
+      font-family:var(--f-mono); font-size:.55rem;
+      letter-spacing:.2em; text-transform:uppercase; color:var(--linen);
+    }
+    .rfq-select, .rfq-inp {
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(200,169,110,.2);
+      color:var(--cotton); padding:.8rem 1rem;
+      font-family:var(--f-body); font-size:.92rem;
+      outline:none; transition:border-color .3s; width:100%;
+    }
+    .rfq-select:focus, .rfq-inp:focus { border-color:var(--gold); }
+    .rfq-select { appearance:none; }
+    .rfq-select option { background:var(--ink-soft); }
+
+    /* GSM range display */
+    .rfq-range-wrap { position:relative; }
+    .rfq-range {
+      width:100%; accent-color:var(--gold); cursor:pointer;
+      margin-top:.5rem;
+    }
+    .rfq-range-val {
+      font-family:var(--f-mono); font-size:.65rem;
+      color:var(--gold); letter-spacing:.1em; margin-top:.25rem;
+    }
+
+    /* Step 3: order details */
+    .rfq-qty-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1.25rem; margin-bottom:2rem; }
+    @media(max-width:600px){ .rfq-qty-grid { grid-template-columns:1fr; } }
+
+    /* Step 4: compliance checkboxes */
+    .rfq-comp-grid { display:grid; grid-template-columns:1fr 1fr; gap:.75rem; margin-bottom:2rem; }
+    @media(max-width:600px){ .rfq-comp-grid { grid-template-columns:1fr; } }
+    .rfq-comp-item {
+      display:flex; align-items:center; gap:.75rem;
+      padding:.85rem 1rem; background:var(--ink-soft);
+      border:1px solid rgba(200,169,110,.1); cursor:pointer;
+      transition:border-color .25s, background .25s;
+    }
+    .rfq-comp-item:hover { border-color:rgba(200,169,110,.35); }
+    .rfq-comp-item.selected { border-color:var(--gold); background:rgba(200,169,110,.06); }
+    .rfq-comp-check {
+      width:18px; height:18px; border:1px solid rgba(200,169,110,.35);
+      display:flex; align-items:center; justify-content:center;
+      flex-shrink:0; transition:background .25s, border-color .25s;
+    }
+    .rfq-comp-item.selected .rfq-comp-check { background:var(--gold); border-color:var(--gold); }
+    .rfq-comp-check-mark { color:var(--ink); font-size:.65rem; display:none; }
+    .rfq-comp-item.selected .rfq-comp-check-mark { display:block; }
+    .rfq-comp-name { font-family:var(--f-mono); font-size:.58rem; letter-spacing:.15em; color:var(--linen-lt); text-transform:uppercase; }
+
+    /* Nav buttons */
+    .rfq-nav { display:flex; gap:1rem; align-items:center; margin-top:2rem; }
+    .rfq-back {
+      font-family:var(--f-mono); font-size:.6rem; letter-spacing:.18em;
+      text-transform:uppercase; color:var(--linen);
+      background:none; border:1px solid rgba(200,169,110,.2);
+      padding:.75rem 1.4rem; cursor:pointer; transition:all .25s;
+    }
+    .rfq-back:hover { border-color:var(--gold); color:var(--gold); }
+    .rfq-next {
+      font-family:var(--f-mono); font-size:.6rem; letter-spacing:.18em;
+      text-transform:uppercase; color:var(--ink);
+      background:var(--gold); border:none;
+      padding:.75rem 1.75rem; cursor:pointer; transition:background .25s;
+    }
+    .rfq-next:hover { background:var(--gold-lt); }
+    .rfq-step-counter {
+      font-family:var(--f-mono); font-size:.55rem;
+      letter-spacing:.15em; color:var(--linen); margin-left:auto;
+    }
+
+    /* Step 5 summary */
+    .rfq-summary {
+      background:var(--ink-soft); border:1px solid rgba(200,169,110,.15); padding:2rem;
+      margin-bottom:2rem;
+    }
+    .rfq-summary-title {
+      font-family:var(--f-mono); font-size:.58rem;
+      letter-spacing:.28em; text-transform:uppercase;
+      color:var(--gold); margin-bottom:1.25rem;
+    }
+    .rfq-sum-row {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:.75rem 0; border-bottom:1px solid rgba(200,169,110,.08);
+      flex-wrap:wrap; gap:.5rem;
+    }
+    .rfq-sum-row:last-child { border-bottom:none; }
+    .rfq-sum-key { font-family:var(--f-mono); font-size:.55rem; letter-spacing:.18em; color:var(--linen); text-transform:uppercase; }
+    .rfq-sum-val { font-size:.9rem; color:var(--cotton); }
   </style>
 </head>
 <body>
@@ -2529,6 +3073,208 @@
 
 
 
+<!-- ═══════ F12: SWATCH BROWSER ═══════ -->
+<section class="swatch-section" id="swatches" aria-label="Fabric and colour swatches">
+  <div class="inner">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:end;margin-bottom:2.5rem">
+      <div>
+        <div class="eyebrow rv">Materials Library</div>
+        <h2 class="sh rv rv-d1">Explore Our <em>Fabric &amp; Colour Range</em></h2>
+      </div>
+      <p class="sub rv rv-d2">Six core fabric constructions — each available in 15–30 colourways, multiple GSM grades, and certifications. Hover any swatch to see the colour reference, then add to your RFQ.</p>
+    </div>
+
+    <div class="swatch-filter rv">
+      <button class="sw-btn active" onclick="swatchFilter(this,'all')">All Fabrics</button>
+      <button class="sw-btn" onclick="swatchFilter(this,'gots')">GOTS Organic</button>
+      <button class="sw-btn" onclick="swatchFilter(this,'oeko')">OEKO-TEX</button>
+      <button class="sw-btn" onclick="swatchFilter(this,'blend')">Blended</button>
+      <button class="sw-btn" onclick="swatchFilter(this,'heavy')">Heavy GSM</button>
+    </div>
+
+    <div class="fabric-grid">
+
+      <!-- Jersey -->
+      <div class="fabric-card" data-cats="all gots oeko">
+        <div class="fc-head">
+          <div>
+            <div class="fc-name">Single Jersey</div>
+            <div class="fc-gsm">120 – 220 GSM</div>
+          </div>
+          <div class="fc-certs">
+            <span class="fc-cert">GOTS</span>
+            <span class="fc-cert">OEKO-TEX</span>
+          </div>
+        </div>
+        <div class="fc-comp">100% combed cotton · 95/5 cotton-elastane · 60/40 cotton-polyester blends available</div>
+        <div class="fc-swatches">
+          <div class="fc-swatch" style="background:#F5F0E8"><div class="fc-swatch-tooltip">Off White · P11-0601</div></div>
+          <div class="fc-swatch" style="background:#1A1A1A"><div class="fc-swatch-tooltip">Jet Black · P19-0303</div></div>
+          <div class="fc-swatch" style="background:#C8A96E"><div class="fc-swatch-tooltip">Champagne · P14-1118</div></div>
+          <div class="fc-swatch" style="background:#8B6F4E"><div class="fc-swatch-tooltip">Camel · P15-1217</div></div>
+          <div class="fc-swatch" style="background:#2C4A7C"><div class="fc-swatch-tooltip">Navy · P19-3832</div></div>
+          <div class="fc-swatch" style="background:#6B8E6B"><div class="fc-swatch-tooltip">Sage · P16-0220</div></div>
+          <div class="fc-swatch" style="background:#B85C38"><div class="fc-swatch-tooltip">Terracotta · P17-1345</div></div>
+          <div class="fc-swatch" style="background:#4A4A6A"><div class="fc-swatch-tooltip">Slate · P19-3748</div></div>
+          <div class="fc-swatch" style="background:#D4B4B4"><div class="fc-swatch-tooltip">Blush · P13-1520</div></div>
+          <div class="fc-swatch" style="background:#3D5A3E"><div class="fc-swatch-tooltip">Forest · P19-0231</div></div>
+          <div class="fc-swatch" style="background:#C4A882"><div class="fc-swatch-tooltip">Sand · P13-0908</div></div>
+          <div class="fc-swatch" style="background:#E8E0D0"><div class="fc-swatch-tooltip">Ecru · P12-0712</div></div>
+        </div>
+        <div class="fc-foot">
+          <span class="fc-count">12 standard colours · Custom dyeing available</span>
+          <button class="fc-rfq" onclick="rfqFromSwatch('Single Jersey')">Add to RFQ →</button>
+        </div>
+      </div>
+
+      <!-- Fleece -->
+      <div class="fabric-card" data-cats="all oeko heavy">
+        <div class="fc-head">
+          <div>
+            <div class="fc-name">Polar Fleece</div>
+            <div class="fc-gsm">280 – 420 GSM</div>
+          </div>
+          <div class="fc-certs"><span class="fc-cert">OEKO-TEX</span></div>
+        </div>
+        <div class="fc-comp">100% polyester · 80/20 polyester-cotton · Anti-pill finish available</div>
+        <div class="fc-swatches">
+          <div class="fc-swatch" style="background:#F5F0E8"><div class="fc-swatch-tooltip">Off White</div></div>
+          <div class="fc-swatch" style="background:#1A1A1A"><div class="fc-swatch-tooltip">Black</div></div>
+          <div class="fc-swatch" style="background:#2C4A7C"><div class="fc-swatch-tooltip">Navy</div></div>
+          <div class="fc-swatch" style="background:#5C7A5C"><div class="fc-swatch-tooltip">Olive</div></div>
+          <div class="fc-swatch" style="background:#8B3A3A"><div class="fc-swatch-tooltip">Burgundy</div></div>
+          <div class="fc-swatch" style="background:#6A7D8B"><div class="fc-swatch-tooltip">Steel Blue</div></div>
+          <div class="fc-swatch" style="background:#C8A96E"><div class="fc-swatch-tooltip">Camel</div></div>
+          <div class="fc-swatch" style="background:#4A4A4A"><div class="fc-swatch-tooltip">Charcoal</div></div>
+          <div class="fc-swatch" style="background:#C75B3A"><div class="fc-swatch-tooltip">Rust</div></div>
+          <div class="fc-swatch" style="background:#D9C4A8"><div class="fc-swatch-tooltip">Oatmeal</div></div>
+        </div>
+        <div class="fc-foot">
+          <span class="fc-count">10 standard colours · Melange options</span>
+          <button class="fc-rfq" onclick="rfqFromSwatch('Polar Fleece')">Add to RFQ →</button>
+        </div>
+      </div>
+
+      <!-- French Terry -->
+      <div class="fabric-card" data-cats="all gots oeko">
+        <div class="fc-head">
+          <div>
+            <div class="fc-name">French Terry</div>
+            <div class="fc-gsm">240 – 340 GSM</div>
+          </div>
+          <div class="fc-certs">
+            <span class="fc-cert">GOTS</span>
+            <span class="fc-cert">OEKO-TEX</span>
+          </div>
+        </div>
+        <div class="fc-comp">100% cotton · 95/5 cotton-elastane · Loop-back construction</div>
+        <div class="fc-swatches">
+          <div class="fc-swatch" style="background:#F0EDE5"><div class="fc-swatch-tooltip">Natural</div></div>
+          <div class="fc-swatch" style="background:#1A1A1A"><div class="fc-swatch-tooltip">Black</div></div>
+          <div class="fc-swatch" style="background:#3A3A5A"><div class="fc-swatch-tooltip">Indigo</div></div>
+          <div class="fc-swatch" style="background:#8B7355"><div class="fc-swatch-tooltip">Khaki</div></div>
+          <div class="fc-swatch" style="background:#B8A89A"><div class="fc-swatch-tooltip">Warm Grey</div></div>
+          <div class="fc-swatch" style="background:#5A7A5A"><div class="fc-swatch-tooltip">Moss</div></div>
+          <div class="fc-swatch" style="background:#C8A96E"><div class="fc-swatch-tooltip">Honey</div></div>
+          <div class="fc-swatch" style="background:#5C4A3A"><div class="fc-swatch-tooltip">Cocoa</div></div>
+          <div class="fc-swatch" style="background:#E8D5C4"><div class="fc-swatch-tooltip">Peach Cream</div></div>
+          <div class="fc-swatch" style="background:#4A6B8A"><div class="fc-swatch-tooltip">Denim Blue</div></div>
+        </div>
+        <div class="fc-foot">
+          <span class="fc-count">10 standard colours · Garment dye option</span>
+          <button class="fc-rfq" onclick="rfqFromSwatch('French Terry')">Add to RFQ →</button>
+        </div>
+      </div>
+
+      <!-- Pique -->
+      <div class="fabric-card" data-cats="all gots oeko">
+        <div class="fc-head">
+          <div>
+            <div class="fc-name">Piqué (Lacoste)</div>
+            <div class="fc-gsm">180 – 260 GSM</div>
+          </div>
+          <div class="fc-certs">
+            <span class="fc-cert">GOTS</span>
+            <span class="fc-cert">OEKO-TEX</span>
+          </div>
+        </div>
+        <div class="fc-comp">100% combed cotton · 60/40 cotton-polyester · Textured surface</div>
+        <div class="fc-swatches">
+          <div class="fc-swatch" style="background:#FFFFFF"><div class="fc-swatch-tooltip">White</div></div>
+          <div class="fc-swatch" style="background:#1A1A1A"><div class="fc-swatch-tooltip">Black</div></div>
+          <div class="fc-swatch" style="background:#2C4A7C"><div class="fc-swatch-tooltip">Navy</div></div>
+          <div class="fc-swatch" style="background:#8B3A3A"><div class="fc-swatch-tooltip">Red</div></div>
+          <div class="fc-swatch" style="background:#3A6B3A"><div class="fc-swatch-tooltip">Bottle Green</div></div>
+          <div class="fc-swatch" style="background:#C8A96E"><div class="fc-swatch-tooltip">Gold</div></div>
+          <div class="fc-swatch" style="background:#6A7D8B"><div class="fc-swatch-tooltip">Steel</div></div>
+          <div class="fc-swatch" style="background:#4A4A4A"><div class="fc-swatch-tooltip">Charcoal</div></div>
+        </div>
+        <div class="fc-foot">
+          <span class="fc-count">8 standard colours · Stripe options available</span>
+          <button class="fc-rfq" onclick="rfqFromSwatch('Piqué')">Add to RFQ →</button>
+        </div>
+      </div>
+
+      <!-- Rib -->
+      <div class="fabric-card" data-cats="all gots blend">
+        <div class="fc-head">
+          <div>
+            <div class="fc-name">Rib Knit (1×1 / 2×2)</div>
+            <div class="fc-gsm">160 – 280 GSM</div>
+          </div>
+          <div class="fc-certs"><span class="fc-cert">GOTS</span></div>
+        </div>
+        <div class="fc-comp">95/5 cotton-elastane · 100% cotton · Used for cuffs, collars, waistbands</div>
+        <div class="fc-swatches">
+          <div class="fc-swatch" style="background:#F5F0E8"><div class="fc-swatch-tooltip">Ecru</div></div>
+          <div class="fc-swatch" style="background:#1A1A1A"><div class="fc-swatch-tooltip">Black</div></div>
+          <div class="fc-swatch" style="background:#C8A96E"><div class="fc-swatch-tooltip">Gold</div></div>
+          <div class="fc-swatch" style="background:#2C4A7C"><div class="fc-swatch-tooltip">Navy</div></div>
+          <div class="fc-swatch" style="background:#4A4A4A"><div class="fc-swatch-tooltip">Dark Grey</div></div>
+          <div class="fc-swatch" style="background:#A8A8A8"><div class="fc-swatch-tooltip">Grey Melange</div></div>
+          <div class="fc-swatch" style="background:#8B3A3A"><div class="fc-swatch-tooltip">Burgundy</div></div>
+          <div class="fc-swatch" style="background:#D4B4B4"><div class="fc-swatch-tooltip">Blush</div></div>
+        </div>
+        <div class="fc-foot">
+          <span class="fc-count">8 colours · Custom stripe combinations</span>
+          <button class="fc-rfq" onclick="rfqFromSwatch('Rib Knit')">Add to RFQ →</button>
+        </div>
+      </div>
+
+      <!-- Waffle -->
+      <div class="fabric-card" data-cats="all gots oeko heavy">
+        <div class="fc-head">
+          <div>
+            <div class="fc-name">Waffle Knit</div>
+            <div class="fc-gsm">220 – 320 GSM</div>
+          </div>
+          <div class="fc-certs">
+            <span class="fc-cert">GOTS</span>
+            <span class="fc-cert">OEKO-TEX</span>
+          </div>
+        </div>
+        <div class="fc-comp">100% cotton · 95/5 cotton-elastane · Textured honeycomb construction</div>
+        <div class="fc-swatches">
+          <div class="fc-swatch" style="background:#F5F0E8"><div class="fc-swatch-tooltip">Cream</div></div>
+          <div class="fc-swatch" style="background:#1A1A1A"><div class="fc-swatch-tooltip">Black</div></div>
+          <div class="fc-swatch" style="background:#C8A96E"><div class="fc-swatch-tooltip">Caramel</div></div>
+          <div class="fc-swatch" style="background:#8B7355"><div class="fc-swatch-tooltip">Taupe</div></div>
+          <div class="fc-swatch" style="background:#4A4A4A"><div class="fc-swatch-tooltip">Charcoal</div></div>
+          <div class="fc-swatch" style="background:#D4B4A0"><div class="fc-swatch-tooltip">Blush Nude</div></div>
+          <div class="fc-swatch" style="background:#5A7A5A"><div class="fc-swatch-tooltip">Sage</div></div>
+          <div class="fc-swatch" style="background:#3D5A3E"><div class="fc-swatch-tooltip">Forest</div></div>
+          <div class="fc-swatch" style="background:#9A8A7A"><div class="fc-swatch-tooltip">Stone</div></div>
+        </div>
+        <div class="fc-foot">
+          <span class="fc-count">9 standard colours · Seasonal additions</span>
+          <button class="fc-rfq" onclick="rfqFromSwatch('Waffle Knit')">Add to RFQ →</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ═══════ PROCESS ═══════ -->
 <section class="proc-section" id="process" aria-label="Manufacturing process">
   <div class="inner">
@@ -2702,6 +3448,138 @@
             <line x1="346" y1="466" x2="332" y2="466"/><line x1="346" y1="466" x2="346" y2="452"/>
           </g>
         </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ F13: FACTORY VIDEO TOUR ═══════ -->
+<section class="video-section" id="factory-tour" aria-label="Factory video tour">
+  <div class="inner">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:end;margin-bottom:0">
+      <div>
+        <div class="eyebrow rv">Inside Kings Apparel</div>
+        <h2 class="sh rv rv-d1">See the <em>Factory in Action</em></h2>
+      </div>
+      <p class="sub rv rv-d2">Walk through our Korangi production floor — from the knitting hall to QC rooms to packing lines. Everything you'd see on an in-person audit, from your screen.</p>
+    </div>
+
+    <div class="video-grid">
+      <!-- Video player -->
+      <div>
+        <div class="video-player-wrap rv rv-d1" id="videoWrap" onclick="playVideo()">
+          <div class="video-fabric-bg"></div>
+          <!-- Replace the src below with your actual YouTube embed URL -->
+          <div class="video-iframe-wrap" id="videoIframe">
+            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0"
+              allow="autoplay; encrypted-media" allowfullscreen title="Kings Apparel factory tour"></iframe>
+          </div>
+          <div class="video-poster-content" id="videoPoster">
+            <div class="video-play-btn">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <polygon points="6,3 17,10 6,17" stroke-width="1.5" stroke-linejoin="round" fill="currentColor" style="color:inherit"/>
+              </svg>
+            </div>
+            <div class="video-poster-label">Play factory tour · 8 min</div>
+          </div>
+          <!-- Fabric grid decoration on poster -->
+          <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.04;pointer-events:none" viewBox="0 0 800 450">
+            <g stroke="#F5F0E8" stroke-width="1">
+              <line x1="0" y1="50" x2="800" y2="50"/><line x1="0" y1="100" x2="800" y2="100"/>
+              <line x1="0" y1="150" x2="800" y2="150"/><line x1="0" y1="200" x2="800" y2="200"/>
+              <line x1="0" y1="250" x2="800" y2="250"/><line x1="0" y1="300" x2="800" y2="300"/>
+              <line x1="0" y1="350" x2="800" y2="350"/><line x1="0" y1="400" x2="800" y2="400"/>
+              <line x1="100" y1="0" x2="100" y2="450"/><line x1="200" y1="0" x2="200" y2="450"/>
+              <line x1="300" y1="0" x2="300" y2="450"/><line x1="400" y1="0" x2="400" y2="450"/>
+              <line x1="500" y1="0" x2="500" y2="450"/><line x1="600" y1="0" x2="600" y2="450"/>
+              <line x1="700" y1="0" x2="700" y2="450"/>
+            </g>
+            <!-- Large KA monogram -->
+            <text x="400" y="260" text-anchor="middle" fill="#C8A96E" font-family="Cormorant Garamond,serif" font-size="180" font-weight="300" opacity="0.06">KA</text>
+          </svg>
+        </div>
+
+        <!-- Virtual audit badge -->
+        <div style="display:flex;align-items:center;gap:.75rem;margin-top:1rem;padding:.75rem 1rem;border:1px solid rgba(76,175,138,.25);background:rgba(76,175,138,.05)">
+          <span style="color:#4CAF8A;font-size:1rem">✓</span>
+          <div>
+            <div style="font-family:var(--f-mono);font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:#4CAF8A">Virtual Audit Ready</div>
+            <div style="font-size:.8rem;color:var(--linen-lt);margin-top:1px">This tour satisfies pre-qualification video audit requirements for BSCI, SEDEX &amp; most buyer CoC programmes.</div>
+          </div>
+        </div>
+
+        <!-- Factory stats -->
+        <div class="video-stats">
+          <div class="vs-item rv">
+            <div class="vs-num"><span class="ctr" data-t="24">0</span></div>
+            <div class="vs-label">Knitting Machines</div>
+          </div>
+          <div class="vs-item rv rv-d1">
+            <div class="vs-num"><span class="ctr" data-t="85000">0</span></div>
+            <div class="vs-label">Sq Ft Factory</div>
+          </div>
+          <div class="vs-item rv rv-d2">
+            <div class="vs-num"><span class="ctr" data-t="3">0</span></div>
+            <div class="vs-label">Production Shifts</div>
+          </div>
+          <div class="vs-item rv rv-d3">
+            <div class="vs-num"><span class="ctr" data-t="47">0</span></div>
+            <div class="vs-label">QC Checkpoints</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chapter list -->
+      <div class="rv rv-d2">
+        <div style="font-family:var(--f-mono);font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem">Tour Chapters</div>
+        <div class="video-chapters">
+          <div class="chapter-item" onclick="seekVideo(0)">
+            <div class="chapter-num">01</div>
+            <div>
+              <div class="chapter-title">Yarn Store &amp; Lab</div>
+              <div class="chapter-desc">Raw yarn inspection, spectrophotometer colour matching, tensile strength testing.</div>
+            </div>
+            <div class="chapter-time">0:00</div>
+          </div>
+          <div class="chapter-item" onclick="seekVideo(90)">
+            <div class="chapter-num">02</div>
+            <div>
+              <div class="chapter-title">Knitting Hall</div>
+              <div class="chapter-desc">24 circular knitting machines running 3 shifts, producing fabric to GSM specification.</div>
+            </div>
+            <div class="chapter-time">1:30</div>
+          </div>
+          <div class="chapter-item" onclick="seekVideo(210)">
+            <div class="chapter-num">03</div>
+            <div>
+              <div class="chapter-title">Cutting &amp; Stitching Floor</div>
+              <div class="chapter-desc">Die-cutting lines, lock-stitch and overlock machines, inline QC stations.</div>
+            </div>
+            <div class="chapter-time">3:30</div>
+          </div>
+          <div class="chapter-item" onclick="seekVideo(330)">
+            <div class="chapter-num">04</div>
+            <div>
+              <div class="chapter-title">Washing &amp; Finishing</div>
+              <div class="chapter-desc">Bio-washing, enzyme treatment, pressing — and our effluent treatment plant.</div>
+            </div>
+            <div class="chapter-time">5:30</div>
+          </div>
+          <div class="chapter-item" onclick="seekVideo(420)">
+            <div class="chapter-num">05</div>
+            <div>
+              <div class="chapter-title">QC Room &amp; Packing</div>
+              <div class="chapter-desc">47-point final inspection, AQL sampling, retail-ready packing and carton labelling.</div>
+            </div>
+            <div class="chapter-time">7:00</div>
+          </div>
+        </div>
+
+        <div style="margin-top:2rem;padding:1.25rem;border:1px solid rgba(200,169,110,.15)">
+          <div style="font-family:var(--f-mono);font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem">Prefer an in-person visit?</div>
+          <p style="font-size:.85rem;color:var(--linen-lt);line-height:1.75;margin-bottom:1rem">We welcome buyer factory visits year-round. Our team will arrange transport from Karachi airport and a full-day factory walkthrough.</p>
+          <a href="#contact" class="btn-ghost" style="display:inline-block;font-size:.55rem;padding:.6rem 1.2rem">Book a Factory Visit →</a>
+        </div>
       </div>
     </div>
   </div>
@@ -2992,6 +3870,153 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ═══════ F14: SUSTAINABILITY / ESG ═══════ -->
+<section class="esg-section" id="sustainability" aria-label="Sustainability and ESG report">
+  <div class="inner">
+    <div class="esg-top">
+      <div>
+        <div class="eyebrow rv">Sustainability</div>
+        <h2 class="sh rv rv-d1">Our <em>ESG Commitments</em> in Numbers</h2>
+      </div>
+      <div class="rv rv-d2">
+        <p class="sub">Kings Apparel's sustainability programme covers environmental stewardship, social equity, and governance transparency — with independently verified metrics updated annually.</p>
+        <a href="#" class="btn-ghost" style="margin-top:1.25rem;display:inline-block;font-size:.6rem" onclick="alert('ESG Report PDF download — wire to your hosted PDF.');return false">Download ESG Report 2024 →</a>
+      </div>
+    </div>
+
+    <!-- Animated metric rings -->
+    <div class="esg-rings">
+      <div class="esg-ring-wrap rv">
+        <svg class="esg-ring-svg" viewBox="0 0 110 110">
+          <circle class="esg-ring-bg" cx="55" cy="55" r="45"/>
+          <circle class="esg-ring-fill green" cx="55" cy="55" r="45" data-pct="78" id="ring1"/>
+          <foreignObject x="15" y="15" width="80" height="80">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="esg-ring-label">
+              <span class="esg-ring-val">78%</span>
+              <span class="esg-ring-unit">water recycled</span>
+            </div>
+          </foreignObject>
+        </svg>
+        <div class="esg-ring-title">Water<br>Recycling Rate</div>
+      </div>
+      <div class="esg-ring-wrap rv rv-d1">
+        <svg class="esg-ring-svg" viewBox="0 0 110 110">
+          <circle class="esg-ring-bg" cx="55" cy="55" r="45"/>
+          <circle class="esg-ring-fill amber" cx="55" cy="55" r="45" data-pct="42" id="ring2"/>
+          <foreignObject x="15" y="15" width="80" height="80">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="esg-ring-label">
+              <span class="esg-ring-val">42%</span>
+              <span class="esg-ring-unit">renewable</span>
+            </div>
+          </foreignObject>
+        </svg>
+        <div class="esg-ring-title">Renewable<br>Energy Share</div>
+      </div>
+      <div class="esg-ring-wrap rv rv-d2">
+        <svg class="esg-ring-svg" viewBox="0 0 110 110">
+          <circle class="esg-ring-bg" cx="55" cy="55" r="45"/>
+          <circle class="esg-ring-fill green" cx="55" cy="55" r="45" data-pct="65" id="ring3"/>
+          <foreignObject x="15" y="15" width="80" height="80">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="esg-ring-label">
+              <span class="esg-ring-val">65%</span>
+              <span class="esg-ring-unit">waste diverted</span>
+            </div>
+          </foreignObject>
+        </svg>
+        <div class="esg-ring-title">Waste Diverted<br>from Landfill</div>
+      </div>
+      <div class="esg-ring-wrap rv rv-d3">
+        <svg class="esg-ring-svg" viewBox="0 0 110 110">
+          <circle class="esg-ring-bg" cx="55" cy="55" r="45"/>
+          <circle class="esg-ring-fill teal" cx="55" cy="55" r="45" data-pct="44" id="ring4"/>
+          <foreignObject x="15" y="15" width="80" height="80">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="esg-ring-label">
+              <span class="esg-ring-val">44%</span>
+              <span class="esg-ring-unit">female</span>
+            </div>
+          </foreignObject>
+        </svg>
+        <div class="esg-ring-title">Female<br>Workforce</div>
+      </div>
+    </div>
+
+    <!-- SDG alignment -->
+    <div class="eyebrow rv" style="margin-bottom:1rem">UN SDG Alignment</div>
+    <div class="sdg-row rv rv-d1">
+      <div class="sdg-badge sdg-5"><span class="sdg-num">5</span>Gender<br>Equality</div>
+      <div class="sdg-badge sdg-8"><span class="sdg-num">8</span>Decent<br>Work</div>
+      <div class="sdg-badge sdg-12"><span class="sdg-num">12</span>Responsible<br>Consumption</div>
+      <div class="sdg-badge sdg-13"><span class="sdg-num">13</span>Climate<br>Action</div>
+      <div class="sdg-badge sdg-17"><span class="sdg-num">17</span>Partnerships<br>for Goals</div>
+    </div>
+
+    <!-- 2030 targets table -->
+    <div class="eyebrow rv" style="margin-top:3rem;margin-bottom:1rem">2030 Targets</div>
+    <table class="esg-targets rv rv-d1" aria-label="ESG 2030 targets">
+      <thead>
+        <tr>
+          <th>Target</th>
+          <th>Baseline (2020)</th>
+          <th>Current</th>
+          <th>2030 Goal</th>
+          <th>Progress</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Water recycling rate</td>
+          <td>45%</td>
+          <td>78%</td>
+          <td>90%</td>
+          <td><div class="esg-prog-bar"><div class="esg-prog-fill green" data-w="78"></div></div></td>
+          <td><span class="on-target prog">On Track</span></td>
+        </tr>
+        <tr>
+          <td>Renewable energy share</td>
+          <td>8%</td>
+          <td>42%</td>
+          <td>80%</td>
+          <td><div class="esg-prog-bar"><div class="esg-prog-fill" data-w="42"></div></div></td>
+          <td><span class="on-target prog">On Track</span></td>
+        </tr>
+        <tr>
+          <td>Waste to landfill (reduction)</td>
+          <td>100%</td>
+          <td>35% to landfill</td>
+          <td>Zero to landfill</td>
+          <td><div class="esg-prog-bar"><div class="esg-prog-fill green" data-w="65"></div></div></td>
+          <td><span class="on-target prog">On Track</span></td>
+        </tr>
+        <tr>
+          <td>Female workforce share</td>
+          <td>28%</td>
+          <td>44%</td>
+          <td>50%</td>
+          <td><div class="esg-prog-bar"><div class="esg-prog-fill green" data-w="88"></div></div></td>
+          <td><span class="on-target yes">Ahead</span></td>
+        </tr>
+        <tr>
+          <td>GOTS-certified products (%)</td>
+          <td>12%</td>
+          <td>38%</td>
+          <td>60%</td>
+          <td><div class="esg-prog-bar"><div class="esg-prog-fill green" data-w="63"></div></div></td>
+          <td><span class="on-target prog">On Track</span></td>
+        </tr>
+        <tr>
+          <td>Carbon intensity reduction</td>
+          <td>Baseline</td>
+          <td>−22%</td>
+          <td>−50% vs baseline</td>
+          <td><div class="esg-prog-bar"><div class="esg-prog-fill" data-w="44"></div></div></td>
+          <td><span class="on-target prog">On Track</span></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </section>
 
@@ -3382,6 +4407,264 @@
     <div style="text-align:center;margin-top:3rem">
       <p style="font-size:.9rem;color:var(--linen-lt);margin-bottom:1.25rem">Still have a question not answered above?</p>
       <a href="#contact" class="btn-gold">Ask our team →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ F15: ORDER TRACKER ═══════ -->
+<section class="tracker-section" id="track-order" aria-label="Order status tracker">
+  <div class="inner">
+    <div class="tracker-grid">
+      <!-- Input panel -->
+      <div class="tracker-input-wrap">
+        <div class="eyebrow rv">Existing Buyers</div>
+        <h2 class="sh rv rv-d1" style="font-size:clamp(1.6rem,2.5vw,2.5rem)">Track Your <em>Order Status</em></h2>
+        <p class="sub rv rv-d2" style="margin-bottom:1.75rem">Enter your PO number or reference to see live production stage updates.</p>
+        <label class="tracker-label rv rv-d2" for="poInput">Purchase Order Number</label>
+        <div class="tracker-input-row rv rv-d2">
+          <input class="tracker-input" id="poInput" type="text" placeholder="e.g. KA-2024-0892" maxlength="20" onkeydown="if(event.key==='Enter')trackOrder()">
+          <button class="tracker-btn" onclick="trackOrder()">Track →</button>
+        </div>
+        <div class="tracker-hint rv rv-d3">
+          Try a demo PO:
+          <div class="tracker-demo-pos">
+            <span class="demo-po" onclick="loadDemoPo('KA-2024-0892')">KA-2024-0892</span>
+            <span class="demo-po" onclick="loadDemoPo('KA-2024-1105')">KA-2024-1105</span>
+            <span class="demo-po" onclick="loadDemoPo('KA-2025-0034')">KA-2025-0034</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Result panel -->
+      <div>
+        <div class="tracker-result" id="trackerResult">
+          <div class="tr-header">
+            <div>
+              <div class="tr-po" id="tr-po-num"></div>
+              <div class="tr-title" id="tr-title"></div>
+            </div>
+            <span class="tr-status-badge" id="tr-badge"></span>
+          </div>
+          <div class="tr-stages" id="tr-stages"></div>
+          <div style="padding:1.25rem 1.5rem;background:var(--ink-deep);border:1px solid rgba(200,169,110,.1);margin-top:2px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem">
+            <div style="font-size:.82rem;color:var(--linen-lt)">Questions about this order?</div>
+            <a href="#contact" class="btn-gold" style="font-size:.58rem;padding:.55rem 1.1rem;text-decoration:none">Contact our team →</a>
+          </div>
+        </div>
+        <div class="tr-no-result" id="tr-no-result">No order found for that PO number. Please check and try again, or <a href="#contact" style="color:var(--gold)">contact our team</a>.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ F11: RFQ QUOTE BUILDER ═══════ -->
+<section class="rfq-section" id="rfq" aria-label="RFQ quote builder">
+  <div class="inner">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:end;margin-bottom:3rem">
+      <div>
+        <div class="eyebrow rv">Get a Quote</div>
+        <h2 class="sh rv rv-d1">Build Your <em>Request for Quotation</em></h2>
+      </div>
+      <p class="sub rv rv-d2">Answer 5 quick questions about your order requirements. We'll assemble a structured RFQ and our sales team will respond within 48 hours with pricing and lead times.</p>
+    </div>
+
+    <!-- Step progress -->
+    <div class="rfq-progress rv rv-d1" id="rfqProgress">
+      <div class="rfq-step-dot active" data-step="1"><div class="rfq-dot-circle">1</div><div class="rfq-dot-label">Category</div></div>
+      <div class="rfq-step-dot" data-step="2"><div class="rfq-dot-circle">2</div><div class="rfq-dot-label">Fabric</div></div>
+      <div class="rfq-step-dot" data-step="3"><div class="rfq-dot-circle">3</div><div class="rfq-dot-label">Order</div></div>
+      <div class="rfq-step-dot" data-step="4"><div class="rfq-dot-circle">4</div><div class="rfq-dot-label">Compliance</div></div>
+      <div class="rfq-step-dot" data-step="5"><div class="rfq-dot-circle">5</div><div class="rfq-dot-label">Contact</div></div>
+    </div>
+
+    <!-- Step 1: Category -->
+    <div class="rfq-panel active" id="rfq-step-1">
+      <div class="rfq-panel-title">Which <em>product category</em> are you sourcing?</div>
+      <div class="rfq-panel-sub">Select all that apply — you can add more categories to your final RFQ.</div>
+      <div class="rfq-cat-grid" id="rfqCatGrid">
+        <div class="rfq-cat-card" onclick="toggleRfqCat(this,'Newborn (0–3 months)')"><div class="rfq-cat-icon">👶</div><div class="rfq-cat-name">Newborn</div><div class="rfq-cat-hint">0–3 months · GOTS</div></div>
+        <div class="rfq-cat-card" onclick="toggleRfqCat(this,'Baby Boy (3–24 months)')"><div class="rfq-cat-icon">🧸</div><div class="rfq-cat-name">Baby Boy</div><div class="rfq-cat-hint">3–24 months</div></div>
+        <div class="rfq-cat-card" onclick="toggleRfqCat(this,'Baby Girl (3–24 months)')"><div class="rfq-cat-icon">🌸</div><div class="rfq-cat-name">Baby Girl</div><div class="rfq-cat-hint">3–24 months</div></div>
+        <div class="rfq-cat-card" onclick="toggleRfqCat(this,'Boy (2–14 years)')"><div class="rfq-cat-icon">⚽</div><div class="rfq-cat-name">Boy</div><div class="rfq-cat-hint">2–14 years</div></div>
+        <div class="rfq-cat-card" onclick="toggleRfqCat(this,'Girl (2–14 years)')"><div class="rfq-cat-icon">🎀</div><div class="rfq-cat-name">Girl</div><div class="rfq-cat-hint">2–14 years</div></div>
+        <div class="rfq-cat-card" onclick="toggleRfqCat(this,'Men / Women Adult')"><div class="rfq-cat-icon">👕</div><div class="rfq-cat-name">Adult</div><div class="rfq-cat-hint">Men &amp; Women</div></div>
+      </div>
+      <div class="rfq-nav">
+        <button class="rfq-next" onclick="rfqNext(1)">Next: Fabric specs →</button>
+        <span class="rfq-step-counter">Step 1 of 5</span>
+      </div>
+    </div>
+
+    <!-- Step 2: Fabric -->
+    <div class="rfq-panel" id="rfq-step-2">
+      <div class="rfq-panel-title">What are your <em>fabric requirements</em>?</div>
+      <div class="rfq-panel-sub">Select the fabric type and GSM range. Our team will suggest the closest available constructions.</div>
+      <div class="rfq-spec-grid">
+        <div class="rfq-select-group">
+          <label class="rfq-select-label">Fabric Type</label>
+          <select class="rfq-select" id="rfq-fabric">
+            <option value="">Select fabric</option>
+            <option>Single Jersey</option><option>French Terry</option>
+            <option>Polar Fleece</option><option>Piqué (Lacoste)</option>
+            <option>Rib Knit</option><option>Waffle Knit</option><option>Not sure — advise me</option>
+          </select>
+        </div>
+        <div class="rfq-select-group">
+          <label class="rfq-select-label">Composition Preference</label>
+          <select class="rfq-select" id="rfq-comp">
+            <option value="">Select composition</option>
+            <option>100% Cotton</option><option>100% Organic Cotton (GOTS)</option>
+            <option>Cotton–Elastane (95/5)</option><option>Cotton–Polyester Blend</option>
+            <option>100% Polyester</option><option>Open to recommendations</option>
+          </select>
+        </div>
+        <div class="rfq-select-group" style="grid-column:span 2">
+          <label class="rfq-select-label">Target GSM Range: <span class="rfq-range-val" id="gsmVal">180–220 GSM</span></label>
+          <input class="rfq-range" type="range" id="rfq-gsm" min="120" max="420" step="20" value="200" oninput="updateGsm(this.value)">
+        </div>
+      </div>
+      <div class="rfq-nav">
+        <button class="rfq-back" onclick="rfqBack(2)">← Back</button>
+        <button class="rfq-next" onclick="rfqNext(2)">Next: Order details →</button>
+        <span class="rfq-step-counter">Step 2 of 5</span>
+      </div>
+    </div>
+
+    <!-- Step 3: Order details -->
+    <div class="rfq-panel" id="rfq-step-3">
+      <div class="rfq-panel-title">Tell us about your <em>order requirements</em></div>
+      <div class="rfq-panel-sub">Quantity, delivery, and target price — the more detail the more accurate our quote.</div>
+      <div class="rfq-qty-grid">
+        <div class="rfq-select-group">
+          <label class="rfq-select-label">Quantity (pieces)</label>
+          <select class="rfq-select" id="rfq-qty">
+            <option value="">Select quantity</option>
+            <option>1,000–2,999 pcs</option><option>3,000–4,999 pcs</option>
+            <option>5,000–9,999 pcs</option><option>10,000–24,999 pcs</option>
+            <option>25,000+ pcs</option>
+          </select>
+        </div>
+        <div class="rfq-select-group">
+          <label class="rfq-select-label">Number of styles</label>
+          <select class="rfq-select" id="rfq-styles">
+            <option value="">Select</option>
+            <option>1–2 styles</option><option>3–5 styles</option>
+            <option>6–10 styles</option><option>10+ styles</option>
+          </select>
+        </div>
+        <div class="rfq-select-group">
+          <label class="rfq-select-label">Required delivery (from now)</label>
+          <select class="rfq-select" id="rfq-lead">
+            <option value="">Select lead time</option>
+            <option>Standard (75–90 days)</option><option>Rush (45–60 days)</option>
+            <option>Planning (90–120 days)</option><option>Flexible</option>
+          </select>
+        </div>
+        <div class="rfq-select-group">
+          <label class="rfq-select-label">Shipping terms</label>
+          <select class="rfq-select" id="rfq-ship">
+            <option value="">Select</option>
+            <option>FOB Karachi</option><option>CIF — please quote</option>
+            <option>Ex-Works</option><option>To be discussed</option>
+          </select>
+        </div>
+        <div class="rfq-select-group">
+          <label class="rfq-select-label">Target FOB price per piece (USD)</label>
+          <input class="rfq-inp" id="rfq-price" type="text" placeholder="e.g. $4.50–6.00">
+        </div>
+        <div class="rfq-select-group">
+          <label class="rfq-select-label">Season / Delivery window</label>
+          <input class="rfq-inp" id="rfq-season" type="text" placeholder="e.g. SS25, Q3 2025">
+        </div>
+      </div>
+      <div class="rfq-nav">
+        <button class="rfq-back" onclick="rfqBack(3)">← Back</button>
+        <button class="rfq-next" onclick="rfqNext(3)">Next: Compliance →</button>
+        <span class="rfq-step-counter">Step 3 of 5</span>
+      </div>
+    </div>
+
+    <!-- Step 4: Compliance -->
+    <div class="rfq-panel" id="rfq-step-4">
+      <div class="rfq-panel-title">Which <em>compliance requirements</em> apply?</div>
+      <div class="rfq-panel-sub">Select all that your buyers or internal policies require. Our compliance team will confirm which we already hold.</div>
+      <div class="rfq-comp-grid" id="rfqCompGrid">
+        <div class="rfq-comp-item" onclick="toggleRfqComp(this,'GOTS Organic')"><div class="rfq-comp-check"><span class="rfq-comp-check-mark">✓</span></div><span class="rfq-comp-name">GOTS Organic</span></div>
+        <div class="rfq-comp-item" onclick="toggleRfqComp(this,'SA 8000')"><div class="rfq-comp-check"><span class="rfq-comp-check-mark">✓</span></div><span class="rfq-comp-name">SA 8000</span></div>
+        <div class="rfq-comp-item" onclick="toggleRfqComp(this,'BSCI Audit')"><div class="rfq-comp-check"><span class="rfq-comp-check-mark">✓</span></div><span class="rfq-comp-name">BSCI Audit</span></div>
+        <div class="rfq-comp-item" onclick="toggleRfqComp(this,'SEDEX / SMETA')"><div class="rfq-comp-check"><span class="rfq-comp-check-mark">✓</span></div><span class="rfq-comp-name">SEDEX / SMETA</span></div>
+        <div class="rfq-comp-item" onclick="toggleRfqComp(this,'OEKO-TEX 100')"><div class="rfq-comp-check"><span class="rfq-comp-check-mark">✓</span></div><span class="rfq-comp-name">OEKO-TEX 100</span></div>
+        <div class="rfq-comp-item" onclick="toggleRfqComp(this,'WRAP')"><div class="rfq-comp-check"><span class="rfq-comp-check-mark">✓</span></div><span class="rfq-comp-name">WRAP</span></div>
+        <div class="rfq-comp-item" onclick="toggleRfqComp(this,'ISO 9001')"><div class="rfq-comp-check"><span class="rfq-comp-check-mark">✓</span></div><span class="rfq-comp-name">ISO 9001</span></div>
+        <div class="rfq-comp-item" onclick="toggleRfqComp(this,'Buyer CoC')"><div class="rfq-comp-check"><span class="rfq-comp-check-mark">✓</span></div><span class="rfq-comp-name">Buyer CoC</span></div>
+        <div class="rfq-comp-item" onclick="toggleRfqComp(this,'REACH')"><div class="rfq-comp-check"><span class="rfq-comp-check-mark">✓</span></div><span class="rfq-comp-name">REACH</span></div>
+        <div class="rfq-comp-item" onclick="toggleRfqComp(this,'No specific requirements')"><div class="rfq-comp-check"><span class="rfq-comp-check-mark">✓</span></div><span class="rfq-comp-name">No specific requirements</span></div>
+      </div>
+      <div class="rfq-nav">
+        <button class="rfq-back" onclick="rfqBack(4)">← Back</button>
+        <button class="rfq-next" onclick="rfqNext(4)">Next: Your details →</button>
+        <span class="rfq-step-counter">Step 4 of 5</span>
+      </div>
+    </div>
+
+    <!-- Step 5: Contact + Summary -->
+    <div class="rfq-panel" id="rfq-step-5">
+      <div class="rfq-panel-title">Almost done — <em>your details</em></div>
+      <div class="rfq-panel-sub">We'll email your complete RFQ summary and follow up within 48 hours.</div>
+      <div class="rfq-spec-grid" style="margin-bottom:1.5rem">
+        <div class="rfq-select-group">
+          <label class="rfq-select-label">Full Name</label>
+          <input class="rfq-inp" id="rfq-name" type="text" placeholder="Jane Smith">
+        </div>
+        <div class="rfq-select-group">
+          <label class="rfq-select-label">Company</label>
+          <input class="rfq-inp" id="rfq-company" type="text" placeholder="Retailer Co. Ltd.">
+        </div>
+        <div class="rfq-select-group">
+          <label class="rfq-select-label">Work Email</label>
+          <input class="rfq-inp" id="rfq-email" type="email" placeholder="jane@company.com">
+        </div>
+        <div class="rfq-select-group">
+          <label class="rfq-select-label">Country</label>
+          <select class="rfq-select" id="rfq-country">
+            <option value="">Select country</option>
+            <option>United Kingdom</option><option>Germany</option><option>France</option>
+            <option>Netherlands</option><option>United States</option><option>Australia</option>
+            <option>UAE</option><option>Other</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Live summary card -->
+      <div class="rfq-summary" id="rfqSummary">
+        <div class="rfq-summary-title">Your RFQ Summary</div>
+        <div class="rfq-sum-row"><span class="rfq-sum-key">Categories</span><span class="rfq-sum-val" id="sum-cats">—</span></div>
+        <div class="rfq-sum-row"><span class="rfq-sum-key">Fabric</span><span class="rfq-sum-val" id="sum-fabric">—</span></div>
+        <div class="rfq-sum-row"><span class="rfq-sum-key">GSM target</span><span class="rfq-sum-val" id="sum-gsm">—</span></div>
+        <div class="rfq-sum-row"><span class="rfq-sum-key">Quantity</span><span class="rfq-sum-val" id="sum-qty">—</span></div>
+        <div class="rfq-sum-row"><span class="rfq-sum-key">Lead time</span><span class="rfq-sum-val" id="sum-lead">—</span></div>
+        <div class="rfq-sum-row"><span class="rfq-sum-key">Shipping</span><span class="rfq-sum-val" id="sum-ship">—</span></div>
+        <div class="rfq-sum-row"><span class="rfq-sum-key">Compliance</span><span class="rfq-sum-val" id="sum-comp">—</span></div>
+      </div>
+
+      <div class="rfq-nav">
+        <button class="rfq-back" onclick="rfqBack(5)">← Back</button>
+        <button class="rfq-next" onclick="rfqSubmit()">Submit RFQ →</button>
+        <span class="rfq-step-counter">Step 5 of 5</span>
+      </div>
+    </div>
+
+    <!-- Success state -->
+    <div class="rfq-panel" id="rfq-success">
+      <div style="text-align:center;padding:3rem;border:1px solid rgba(200,169,110,.2);background:rgba(200,169,110,.04)">
+        <div style="font-size:2.5rem;margin-bottom:1rem">🧵</div>
+        <div style="font-family:var(--f-display);font-size:1.75rem;color:var(--cotton);margin-bottom:.5rem">RFQ Submitted Successfully</div>
+        <p style="font-size:.9rem;color:var(--linen-lt);line-height:1.85;max-width:480px;margin:0 auto 2rem">Our sales team will review your requirements and respond within 48 business hours with FOB pricing, lead times, and a formal quotation sheet.</p>
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+          <a href="#contact" class="btn-gold" style="text-decoration:none">Speak to a person now →</a>
+          <button class="btn-ghost" onclick="resetRfq()">Submit another RFQ</button>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -4142,6 +5425,295 @@ function dismissNlToast() {
   }
   draw();
 })();
+
+/* ══════════════════════════════════════════════════
+   F12 · SWATCH BROWSER
+══════════════════════════════════════════════════ */
+function swatchFilter(btn, cat) {
+  document.querySelectorAll('.sw-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.fabric-card').forEach(card => {
+    const cats = card.dataset.cats || '';
+    card.classList.toggle('hidden', cat !== 'all' && !cats.includes(cat));
+  });
+}
+
+function rfqFromSwatch(fabricName) {
+  // Pre-fill RFQ step 2 with selected fabric and scroll to RFQ
+  const sel = document.getElementById('rfq-fabric');
+  if (sel) {
+    for (let i = 0; i < sel.options.length; i++) {
+      if (sel.options[i].text === fabricName) { sel.selectedIndex = i; break; }
+    }
+  }
+  document.getElementById('rfq').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/* ══════════════════════════════════════════════════
+   F13 · FACTORY VIDEO TOUR
+══════════════════════════════════════════════════ */
+function playVideo() {
+  const iframe  = document.getElementById('videoIframe');
+  const poster  = document.getElementById('videoPoster');
+  if (!iframe || !poster) return;
+  iframe.classList.add('playing');
+  poster.style.opacity = '0';
+  poster.style.pointerEvents = 'none';
+}
+
+function seekVideo(seconds) {
+  // If video is playing, this would seek via postMessage to YouTube API
+  // For now, just trigger play
+  playVideo();
+  console.info('[KA] Seek to', seconds, 'seconds');
+}
+
+/* ══════════════════════════════════════════════════
+   F14 · ESG ANIMATED RINGS
+══════════════════════════════════════════════════ */
+(function () {
+  const rings = document.querySelectorAll('.esg-ring-fill');
+  if (!rings.length) return;
+
+  const CIRCUMFERENCE = 2 * Math.PI * 45; // r=45 → 282.74
+
+  // Set initial dasharray length correctly
+  rings.forEach(r => {
+    r.style.strokeDasharray  = CIRCUMFERENCE;
+    r.style.strokeDashoffset = CIRCUMFERENCE;
+  });
+
+  const esgObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const ring = e.target;
+      const pct  = parseFloat(ring.dataset.pct) || 0;
+      const offset = CIRCUMFERENCE - (pct / 100) * CIRCUMFERENCE;
+      ring.style.strokeDashoffset = offset;
+      esgObs.unobserve(ring);
+    });
+  }, { threshold: 0.4 });
+
+  rings.forEach(r => esgObs.observe(r));
+
+  // ESG progress bar animation (table rows)
+  const esgBars = document.querySelectorAll('.esg-prog-fill');
+  const esgBarObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const b = e.target;
+      setTimeout(() => { b.style.width = (b.dataset.w || 0) + '%'; }, 200);
+      esgBarObs.unobserve(b);
+    });
+  }, { threshold: 0.5 });
+  esgBars.forEach(b => esgBarObs.observe(b));
+})();
+
+/* ══════════════════════════════════════════════════
+   F15 · ORDER STATUS TRACKER
+══════════════════════════════════════════════════ */
+const ORDER_DB = {
+  'KA-2024-0892': {
+    title: 'Men\'s Pullover Hoodies — 6,000 pcs · UK Buyer',
+    status: 'production',
+    badge: 'In Production',
+    badgeClass: 'status-production',
+    stages: [
+      { icon: '✓', state: 'done',    name: 'Order Confirmed',     detail: 'Purchase order received, deposit cleared, tech pack approved.', date: 'Completed 18 Sep 2024' },
+      { icon: '✓', state: 'done',    name: 'Yarn Sourced & Tested', detail: 'GOTS-certified 280 GSM French Terry yarn approved. Lab dip #KA892-LD3 confirmed.', date: 'Completed 02 Oct 2024' },
+      { icon: '✓', state: 'done',    name: 'Pre-Production Sample', detail: 'PP sample approved by buyer on 14 Oct. Size set measurement report signed off.', date: 'Completed 14 Oct 2024' },
+      { icon: '⚙', state: 'active',  name: 'Bulk Production',      detail: 'Currently on Day 12 of 28 cutting & stitching. 2,340 of 6,000 pcs completed inline QC.', date: 'In progress — est. 08 Nov 2024' },
+      { icon: '○', state: 'pending', name: 'Washing & Finishing',   detail: 'Scheduled for 10–18 Nov. Bio-wash, pressing, 47-point QC inspection.', date: 'Scheduled 10 Nov 2024' },
+      { icon: '○', state: 'pending', name: 'Packing & Inspection',  detail: 'Buyer nominated SGS inspection booked for 20 Nov. Retail hanger packing.', date: 'Scheduled 20 Nov 2024' },
+      { icon: '○', state: 'pending', name: 'Shipped FOB Karachi',   detail: 'Vessel booking confirmed with MSC. Expected shipment 25 Nov, ETA Felixstowe 22 Dec.', date: 'Scheduled 25 Nov 2024' },
+    ]
+  },
+  'KA-2024-1105': {
+    title: 'Newborn Gift Sets GOTS Organic — 12,000 pcs · Germany',
+    status: 'qc',
+    badge: 'Final QC',
+    badgeClass: 'status-qc',
+    stages: [
+      { icon: '✓', state: 'done',   name: 'Order Confirmed',       detail: 'PO confirmed, 30% advance T/T received. GOTS TC requested.', date: 'Completed 05 Sep 2024' },
+      { icon: '✓', state: 'done',   name: 'Yarn Sourced & Tested', detail: '100% GOTS organic cotton 160 GSM jersey approved. GOTS TC issued.', date: 'Completed 18 Sep 2024' },
+      { icon: '✓', state: 'done',   name: 'Pre-Production Sample', detail: 'PP sample approved. Snap button placement confirmed. AQL 1.5 agreed.', date: 'Completed 28 Sep 2024' },
+      { icon: '✓', state: 'done',   name: 'Bulk Production',       detail: '12,000 pcs produced. Inline defect rate 0.3%. Measurement reports filed.', date: 'Completed 28 Oct 2024' },
+      { icon: '✓', state: 'done',   name: 'Washing & Finishing',   detail: 'Organic enzyme wash complete. Shrinkage 2.1% (within 3% tolerance).', date: 'Completed 04 Nov 2024' },
+      { icon: '⚙', state: 'active', name: 'Final QC & Packing',    detail: 'Bureau Veritas inspection underway. 847 of 12,000 pcs inspected. 0 critical defects.', date: 'In progress — est. 08 Nov 2024' },
+      { icon: '○', state: 'pending', name: 'Shipped FOB Karachi',  detail: 'Maersk vessel booked. Departure 12 Nov, ETA Hamburg 08 Dec.', date: 'Scheduled 12 Nov 2024' },
+    ]
+  },
+  'KA-2025-0034': {
+    title: 'Girls Waffle Knit Lounge Set — 3,500 pcs · Netherlands',
+    status: 'production',
+    badge: 'Sampling',
+    badgeClass: 'status-production',
+    stages: [
+      { icon: '✓', state: 'done',    name: 'Order Confirmed',       detail: 'PO confirmed 12 Jan 2025. Size run XS–XL confirmed. Tech pack received.', date: 'Completed 12 Jan 2025' },
+      { icon: '✓', state: 'done',    name: 'Yarn Sourced & Tested', detail: '95/5 cotton-elastane 280 GSM waffle approved. Lab dip in 6 colours confirmed.', date: 'Completed 28 Jan 2025' },
+      { icon: '⚙', state: 'active',  name: 'Pre-Production Sample', detail: 'Fit sample dispatched DHL AWB 1234567890. Awaiting buyer approval on colour #3 (Sage).', date: 'In progress — dispatched 05 Feb 2025' },
+      { icon: '○', state: 'pending', name: 'Bulk Production',       detail: 'Scheduled to start within 7 days of PP sample approval.', date: 'Pending PP approval' },
+      { icon: '○', state: 'pending', name: 'Washing & Finishing',   detail: 'Garment wash + light press. OEKO-TEX report to be provided.', date: 'TBD' },
+      { icon: '○', state: 'pending', name: 'Packing & Inspection',  detail: 'Polybag per piece, retail hanger. Third-party inspection TBD.', date: 'TBD' },
+      { icon: '○', state: 'pending', name: 'Shipped FOB Karachi',   detail: 'Target shipment Apr 2025 for SS25 delivery.', date: 'Target Apr 2025' },
+    ]
+  }
+};
+
+function loadDemoPo(po) {
+  const inp = document.getElementById('poInput');
+  if (inp) inp.value = po;
+  trackOrder();
+}
+
+function trackOrder() {
+  const inp = document.getElementById('poInput');
+  const val = (inp ? inp.value : '').trim().toUpperCase();
+  const res    = document.getElementById('trackerResult');
+  const noRes  = document.getElementById('tr-no-result');
+
+  res.classList.remove('show');
+  noRes.style.display = 'none';
+
+  const order = ORDER_DB[val];
+  if (!order) {
+    noRes.style.display = 'block';
+    noRes.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    return;
+  }
+
+  document.getElementById('tr-po-num').textContent = val;
+  document.getElementById('tr-title').textContent  = order.title;
+  const badge = document.getElementById('tr-badge');
+  badge.textContent  = order.badge;
+  badge.className    = 'tr-status-badge ' + order.badgeClass;
+
+  const stagesEl = document.getElementById('tr-stages');
+  stagesEl.innerHTML = order.stages.map(s => `
+    <div class="tr-stage ${s.state}">
+      <div class="tr-stage-icon">${s.icon}</div>
+      <div>
+        <div class="tr-stage-name">${s.name}</div>
+        <div class="tr-stage-detail">${s.detail}</div>
+        <div class="tr-stage-date">${s.date}</div>
+      </div>
+    </div>
+  `).join('');
+
+  res.classList.add('show');
+  res.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/* ══════════════════════════════════════════════════
+   F11 · RFQ QUOTE BUILDER
+══════════════════════════════════════════════════ */
+const rfqState = {
+  step: 1,
+  cats: [],
+  comp: []
+};
+
+function toggleRfqCat(card, name) {
+  card.classList.toggle('selected');
+  const idx = rfqState.cats.indexOf(name);
+  if (idx === -1) rfqState.cats.push(name);
+  else rfqState.cats.splice(idx, 1);
+}
+
+function toggleRfqComp(item, name) {
+  item.classList.toggle('selected');
+  const idx = rfqState.comp.indexOf(name);
+  if (idx === -1) rfqState.comp.push(name);
+  else rfqState.comp.splice(idx, 1);
+}
+
+function updateGsm(val) {
+  const v = parseInt(val);
+  const lo = Math.max(120, v - 20);
+  const hi = Math.min(420, v + 20);
+  const el = document.getElementById('gsmVal');
+  if (el) el.textContent = lo + '–' + hi + ' GSM';
+}
+
+function rfqSetStep(step) {
+  rfqState.step = step;
+  // Update step dots
+  document.querySelectorAll('.rfq-step-dot').forEach(dot => {
+    const n = parseInt(dot.dataset.step);
+    dot.classList.toggle('active', n === step);
+    dot.classList.toggle('done',   n < step);
+  });
+  // Show correct panel
+  for (let i = 1; i <= 5; i++) {
+    const panel = document.getElementById('rfq-step-' + i);
+    if (panel) panel.classList.toggle('active', i === step);
+  }
+  document.getElementById('rfq').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function rfqNext(from) {
+  if (from === 1 && rfqState.cats.length === 0) {
+    alert('Please select at least one product category to continue.');
+    return;
+  }
+  if (from < 5) rfqSetStep(from + 1);
+  // Populate summary on step 5
+  if (from === 4) rfqFillSummary();
+}
+
+function rfqBack(from) {
+  if (from > 1) rfqSetStep(from - 1);
+}
+
+function rfqFillSummary() {
+  const g = v => document.getElementById(v);
+  const gsmSlider = document.getElementById('rfq-gsm');
+  const gsmV = gsmSlider ? parseInt(gsmSlider.value) : 200;
+  const lo = Math.max(120, gsmV - 20), hi = Math.min(420, gsmV + 20);
+
+  if (g('sum-cats'))   g('sum-cats').textContent   = rfqState.cats.join(', ') || '—';
+  if (g('sum-fabric')) g('sum-fabric').textContent = (document.getElementById('rfq-fabric') || {}).value || '—';
+  if (g('sum-gsm'))    g('sum-gsm').textContent    = lo + '–' + hi + ' GSM';
+  if (g('sum-qty'))    g('sum-qty').textContent    = (document.getElementById('rfq-qty') || {}).value || '—';
+  if (g('sum-lead'))   g('sum-lead').textContent   = (document.getElementById('rfq-lead') || {}).value || '—';
+  if (g('sum-ship'))   g('sum-ship').textContent   = (document.getElementById('rfq-ship') || {}).value || '—';
+  if (g('sum-comp'))   g('sum-comp').textContent   = rfqState.comp.join(', ') || 'None specified';
+}
+
+function rfqSubmit() {
+  const name  = (document.getElementById('rfq-name')  || {}).value?.trim();
+  const email = (document.getElementById('rfq-email') || {}).value?.trim();
+  if (!name || !email) {
+    alert('Please enter your name and work email to submit the RFQ.');
+    return;
+  }
+
+  // Hide all steps, show success
+  for (let i = 1; i <= 5; i++) {
+    const p = document.getElementById('rfq-step-' + i);
+    if (p) p.classList.remove('active');
+  }
+  document.querySelectorAll('.rfq-step-dot').forEach(d => d.classList.add('done'));
+  const success = document.getElementById('rfq-success');
+  if (success) success.classList.add('active');
+
+  console.info('[KA] RFQ submitted:', {
+    name, email,
+    categories:  rfqState.cats,
+    compliance:  rfqState.comp,
+    fabric:      document.getElementById('rfq-fabric')?.value,
+    quantity:    document.getElementById('rfq-qty')?.value,
+  });
+}
+
+function resetRfq() {
+  rfqState.cats = [];
+  rfqState.comp = [];
+  document.querySelectorAll('.rfq-cat-card, .rfq-comp-item').forEach(el => el.classList.remove('selected'));
+  const success = document.getElementById('rfq-success');
+  if (success) success.classList.remove('active');
+  rfqSetStep(1);
+}
 </script>
 
 </body>
